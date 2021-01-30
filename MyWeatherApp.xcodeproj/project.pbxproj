@@ -14,7 +14,23 @@
 		EC34D42B25C5E5CB004CC42C /* MyWeatherApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EC34D42925C5E5CB004CC42C /* MyWeatherApp.xcdatamodeld */; };
 		EC34D42D25C5E5CF004CC42C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EC34D42C25C5E5CF004CC42C /* Assets.xcassets */; };
 		EC34D43025C5E5CF004CC42C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EC34D42E25C5E5CF004CC42C /* LaunchScreen.storyboard */; };
+		EC34D43925C5FBBF004CC42C /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC34D43825C5FBBF004CC42C /* SnapKit.framework */; };
+		EC34D43A25C5FBBF004CC42C /* SnapKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EC34D43825C5FBBF004CC42C /* SnapKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		EC34D43B25C5FBBF004CC42C /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				EC34D43A25C5FBBF004CC42C /* SnapKit.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		EC34D41D25C5E5CB004CC42C /* MyWeatherApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyWeatherApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -26,6 +42,7 @@
 		EC34D42C25C5E5CF004CC42C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EC34D42F25C5E5CF004CC42C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EC34D43125C5E5CF004CC42C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EC34D43825C5FBBF004CC42C /* SnapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnapKit.framework; path = Carthage/Build/iOS/SnapKit.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,6 +50,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EC34D43925C5FBBF004CC42C /* SnapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -44,6 +62,7 @@
 			children = (
 				EC34D41F25C5E5CB004CC42C /* MyWeatherApp */,
 				EC34D41E25C5E5CB004CC42C /* Products */,
+				EC34D43725C5FBBF004CC42C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -70,6 +89,14 @@
 			path = MyWeatherApp;
 			sourceTree = "<group>";
 		};
+		EC34D43725C5FBBF004CC42C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EC34D43825C5FBBF004CC42C /* SnapKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -80,6 +107,8 @@
 				EC34D41925C5E5CB004CC42C /* Sources */,
 				EC34D41A25C5E5CB004CC42C /* Frameworks */,
 				EC34D41B25C5E5CB004CC42C /* Resources */,
+				EC34D43B25C5FBBF004CC42C /* Embed Frameworks */,
+				EC34D43C25C5FBE2004CC42C /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -135,6 +164,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		EC34D43C25C5FBE2004CC42C /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/SnapKit.framework",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		EC34D41925C5E5CB004CC42C /* Sources */ = {
@@ -290,6 +340,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Q22JYFQY92;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = MyWeatherApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -308,6 +362,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Q22JYFQY92;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = MyWeatherApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
