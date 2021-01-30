@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		EC34D42125C5E5CB004CC42C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC34D42025C5E5CB004CC42C /* AppDelegate.swift */; };
-		EC34D42325C5E5CB004CC42C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC34D42225C5E5CB004CC42C /* SceneDelegate.swift */; };
 		EC34D42525C5E5CB004CC42C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC34D42425C5E5CB004CC42C /* ViewController.swift */; };
 		EC34D42825C5E5CB004CC42C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EC34D42625C5E5CB004CC42C /* Main.storyboard */; };
 		EC34D42B25C5E5CB004CC42C /* MyWeatherApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EC34D42925C5E5CB004CC42C /* MyWeatherApp.xcdatamodeld */; };
@@ -35,7 +34,6 @@
 /* Begin PBXFileReference section */
 		EC34D41D25C5E5CB004CC42C /* MyWeatherApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyWeatherApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC34D42025C5E5CB004CC42C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		EC34D42225C5E5CB004CC42C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		EC34D42425C5E5CB004CC42C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		EC34D42725C5E5CB004CC42C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		EC34D42A25C5E5CB004CC42C /* MyWeatherApp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MyWeatherApp.xcdatamodel; sourceTree = "<group>"; };
@@ -78,7 +76,6 @@
 			isa = PBXGroup;
 			children = (
 				EC34D42025C5E5CB004CC42C /* AppDelegate.swift */,
-				EC34D42225C5E5CB004CC42C /* SceneDelegate.swift */,
 				EC34D42425C5E5CB004CC42C /* ViewController.swift */,
 				EC34D42625C5E5CB004CC42C /* Main.storyboard */,
 				EC34D42C25C5E5CF004CC42C /* Assets.xcassets */,
@@ -194,7 +191,6 @@
 				EC34D42B25C5E5CB004CC42C /* MyWeatherApp.xcdatamodeld in Sources */,
 				EC34D42525C5E5CB004CC42C /* ViewController.swift in Sources */,
 				EC34D42125C5E5CB004CC42C /* AppDelegate.swift in Sources */,
-				EC34D42325C5E5CB004CC42C /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -345,6 +341,7 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = MyWeatherApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -367,6 +364,7 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = MyWeatherApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
