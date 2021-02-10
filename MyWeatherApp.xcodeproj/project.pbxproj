@@ -8,13 +8,38 @@
 
 /* Begin PBXBuildFile section */
 		EC34D42125C5E5CB004CC42C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC34D42025C5E5CB004CC42C /* AppDelegate.swift */; };
-		EC34D42525C5E5CB004CC42C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC34D42425C5E5CB004CC42C /* ViewController.swift */; };
-		EC34D42825C5E5CB004CC42C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EC34D42625C5E5CB004CC42C /* Main.storyboard */; };
 		EC34D42B25C5E5CB004CC42C /* MyWeatherApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EC34D42925C5E5CB004CC42C /* MyWeatherApp.xcdatamodeld */; };
-		EC34D42D25C5E5CF004CC42C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EC34D42C25C5E5CF004CC42C /* Assets.xcassets */; };
 		EC34D43025C5E5CF004CC42C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EC34D42E25C5E5CF004CC42C /* LaunchScreen.storyboard */; };
 		EC34D43925C5FBBF004CC42C /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC34D43825C5FBBF004CC42C /* SnapKit.framework */; };
 		EC34D43A25C5FBBF004CC42C /* SnapKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EC34D43825C5FBBF004CC42C /* SnapKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		EC34D43F25C6A1BD004CC42C /* Screens.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC34D43E25C6A1BD004CC42C /* Screens.swift */; };
+		EC34D44525C6A27E004CC42C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC34D44425C6A27E004CC42C /* ViewController.swift */; };
+		EC34D44725C6A30F004CC42C /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC34D44625C6A30F004CC42C /* ViewModel.swift */; };
+		EC34D44925C6A329004CC42C /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC34D44825C6A329004CC42C /* Router.swift */; };
+		EC34D44B25C6A7A9004CC42C /* MainRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC34D44A25C6A7A9004CC42C /* MainRouter.swift */; };
+		EC34D44D25C6A8A9004CC42C /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC34D44C25C6A8A9004CC42C /* MainViewModel.swift */; };
+		EC34D44F25C6A8CB004CC42C /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC34D44E25C6A8CB004CC42C /* MainViewController.swift */; };
+		EC34D45325C6C45E004CC42C /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC34D45225C6C45E004CC42C /* Colors.swift */; };
+		EC34D45625C6CA87004CC42C /* TopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC34D45525C6CA87004CC42C /* TopView.swift */; };
+		EC34D45925C6D540004CC42C /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC34D45825C6D540004CC42C /* View.swift */; };
+		EC34D45C25C6E04E004CC42C /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC34D45B25C6E04E004CC42C /* Images.swift */; };
+		EC34D45E25C6EC68004CC42C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EC34D45D25C6EC68004CC42C /* Assets.xcassets */; };
+		EC34D46525C9E988004CC42C /* TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC34D46425C9E988004CC42C /* TableView.swift */; };
+		EC34D46825CBCCBC004CC42C /* MapRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC34D46725CBCCBC004CC42C /* MapRouter.swift */; };
+		EC34D46A25CBCD09004CC42C /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC34D46925CBCD09004CC42C /* MapViewModel.swift */; };
+		EC34D46C25CBCD26004CC42C /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC34D46B25CBCD26004CC42C /* MapViewController.swift */; };
+		EC34D47325CC715B004CC42C /* StackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC34D47225CC715B004CC42C /* StackView.swift */; };
+		EC34D47825CC73F2004CC42C /* IndicatorsType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC34D47725CC73F2004CC42C /* IndicatorsType.swift */; };
+		EC34D47A25CC793C004CC42C /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC34D47925CC793C004CC42C /* TableViewCell.swift */; };
+		EC34D47C25CC8E6F004CC42C /* HourlyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC34D47B25CC8E6F004CC42C /* HourlyCollectionViewCell.swift */; };
+		EC34D47E25CC8E82004CC42C /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC34D47D25CC8E82004CC42C /* CollectionViewCell.swift */; };
+		EC34D48025CC912B004CC42C /* HourlyType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC34D47F25CC912B004CC42C /* HourlyType.swift */; };
+		EC34D48225CCA58D004CC42C /* DayForecastCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC34D48125CCA58D004CC42C /* DayForecastCell.swift */; };
+		EC34D48425CCA5AD004CC42C /* DayForecastType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC34D48325CCA5AD004CC42C /* DayForecastType.swift */; };
+		EC34D48625D29134004CC42C /* IndicatorsStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC34D48525D29134004CC42C /* IndicatorsStackView.swift */; };
+		EC34D48D25D29658004CC42C /* MWAViewForIndicators.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC34D48C25D29658004CC42C /* MWAViewForIndicators.swift */; };
+		ECE99A3525D33564003170F2 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECE99A3425D33564003170F2 /* Alamofire.framework */; };
+		ECE99A3625D33564003170F2 /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = ECE99A3425D33564003170F2 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +50,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				EC34D43A25C5FBBF004CC42C /* SnapKit.framework in Embed Frameworks */,
+				ECE99A3625D33564003170F2 /* Alamofire.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -34,13 +60,37 @@
 /* Begin PBXFileReference section */
 		EC34D41D25C5E5CB004CC42C /* MyWeatherApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyWeatherApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC34D42025C5E5CB004CC42C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		EC34D42425C5E5CB004CC42C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		EC34D42725C5E5CB004CC42C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		EC34D42A25C5E5CB004CC42C /* MyWeatherApp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MyWeatherApp.xcdatamodel; sourceTree = "<group>"; };
-		EC34D42C25C5E5CF004CC42C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EC34D42F25C5E5CF004CC42C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EC34D43125C5E5CF004CC42C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EC34D43825C5FBBF004CC42C /* SnapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnapKit.framework; path = Carthage/Build/iOS/SnapKit.framework; sourceTree = "<group>"; };
+		EC34D43E25C6A1BD004CC42C /* Screens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screens.swift; sourceTree = "<group>"; };
+		EC34D44425C6A27E004CC42C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		EC34D44625C6A30F004CC42C /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		EC34D44825C6A329004CC42C /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
+		EC34D44A25C6A7A9004CC42C /* MainRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainRouter.swift; sourceTree = "<group>"; };
+		EC34D44C25C6A8A9004CC42C /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
+		EC34D44E25C6A8CB004CC42C /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		EC34D45225C6C45E004CC42C /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		EC34D45525C6CA87004CC42C /* TopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopView.swift; sourceTree = "<group>"; };
+		EC34D45825C6D540004CC42C /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
+		EC34D45B25C6E04E004CC42C /* Images.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
+		EC34D45D25C6EC68004CC42C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		EC34D46425C9E988004CC42C /* TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableView.swift; sourceTree = "<group>"; };
+		EC34D46725CBCCBC004CC42C /* MapRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapRouter.swift; sourceTree = "<group>"; };
+		EC34D46925CBCD09004CC42C /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
+		EC34D46B25CBCD26004CC42C /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		EC34D47225CC715B004CC42C /* StackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackView.swift; sourceTree = "<group>"; };
+		EC34D47725CC73F2004CC42C /* IndicatorsType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndicatorsType.swift; sourceTree = "<group>"; };
+		EC34D47925CC793C004CC42C /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
+		EC34D47B25CC8E6F004CC42C /* HourlyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyCollectionViewCell.swift; sourceTree = "<group>"; };
+		EC34D47D25CC8E82004CC42C /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
+		EC34D47F25CC912B004CC42C /* HourlyType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyType.swift; sourceTree = "<group>"; };
+		EC34D48125CCA58D004CC42C /* DayForecastCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayForecastCell.swift; sourceTree = "<group>"; };
+		EC34D48325CCA5AD004CC42C /* DayForecastType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayForecastType.swift; sourceTree = "<group>"; };
+		EC34D48525D29134004CC42C /* IndicatorsStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndicatorsStackView.swift; sourceTree = "<group>"; };
+		EC34D48C25D29658004CC42C /* MWAViewForIndicators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MWAViewForIndicators.swift; sourceTree = "<group>"; };
+		ECE99A3425D33564003170F2 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,6 +99,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EC34D43925C5FBBF004CC42C /* SnapKit.framework in Frameworks */,
+				ECE99A3525D33564003170F2 /* Alamofire.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -76,12 +127,11 @@
 			isa = PBXGroup;
 			children = (
 				EC34D42025C5E5CB004CC42C /* AppDelegate.swift */,
-				EC34D42425C5E5CB004CC42C /* ViewController.swift */,
-				EC34D42625C5E5CB004CC42C /* Main.storyboard */,
-				EC34D42C25C5E5CF004CC42C /* Assets.xcassets */,
-				EC34D42E25C5E5CF004CC42C /* LaunchScreen.storyboard */,
-				EC34D43125C5E5CF004CC42C /* Info.plist */,
-				EC34D42925C5E5CB004CC42C /* MyWeatherApp.xcdatamodeld */,
+				EC34D43D25C6A1A6004CC42C /* Screens */,
+				EC34D44225C6A233004CC42C /* Base */,
+				EC34D44025C6A20B004CC42C /* Modules */,
+				ECE99A3125D3248A003170F2 /* Services */,
+				EC34D45025C6C42F004CC42C /* Resources */,
 			);
 			path = MyWeatherApp;
 			sourceTree = "<group>";
@@ -89,9 +139,162 @@
 		EC34D43725C5FBBF004CC42C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				ECE99A3425D33564003170F2 /* Alamofire.framework */,
 				EC34D43825C5FBBF004CC42C /* SnapKit.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		EC34D43D25C6A1A6004CC42C /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				EC34D43E25C6A1BD004CC42C /* Screens.swift */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		EC34D44025C6A20B004CC42C /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				EC34D46625CBCC8C004CC42C /* Map */,
+				EC34D44125C6A228004CC42C /* Main */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		EC34D44125C6A228004CC42C /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				EC34D44E25C6A8CB004CC42C /* MainViewController.swift */,
+				EC34D44C25C6A8A9004CC42C /* MainViewModel.swift */,
+				EC34D44A25C6A7A9004CC42C /* MainRouter.swift */,
+				EC34D47625CC73B8004CC42C /* Models */,
+				EC34D45425C6CA59004CC42C /* Components */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		EC34D44225C6A233004CC42C /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				EC34D48B25D29604004CC42C /* Views */,
+				EC34D45725C6D4D7004CC42C /* BaseViews */,
+				EC34D44325C6A244004CC42C /* MVVM */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		EC34D44325C6A244004CC42C /* MVVM */ = {
+			isa = PBXGroup;
+			children = (
+				EC34D44425C6A27E004CC42C /* ViewController.swift */,
+				EC34D44625C6A30F004CC42C /* ViewModel.swift */,
+				EC34D44825C6A329004CC42C /* Router.swift */,
+			);
+			path = MVVM;
+			sourceTree = "<group>";
+		};
+		EC34D45025C6C42F004CC42C /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				EC34D45A25C6E039004CC42C /* Images */,
+				EC34D45125C6C44E004CC42C /* Colors */,
+				EC34D45D25C6EC68004CC42C /* Assets.xcassets */,
+				EC34D42E25C5E5CF004CC42C /* LaunchScreen.storyboard */,
+				EC34D43125C5E5CF004CC42C /* Info.plist */,
+				EC34D42925C5E5CB004CC42C /* MyWeatherApp.xcdatamodeld */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		EC34D45125C6C44E004CC42C /* Colors */ = {
+			isa = PBXGroup;
+			children = (
+				EC34D45225C6C45E004CC42C /* Colors.swift */,
+			);
+			path = Colors;
+			sourceTree = "<group>";
+		};
+		EC34D45425C6CA59004CC42C /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				EC34D45525C6CA87004CC42C /* TopView.swift */,
+				EC34D48525D29134004CC42C /* IndicatorsStackView.swift */,
+				EC34D47B25CC8E6F004CC42C /* HourlyCollectionViewCell.swift */,
+				EC34D48125CCA58D004CC42C /* DayForecastCell.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		EC34D45725C6D4D7004CC42C /* BaseViews */ = {
+			isa = PBXGroup;
+			children = (
+				EC34D45825C6D540004CC42C /* View.swift */,
+				EC34D46425C9E988004CC42C /* TableView.swift */,
+				EC34D47225CC715B004CC42C /* StackView.swift */,
+				EC34D47925CC793C004CC42C /* TableViewCell.swift */,
+				EC34D47D25CC8E82004CC42C /* CollectionViewCell.swift */,
+			);
+			path = BaseViews;
+			sourceTree = "<group>";
+		};
+		EC34D45A25C6E039004CC42C /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				EC34D45B25C6E04E004CC42C /* Images.swift */,
+			);
+			path = Images;
+			sourceTree = "<group>";
+		};
+		EC34D46625CBCC8C004CC42C /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				EC34D46B25CBCD26004CC42C /* MapViewController.swift */,
+				EC34D46925CBCD09004CC42C /* MapViewModel.swift */,
+				EC34D46725CBCCBC004CC42C /* MapRouter.swift */,
+			);
+			path = Map;
+			sourceTree = "<group>";
+		};
+		EC34D47625CC73B8004CC42C /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				EC34D47725CC73F2004CC42C /* IndicatorsType.swift */,
+				EC34D47F25CC912B004CC42C /* HourlyType.swift */,
+				EC34D48325CCA5AD004CC42C /* DayForecastType.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		EC34D48B25D29604004CC42C /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				EC34D48C25D29658004CC42C /* MWAViewForIndicators.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		ECE99A3125D3248A003170F2 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				ECE99A3325D324E9003170F2 /* New Group */,
+				ECE99A3225D324CD003170F2 /* WeatherForecastService */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		ECE99A3225D324CD003170F2 /* WeatherForecastService */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = WeatherForecastService;
+			sourceTree = "<group>";
+		};
+		ECE99A3325D324E9003170F2 /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "New Group";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -154,9 +357,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EC34D45E25C6EC68004CC42C /* Assets.xcassets in Resources */,
 				EC34D43025C5E5CF004CC42C /* LaunchScreen.storyboard in Resources */,
-				EC34D42D25C5E5CF004CC42C /* Assets.xcassets in Resources */,
-				EC34D42825C5E5CB004CC42C /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -172,6 +374,7 @@
 			);
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/SnapKit.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
 			);
 			outputFileListPaths = (
 			);
@@ -189,22 +392,38 @@
 			buildActionMask = 2147483647;
 			files = (
 				EC34D42B25C5E5CB004CC42C /* MyWeatherApp.xcdatamodeld in Sources */,
-				EC34D42525C5E5CB004CC42C /* ViewController.swift in Sources */,
+				EC34D46525C9E988004CC42C /* TableView.swift in Sources */,
+				EC34D46825CBCCBC004CC42C /* MapRouter.swift in Sources */,
+				EC34D45325C6C45E004CC42C /* Colors.swift in Sources */,
+				EC34D44B25C6A7A9004CC42C /* MainRouter.swift in Sources */,
+				EC34D47E25CC8E82004CC42C /* CollectionViewCell.swift in Sources */,
 				EC34D42125C5E5CB004CC42C /* AppDelegate.swift in Sources */,
+				EC34D48225CCA58D004CC42C /* DayForecastCell.swift in Sources */,
+				EC34D48025CC912B004CC42C /* HourlyType.swift in Sources */,
+				EC34D45C25C6E04E004CC42C /* Images.swift in Sources */,
+				EC34D48625D29134004CC42C /* IndicatorsStackView.swift in Sources */,
+				EC34D44925C6A329004CC42C /* Router.swift in Sources */,
+				EC34D47325CC715B004CC42C /* StackView.swift in Sources */,
+				EC34D46A25CBCD09004CC42C /* MapViewModel.swift in Sources */,
+				EC34D43F25C6A1BD004CC42C /* Screens.swift in Sources */,
+				EC34D47A25CC793C004CC42C /* TableViewCell.swift in Sources */,
+				EC34D47C25CC8E6F004CC42C /* HourlyCollectionViewCell.swift in Sources */,
+				EC34D44725C6A30F004CC42C /* ViewModel.swift in Sources */,
+				EC34D47825CC73F2004CC42C /* IndicatorsType.swift in Sources */,
+				EC34D45625C6CA87004CC42C /* TopView.swift in Sources */,
+				EC34D45925C6D540004CC42C /* View.swift in Sources */,
+				EC34D44525C6A27E004CC42C /* ViewController.swift in Sources */,
+				EC34D44D25C6A8A9004CC42C /* MainViewModel.swift in Sources */,
+				EC34D48D25D29658004CC42C /* MWAViewForIndicators.swift in Sources */,
+				EC34D48425CCA5AD004CC42C /* DayForecastType.swift in Sources */,
+				EC34D44F25C6A8CB004CC42C /* MainViewController.swift in Sources */,
+				EC34D46C25CBCD26004CC42C /* MapViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		EC34D42625C5E5CB004CC42C /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				EC34D42725C5E5CB004CC42C /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		EC34D42E25C5E5CF004CC42C /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -340,7 +559,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				INFOPLIST_FILE = MyWeatherApp/Info.plist;
+				INFOPLIST_FILE = "/Users/denyvorko/Desktop/MyWeatherApp/my-weather-app/MyWeatherApp/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -363,7 +582,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				INFOPLIST_FILE = MyWeatherApp/Info.plist;
+				INFOPLIST_FILE = "/Users/denyvorko/Desktop/MyWeatherApp/my-weather-app/MyWeatherApp/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

@@ -12,11 +12,32 @@ import CoreData
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
+//        MARK: - Properties
+    
+    var window: UIWindow?
 
-
+//        MARK: - Life cycle
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        buildview()
+        
         return true
+    }
+    
+//    MARK: - Func
+    
+    private func buildview() {
+        let mainView = Screens.main()
+        let navigationController = UINavigationController(
+            rootViewController: mainView
+        )
+        
+        let frame = UIScreen.main.bounds
+        let window = UIWindow(frame: frame)
+        self.window = window
+        window.rootViewController = navigationController
+        window.makeKeyAndVisible()
     }
 
 
