@@ -56,13 +56,15 @@ class DayForecastCell: TableViewCell {
         clipsToBounds = true
         
         imageDayForecast.contentMode = .scaleAspectFit
-        imageDayForecast.tintColor = .black
+        imageDayForecast.tintColor = Colors.darkTintColorImage
         imageDayForecast.transform = .init(scaleX: 0.5, y: 0.5)
         
         temperature.textAlignment = .center
+        temperature.textColor = Colors.darkFont
         temperature.font = .systemFont(ofSize: 24)
         
         dayOfTheWeek.font = .systemFont(ofSize: 20)
+        dayOfTheWeek.textColor = Colors.darkFont
         dayOfTheWeek.textAlignment = .center
     }
     
@@ -77,14 +79,14 @@ class DayForecastCell: TableViewCell {
     func setSelectColorAndShadow(isSelected: Bool) {
         switch isSelected {
         case true:
-            dayOfTheWeek.textColor = Colors.collectionBackground
-            temperature.textColor = Colors.collectionBackground
-            imageDayForecast.tintColor = Colors.collectionBackground
+            dayOfTheWeek.textColor = Colors.selectionCellTableView
+            temperature.textColor = Colors.selectionCellTableView
+            imageDayForecast.tintColor = Colors.selectionCellTableView
             clipsToBounds = false
         case false:
-            dayOfTheWeek.textColor = .black
-            temperature.textColor = .black
-            imageDayForecast.tintColor = .black
+            dayOfTheWeek.textColor = Colors.darkFont
+            temperature.textColor = Colors.darkFont
+            imageDayForecast.tintColor = Colors.darkTintColorImage
             clipsToBounds = true
         }
     }

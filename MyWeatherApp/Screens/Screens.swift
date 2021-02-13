@@ -13,9 +13,4 @@ struct Screens {
         let viewModel = MainViewModel()
         return MainViewController(viewModel: viewModel)
     }
-    
-    static func map() -> MapViewController {
-        let viewModel = MapViewModel()
-        return MapViewController(viewModel: viewModel)
-    }
 }

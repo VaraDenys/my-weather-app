@@ -17,7 +17,7 @@ class TopView: View {
     
     private let locationIconImage = UIImageView()
     
-    private let cityNameButton = UIButton()
+    private let cityNameTextField = UITextField()
     
     private let targetButton = UIButton()
     
@@ -26,7 +26,11 @@ class TopView: View {
     private let forecastImageView = UIImageView()
     
     private let indicatorsStackView = IndicatorsStackView()
-
+    
+    @objc dynamic var LocationName: String = ""
+    
+    private let textFieldObserve: NSKeyValueObservation? = nil
+    
 //    MARK: - Override
 
     override func setupConstraints() {
@@ -34,7 +38,7 @@ class TopView: View {
         addSubview(locationStackView)
         
         locationStackView.addArrangedSubview(locationIconImage)
-        locationStackView.addArrangedSubview(cityNameButton)
+        locationStackView.addArrangedSubview(cityNameTextField)
         locationStackView.addArrangedSubview(targetButton)
         
         addSubview(dateView)
@@ -72,8 +76,6 @@ class TopView: View {
             $0.height.equalToSuperview().multipliedBy(0.4)
             $0.width.equalTo(300)
         })
-        
-        
     }
     
     override func setupView() {
@@ -84,26 +86,39 @@ class TopView: View {
         
         locationIconImage.image = Images.locationIcon.get().withRenderingMode(.alwaysTemplate)
         locationIconImage.contentMode = .scaleAspectFit
-        locationIconImage.tintColor = .white
+        locationIconImage.tintColor = Colors.lightTintColorImage
         
-        cityNameButton.setTitle("Запорожье", for: .normal)
-        cityNameButton.titleLabel?.font = .systemFont(ofSize: 24)
-        cityNameButton.titleLabel?.textColor = .white
-        cityNameButton.contentHorizontalAlignment = .left
+        cityNameTextField.text = "Запорожье"
+        cityNameTextField.font = .systemFont(ofSize: 24)
+        cityNameTextField.textColor = Colors.lightFont
+        cityNameTextField.textAlignment = .left
+        cityNameTextField.delegate = self
         
         targetButton.setImage(Images.targetIcon.get().withRenderingMode(.alwaysTemplate), for: .normal)
-        targetButton.tintColor = .white
+        targetButton.tintColor = Colors.lightTintColorImage
         
         dateView.text = "ПТ, 20 июля"
-        dateView.textColor = .white
+        dateView.textColor = Colors.lightFont
         dateView.font = .systemFont(ofSize: 14)
         
         forecastImageView.image = Images.cloudyDay.get().withRenderingMode(.alwaysTemplate)
-        forecastImageView.tintColor = .white
+        forecastImageView.tintColor = Colors.lightTintColorImage
         forecastImageView.contentMode = .scaleAspectFit
         forecastImageView.transform = .init(scaleX: 0.7, y: 0.7)
     }
     
         // MARK: - User Interaction
+    
+    public func configure(location: String, date: String) {
+        cityNameTextField.text = location
+        dateView.text = date
+    }
 }
 
+extension TopView: UITextFieldDelegate {
+    
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        
+    }
+    
+}

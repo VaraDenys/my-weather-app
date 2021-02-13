@@ -8,11 +8,12 @@
 
 import UIKit
 import SnapKit
-import Alamofire
+import Moya
 
-class MainViewController: ViewController<MainRouter, MainViewModel> {
+
+class MainViewController: ViewController<MainViewModel> {
     
-//    MARK: - Private properties
+    //    MARK: - Private properties
     
     private let topView = TopView()
     
@@ -22,22 +23,52 @@ class MainViewController: ViewController<MainRouter, MainViewModel> {
     
     private let tableView = UITableView()
     
-    private let gestureRecognized = UIPanGestureRecognizer()
-
-//    MARK: - Life cycle
+    private let changeLocation: NSKeyValueObservation? = nil
+    
+    //    MARK: - Life cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        viewModel.resumeFetch(location: "london")
+        
+        
+        #warning("delete than")
+//        let provider = MoyaProvider<WeatherForecastService>()
+//        provider.request(.currentWeather(location: "minneapolis,mn")) { result in
+//            switch result {
+//            case .success(let response):
+//                let result = try? response.map(ShopListResponse.self)
+//            case .failure(let error):
+//                print(error.errorDescription ?? "Unknown error")
+//            }
+//        }
+//        let provider = MoyaProvider<AerisweatherForecastService>()
+//        provider.request(.getSearchCity(searchText: "zaporizh")) { result in
+//            switch result {
+//
+//            case .success(let response):
+//                debugPrint("PERED\(response)ZAD")
+//                let city = try? response.map(FilteredListOfCities.self)
+//
+//                debugPrint(city?.response?.first?.city.countryFull)
+//            case .failure(let error):
+//                fatalError("Invalid response \(error)")
+//            }
+//        }
     }
     
-//    MARK: - Override func
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    }
+    
+    //    MARK: - Override func
     
     override func setupConstraints() {
         super.setupConstraints()
         view.addSubview(topView)
         view.addSubview(collectionView)
         view.addSubview(tableView)
-        view.addGestureRecognizer(gestureRecognized)
         
         topView.snp.makeConstraints({
             $0.top.equalTo(self.topLayoutGuide.snp.bottom).offset(16)
@@ -63,12 +94,6 @@ class MainViewController: ViewController<MainRouter, MainViewModel> {
         super.setupView()
         
         view.backgroundColor = Colors.appBackground
-        
-        gestureRecognized.addTarget(self, action: #selector(handlePan(recognized:)))
-        
-        AF.request("https://api.openweathermap.org/data/2.5/onecall?lat=33.441792&lon=-94.037689&exclude=hourly,daily&appid=382d5f44179e2281e0dd6a59f71f9070").responseJSON { (AFDataResponse) in
-            debugPrint("\(AFDataResponse)")
-        }
     }
     
     override func setupCollectionView() {
@@ -85,7 +110,6 @@ class MainViewController: ViewController<MainRouter, MainViewModel> {
         collectionView.indicatorStyle = .white
         
         collectionViewLayout.scrollDirection = .horizontal
-        
     }
     
     override func setupTableView() {
@@ -97,31 +121,13 @@ class MainViewController: ViewController<MainRouter, MainViewModel> {
         tableView.delegate = self
         tableView.dataSource = self
         
-        tableView.isScrollEnabled = false
         tableView.separatorStyle = .none
+        tableView.isScrollEnabled = true
     }
     
-//      MARK: - User interaction
+    //      MARK: - User interaction
     
-    @objc func handlePan(recognized: UIPanGestureRecognizer) {
-        
-        if recognized.state == .changed {
-            
-            let translation = recognized.translation(in: self.view)
-            
-            let newFrameOriginY = self.view.frame.origin.y + translation.y
-            
-            let difference = view.frame.height - (topView.frame.height + collectionView.frame.height + tableView.frame.height)
-            
-            if newFrameOriginY > 0 || newFrameOriginY <= difference {
-                return
-            } else {
-            
-            self.view.frame.origin.y = newFrameOriginY
-            recognized.setTranslation(.zero, in: self.view)
-            }
-        }
-    }
+    
 }
 
 extension MainViewController: UICollectionViewDataSource {
@@ -136,7 +142,7 @@ extension MainViewController: UICollectionViewDataSource {
             withReuseIdentifier: identifier,
             for: indexPath
             ) as? HourlyCollectionViewCell else {
-            fatalError("Can't find cell with identifier \(identifier)")
+                fatalError("Can't find cell with identifier \(identifier)")
         }
         
         let hourlyItem = viewModel.getHourlyItem(for: indexPath)
@@ -146,24 +152,28 @@ extension MainViewController: UICollectionViewDataSource {
 }
 
 extension MainViewController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 60, height: 150)
     }
 }
 
 extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView,
+                   numberOfRowsInSection section: Int) -> Int {
         return viewModel.getDayForecastCount()
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView,
+                   cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let identifier = String(describing: DayForecastCell.self)
         guard let cell = tableView.dequeueReusableCell(
             withIdentifier: identifier,
             for: indexPath
             ) as? DayForecastCell else {
-            fatalError("Fatal error \(identifier)")
+                fatalError("Fatal error \(identifier)")
         }
         
         let item = viewModel.getDaylyItem(for: indexPath)
@@ -171,18 +181,19 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
-    
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView,
+                   heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 65
     }
-
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    
+    func tableView(_ tableView: UITableView,
+                   didSelectRowAt indexPath: IndexPath) {
         guard let cell = tableView.cellForRow(at: indexPath) as? DayForecastCell else { return }
         cell.setSelectColorAndShadow(isSelected: cell.isSelected)
     }
     
-    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView,
+                   didDeselectRowAt indexPath: IndexPath) {
         guard let cell = tableView.cellForRow(at: indexPath) as? DayForecastCell else { return }
         cell.setSelectColorAndShadow(isSelected: cell.isSelected)
     }

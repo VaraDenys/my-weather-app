@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController<R: Router, VM: ViewModel<R>>: UIViewController {
+class ViewController<VM: ViewModel>: UIViewController {
     
 //    MARK: - Properties
     

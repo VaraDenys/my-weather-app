@@ -17,6 +17,10 @@ class IndicatorsStackView: StackView {
     private let humidityView = MWAViewForIndicators()
     
     private let windView = MWAViewForIndicators()
+    
+    public func configure() {
+        
+    }
 
 //    MARK: - Override
     

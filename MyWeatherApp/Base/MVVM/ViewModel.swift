@@ -8,6 +8,6 @@
 
 import UIKit
 
-class ViewModel<R: Router>: NSObject {
-    public let router = R()
+class ViewModel: NSObject {
+    
 }

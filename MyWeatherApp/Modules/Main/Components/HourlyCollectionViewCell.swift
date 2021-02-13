@@ -48,13 +48,13 @@ class HourlyCollectionViewCell: CollectionViewCell {
     override func setupView() {
         super.setupView()
         
-        hourTitle.textColor = .white
+        hourTitle.textColor = Colors.lightFont
         hourTitle.textAlignment = .center
         
         imageForecast.contentMode = .scaleAspectFit
-        imageForecast.tintColor = .white
+        imageForecast.tintColor = Colors.lightTintColorImage
         
-        temperatureLable.textColor = .white
+        temperatureLable.textColor = Colors.lightFont
         temperatureLable.textAlignment = .center
     }
     
