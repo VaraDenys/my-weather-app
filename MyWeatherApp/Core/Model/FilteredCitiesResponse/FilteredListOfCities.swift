@@ -9,6 +9,7 @@
 import Foundation
 
 struct FilteredListOfCities: Decodable {
+    
     var successResponse: Bool
     var errorMessage: String?
     

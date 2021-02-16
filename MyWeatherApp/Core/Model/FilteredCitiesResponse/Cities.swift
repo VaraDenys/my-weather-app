@@ -9,6 +9,7 @@
 import Foundation
 
 struct Cities: Decodable {
+    
     var city: PlaceInfo
     
     enum CodingKeys: String, CodingKey {

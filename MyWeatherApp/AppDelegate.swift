@@ -8,7 +8,7 @@
 
 import UIKit
 import CoreData
-import Moya
+//import Moya
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -31,7 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //    MARK: - Func
     
     private func buildview() {
-        let mainView = Screens.main()
+        let mainView = Screens.main(location: "Zaporizhzhia")
         let navigationController = UINavigationController(
             rootViewController: mainView
         )

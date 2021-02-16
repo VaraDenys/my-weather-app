@@ -9,8 +9,13 @@
 import Foundation
 
 struct Screens {
-    static func main() -> MainViewController {
-        let viewModel = MainViewModel()
+    static func main(location: String) -> MainViewController {
+        let viewModel = MainViewModel(location: location)
         return MainViewController(viewModel: viewModel)
+    }
+    
+    static func search(location: String) -> SearchTableViewController {
+        let viewModel = SearchTableViewModel(location: location)
+        return SearchTableViewController(viewModel: viewModel)
     }
 }

@@ -11,6 +11,7 @@ import SnapKit
 import Moya
 
 
+
 class MainViewController: ViewController<MainViewModel> {
     
     //    MARK: - Private properties
@@ -29,38 +30,8 @@ class MainViewController: ViewController<MainViewModel> {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        viewModel.resumeFetch(location: "london")
-        
-        
-        #warning("delete than")
-//        let provider = MoyaProvider<WeatherForecastService>()
-//        provider.request(.currentWeather(location: "minneapolis,mn")) { result in
-//            switch result {
-//            case .success(let response):
-//                let result = try? response.map(ShopListResponse.self)
-//            case .failure(let error):
-//                print(error.errorDescription ?? "Unknown error")
-//            }
-//        }
-//        let provider = MoyaProvider<AerisweatherForecastService>()
-//        provider.request(.getSearchCity(searchText: "zaporizh")) { result in
-//            switch result {
-//
-//            case .success(let response):
-//                debugPrint("PERED\(response)ZAD")
-//                let city = try? response.map(FilteredListOfCities.self)
-//
-//                debugPrint(city?.response?.first?.city.countryFull)
-//            case .failure(let error):
-//                fatalError("Invalid response \(error)")
-//            }
-//        }
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-    }
+
+}   
     
     //    MARK: - Override func
     
@@ -70,7 +41,8 @@ class MainViewController: ViewController<MainViewModel> {
         view.addSubview(collectionView)
         view.addSubview(tableView)
         
-        topView.snp.makeConstraints({
+        topView.snp.makeConstraints({ [weak self] in
+            guard let self = self else { return }
             $0.top.equalTo(self.topLayoutGuide.snp.bottom).offset(16)
             $0.left.equalToSuperview().offset(16)
             $0.right.equalToSuperview().inset(16)
@@ -86,7 +58,7 @@ class MainViewController: ViewController<MainViewModel> {
         tableView.snp.makeConstraints({
             $0.top.equalTo(collectionView.snp.bottom)
             $0.left.right.equalToSuperview()
-            $0.height.equalTo(520)
+            $0.bottom.equalToSuperview()
         })
     }
     
@@ -94,6 +66,9 @@ class MainViewController: ViewController<MainViewModel> {
         super.setupView()
         
         view.backgroundColor = Colors.appBackground
+        
+        topView.configure(location: self.viewModel.getLocation(), date: "Fri, 20 july")
+        topView.cityNameTextField.delegate = self
     }
     
     override func setupCollectionView() {
@@ -125,15 +100,18 @@ class MainViewController: ViewController<MainViewModel> {
         tableView.isScrollEnabled = true
     }
     
-    //      MARK: - User interaction
+    func pushViewController(location: String) {
+        navigationController?.pushViewController(Screens.search(location: location), animated: true)
+    }
     
+    //      MARK: - User interaction
     
 }
 
 extension MainViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return MainViewModel().hourlyItemCount()
+        return 24
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -197,4 +175,25 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.cellForRow(at: indexPath) as? DayForecastCell else { return }
         cell.setSelectColorAndShadow(isSelected: cell.isSelected)
     }
+}
+
+extension MainViewController: UITextFieldDelegate {
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        
+        let transition = CATransition()
+        transition.duration = 0.5
+        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+        transition.type = CATransitionType.fade
+        
+        navigationController?.view.layer.add(transition, forKey: nil)
+        
+        navigationController?.pushViewController(
+            Screens.search(location: self.topView.cityNameTextField.text ?? ""),
+            animated: false
+        )
+        
+        textField.endEditing(true)
+    }
+    
 }

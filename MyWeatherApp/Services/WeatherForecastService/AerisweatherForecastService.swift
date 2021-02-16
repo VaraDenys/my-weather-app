@@ -33,7 +33,7 @@ extension AerisweatherForecastService: TargetType {
         switch self {
         case .getCurrentWeather(location: let location):
             return "/conditions/\(location)"
-        case .getSearchCity(searchText: let searchCity):
+        case .getSearchCity(searchText: _):
             return "/places/search"
         }
     }
@@ -62,8 +62,8 @@ extension AerisweatherForecastService: TargetType {
         case .getSearchCity(searchText: let searchText):
             return .requestParameters(
                 parameters: [
-                    "limit": "10",
-                    "sort": "pop:1,haszip:-1",
+                    "limit": "20",
+                    "filter": "ppl",
                     "query": "name:^\(searchText)",
                     "client_id": ConstantsServise.clientId,
                     "client_secret": ConstantsServise.clientSecret],
@@ -75,34 +75,4 @@ extension AerisweatherForecastService: TargetType {
         return nil
     }
 }
-
-#warning("delete than")
-//struct  ShopListResponse: Decodable {
-//    enum CodingKeys: String, CodingKey {
-//        case response
-//    }
-//    let response: [Place]
-//}
-//
-//struct Place: Decodable {
-//    var place: Name
-//
-//    enum CodingKeys: String, CodingKey {
-//        case place
-//    }
-//}
-//
-//struct Name: Decodable {
-//    var name: String
-//
-//    enum CodingKeys: String, CodingKey {
-//        case name
-//    }
-//
-//    init(from decoder: Decoder) throws {
-//        let container = try decoder.container(keyedBy: CodingKeys.self)
-//
-//        self.name = try container.decode(String.self, forKey: .name)
-//    }
-//}
 

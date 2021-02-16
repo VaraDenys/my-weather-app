@@ -15,7 +15,14 @@ class MainViewModel: ViewModel {
     
     private let indicatorsItems = IndicatorsType.allCases
     
-    private let changeLocation: NSKeyValueObservation? = nil
+    private var locationName: String = ""
+    
+
+    
+    init(location: String) {
+        super.init()
+        self.locationName = location
+    }
     
 //    MARK: - Public
     
@@ -43,6 +50,10 @@ class MainViewModel: ViewModel {
         return DayForecastType.data[indexPath.row]
     }
     
+    func getLocation() -> String {
+        return locationName
+    }
+    
     func resumeFetch(location: String) {
         let provider = MoyaProvider<AerisweatherForecastService>()
         provider.request(.getCurrentWeather(location: location)) { result in
@@ -52,12 +63,12 @@ class MainViewModel: ViewModel {
                 
                 print("\(String(describing: currentWeather))")
                 
-                guard let current = currentWeather else { return }
+//                guard let current = currentWeather else { return }
                 
-                guard let locationName = current.valueResponse.first?.placeLocation.nameCity else { return }
-                let topView = TopView()
+//                guard let locationName = current.valueResponse.first?.placeLocation.nameCity else { return }
+//                let topView = TopView()
                 
-                topView.configure(location: location, date: "sdad")
+//                topView.configure(location: location, date: "sdad")
                 
             case .failure(let error):
                 debugPrint(error.errorDescription ?? "Unknown error")

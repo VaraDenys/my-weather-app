@@ -19,6 +19,9 @@ public enum Images: String {
     case dropIndicator = "drop"
     case windIndicator = "wind"
     
+    case searchBarLoupe = "loupe"
+    case backButton = "left-arrow"
+    
     func get() -> UIImage {
         guard let image = UIImage(named: self.rawValue) else {
             fatalError("Failed attempt create image with name \(rawValue)")
