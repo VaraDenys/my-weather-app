@@ -9,7 +9,7 @@
 import UIKit
 import SnapKit
 import Moya
-
+import CoreLocation
 
 
 class MainViewController: ViewController<MainViewModel> {
@@ -18,20 +18,47 @@ class MainViewController: ViewController<MainViewModel> {
     
     private let topView = TopView()
     
+    private let locationButton = UIBarButtonItem()
+    
+    private let locationTitleButton = LocationSearchBar()
+    
+    private let targetButton = UIBarButtonItem()
+    
     private let collectionViewLayout = UICollectionViewFlowLayout()
     
     private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
     
     private let tableView = UITableView()
     
-    private let changeLocation: NSKeyValueObservation? = nil
+    private let manager = CLLocationManager()
     
     //    MARK: - Life cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-}   
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        DispatchQueue.main.async {
+            self.viewModel.onDidChangeLocation = { location in
+                self.locationTitleButton.setTitle(location: location)
+            }
+            
+            self.viewModel.onDidChangeValue = { topViewType in
+                DispatchQueue.main.async {
+                    self.configureTopView(topViewType.date,
+                                          topViewType.image,
+                                          topViewType.temperature,
+                                          topViewType.humitity,
+                                          topViewType.wind)
+                }
+            }
+        }
+    }
     
     //    MARK: - Override func
     
@@ -67,8 +94,7 @@ class MainViewController: ViewController<MainViewModel> {
         
         view.backgroundColor = Colors.appBackground
         
-        topView.configure(location: self.viewModel.getLocation(), date: "Fri, 20 july")
-        topView.cityNameTextField.delegate = self
+        manager.delegate = self
     }
     
     override func setupCollectionView() {
@@ -100,18 +126,119 @@ class MainViewController: ViewController<MainViewModel> {
         tableView.isScrollEnabled = true
     }
     
-    func pushViewController(location: String) {
-        navigationController?.pushViewController(Screens.search(location: location), animated: true)
+    override func setupNavigationBar() {
+        super.setupNavigationBar()
+        
+        self.navigationItem.leftBarButtonItem = locationButton
+        
+        locationButton.image = Images.locationIcon.get().resized(to: CGSize(width: 25, height: 25)).withRenderingMode(.alwaysTemplate)
+        locationButton.tintColor = Colors.lightTintColorImage
+        
+        self.navigationItem.titleView = locationTitleButton
+        
+        locationTitleButton.setTitle(location: "")
+        
+        self.navigationItem.rightBarButtonItem = targetButton
+        
+        targetButton.image = Images.targetIcon.get().resized(to: CGSize(width: 25, height: 25)).withRenderingMode(.alwaysTemplate)
+        targetButton.tintColor = Colors.lightTintColorImage
+    }
+    
+    override func binding() {
+        
+        locationButton.target = self
+        locationButton.action = #selector(actionLocationButton(sender:))
+        
+        locationTitleButton.addTarget(self, action: #selector(actionTitleButton(sender:)), for: .touchUpInside)
+        
+        targetButton.target = self
+        targetButton.action = #selector(actionTargetButton(sender:))
+    }
+    
+    override func setupLocation() {
+        
+        guard self.viewModel.notFirstLoad else { return }
+        
+        manager.desiredAccuracy = kCLLocationAccuracyBest
+        manager.requestWhenInUseAuthorization()
+        manager.startUpdatingLocation()
+        
+        manager.stopUpdatingLocation()
+        
+        guard let lat = manager.location?.coordinate.latitude else { return }
+        guard let long = manager.location?.coordinate.longitude else { return }
+        
+        self.viewModel.resumeFetch(
+            lat: lat,
+            long: long)
+        
+        self.viewModel.requestDaylyForecast(
+            lat: lat,
+            long: long,
+            tableView: self.tableView
+        )
+    }
+    
+    //      MARK: - Public Func
+    
+    public func configureTopView(
+        _ date: String,
+        _ image: String,
+        _ temp: String,
+        _ humid: String,
+        _ wind: String
+    ) {
+        self.topView.configure(date, image, temp, humid, wind)
+        self.tableView.reloadData()
+        self.collectionView.reloadData()
     }
     
     //      MARK: - User interaction
     
+    @objc func actionLocationButton(sender: UIBarButtonItem) {
+        
+        self.navigationController?.pushViewController(Screens.map(), animated: true)
+    }
+    
+    @objc func actionTitleButton(sender: UIControl) {
+        
+        let transition = CATransition()
+        transition.duration = 0.5
+        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+        transition.type = CATransitionType.fade
+        
+        navigationController?.view.layer.add(transition, forKey: nil)
+        
+        self.navigationController?
+            .pushViewController(
+                Screens.search(
+                    location: self.locationTitleButton.location),
+                animated: true)
+        
+    }
+    
+    @objc func actionTargetButton(sender: UIBarButtonItem) {
+        
+        manager.desiredAccuracy = kCLLocationAccuracyBest
+        
+        manager.requestWhenInUseAuthorization()
+        
+        manager.startUpdatingLocation()
+        
+        manager.stopUpdatingLocation()
+        
+        guard let lat = manager.location?.coordinate.latitude else { return }
+        guard let lon = manager.location?.coordinate.longitude else { return }
+        
+        self.viewModel.resumeFetch(lat: lat, long: lon)
+        self.viewModel.requestDaylyForecast(lat: lat, long: lon, tableView: self.tableView)
+    }
 }
 
 extension MainViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 24
+        return self.viewModel.hourlyItemCount()
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -177,23 +304,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-extension MainViewController: UITextFieldDelegate {
+extension MainViewController: CLLocationManagerDelegate {
     
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        
-        let transition = CATransition()
-        transition.duration = 0.5
-        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
-        transition.type = CATransitionType.fade
-        
-        navigationController?.view.layer.add(transition, forKey: nil)
-        
-        navigationController?.pushViewController(
-            Screens.search(location: self.topView.cityNameTextField.text ?? ""),
-            animated: false
-        )
-        
-        textField.endEditing(true)
-    }
     
 }

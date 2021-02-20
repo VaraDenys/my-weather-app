@@ -13,7 +13,7 @@ class SearchTableViewModel: ViewModel {
     
     private let provider = MoyaProvider<AerisweatherForecastService>()
     
-    private var location: String = ""
+    var location: String = ""
     
     init(location: String) {
         super.init()
@@ -23,7 +23,7 @@ class SearchTableViewModel: ViewModel {
     
     func resumeFetch(searchText: String, tableView: UITableView) {
         
-        provider.request(.getSearchCity(searchText: searchText)) { (result) in
+        provider.request(.getSearchCity(location: searchText)) { (result) in
             
             switch result {
                 
@@ -41,7 +41,16 @@ class SearchTableViewModel: ViewModel {
                 
                 for index in 0...cities.count - 1 {
                     
-                    ResultFilteredCities.data.append(ResultFilteredCities(nameCities: cities[index].city.name, nameCountry: cities[index].city.countryFull ?? ""))
+                    let nameCitie = cities[index].city.name
+                    guard let nameCountry = cities[index].city.countryFull else { return }
+                    let lat = cities[index].coordinate.lat
+                    let long = cities[index].coordinate.long
+                    
+                    ResultFilteredCities.data.append(ResultFilteredCities(
+                        nameCities: nameCitie,
+                        nameCountry: nameCountry,
+                        lat: lat,
+                        long: long))
                 }
                 
                 tableView.reloadData()

@@ -13,50 +13,37 @@ class TopView: View {
 
 //    MARK: - Properties
     
-    private let locationStackView = UIStackView()
-    
-    private let locationButton = UIButton()
-    
-    public let cityNameTextField = UITextField()
-    
-    private let targetButton = UIButton()
-    
     private let dateView = UILabel()
     
     private let forecastImageView = UIImageView()
     
-    private let indicatorsStackView = IndicatorsStackView()
+    private let indicatorsStackView = StackView()
     
+    private let temperatureView = IndicatorView()
+    
+    private let humidityView = IndicatorView()
+    
+    private let windView = IndicatorView()
+    
+    private let emptyViewFirst = View()
+    
+    private let emptyViewSecond = View()
     
 //    MARK: - Override
 
     override func setupConstraints() {
         super.setupConstraints()
-        addSubview(locationStackView)
-        
-        locationStackView.addArrangedSubview(locationButton)
-        locationStackView.addArrangedSubview(cityNameTextField)
-        locationStackView.addArrangedSubview(targetButton)
         
         addSubview(dateView)
         addSubview(forecastImageView)
         addSubview(indicatorsStackView)
         
-        locationStackView.snp.makeConstraints({
-            $0.top.left.right.equalToSuperview()
-            $0.height.equalTo(24)
-        })
-        
-        locationButton.snp.makeConstraints({
-            $0.width.equalTo(self.locationButton.snp.height)
-        })
-
-        targetButton.snp.makeConstraints({
-            $0.width.equalTo(self.targetButton.snp.height)
-        })
+        indicatorsStackView.addArrangedSubview(temperatureView)
+        indicatorsStackView.addArrangedSubview(humidityView)
+        indicatorsStackView.addArrangedSubview(windView)
         
         dateView.snp.makeConstraints({
-            $0.top.equalTo(locationStackView.snp.bottom).offset(16)
+            $0.top.equalToSuperview() // offset(16)
             $0.left.right.equalToSuperview()
             $0.height.equalTo(24)
         })
@@ -78,26 +65,16 @@ class TopView: View {
     override func setupView() {
         super.setupView()
         
-        locationStackView.axis = .horizontal
-        locationStackView.spacing = 8
+        let date = Date()
+        let calendar = Calendar.current
+        let weekday = calendar.component(.weekday, from: date)
+        let day = calendar.component(.day, from: date)
+        let month = calendar.component(.month, from: date)
+        let dayStr = DayString(dayOfTheWeek: weekday).getStringDate()
+        let monthStr = MonthString(month: month).getString()
+        let dateStr = "\(dayStr), \(day) \(monthStr)"
         
-        locationButton.setImage(
-            Images.locationIcon.get().withRenderingMode(.alwaysTemplate),
-            for: .normal)
-        locationButton.contentMode = .scaleAspectFit
-        locationButton.tintColor = Colors.lightTintColorImage
-        
-        cityNameTextField.text = "Zaporizhzhia"
-        cityNameTextField.font = .systemFont(ofSize: 24)
-        cityNameTextField.textColor = Colors.lightFont
-        cityNameTextField.textAlignment = .left
-        
-        targetButton.setImage(
-            Images.targetIcon.get().withRenderingMode(.alwaysTemplate),
-            for: .normal)
-        targetButton.tintColor = Colors.lightTintColorImage
-        
-        dateView.text = "ПТ, 20 июля"
+        dateView.text = dateStr
         dateView.textColor = Colors.lightFont
         dateView.font = .systemFont(ofSize: 14)
         
@@ -105,13 +82,19 @@ class TopView: View {
         forecastImageView.tintColor = Colors.lightTintColorImage
         forecastImageView.contentMode = .scaleAspectFit
         forecastImageView.transform = .init(scaleX: 0.7, y: 0.7)
+        
+        indicatorsStackView.axis = .vertical
     }
     
         // MARK: - User Interaction
     
-    public func configure(location: String, date: String) {
-        cityNameTextField.text = location
-        dateView.text = date
+    public func configure(_ date: String,_ image: String,_ temp: String,_ humid: String,_ wind: String) {
+//        self.dateView.text = date
+        self.forecastImageView.image = UIImage(named: image)
+        self.temperatureView.configure(icon: "thermometer", labelText: temp)
+        self.humidityView.configure(icon: "drop", labelText: humid)
+        self.windView.configure(icon: "wind", labelText: wind)
     }
 }
+
 

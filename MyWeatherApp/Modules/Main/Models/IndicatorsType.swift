@@ -9,30 +9,19 @@
 import UIKit
 import Alamofire
 
-enum IndicatorsType: CaseIterable {
+enum IndicatorsIconType: CaseIterable {
     case temperature
-    case drop
+    case humidity
     case wind
     
     var icon: UIImage {
         switch self {
         case .temperature:
             return Images.temperatureIndicator.get()
-        case .drop:
+        case .humidity:
             return Images.dropIndicator.get()
         case .wind:
             return Images.windIndicator.get()
-        }
-    }
-    
-    var indicatorValueTitle: String {
-        switch self {
-        case .temperature:
-            return "27/19°"
-        case .drop:
-            return "33%"
-        case .wind:
-            return "5м/сек ↗"
         }
     }
 

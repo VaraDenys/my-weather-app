@@ -13,13 +13,5 @@ struct DayForecastType {
     var temperature: String
     var image: UIImage
     
-    static let data: [DayForecastType] = [
-        DayForecastType(dayOfTheWeek: "ПН", temperature: "27°/19°", image: Images.rain.get()),
-        DayForecastType(dayOfTheWeek: "ВТ", temperature: "27°/19°", image: Images.rain.get()),
-        DayForecastType(dayOfTheWeek: "СР", temperature: "27°/19°", image: Images.rain.get()),
-        DayForecastType(dayOfTheWeek: "ЧТ", temperature: "27°/19°", image: Images.rain.get()),
-        DayForecastType(dayOfTheWeek: "ПТ", temperature: "27°/19°", image: Images.rain.get()),
-        DayForecastType(dayOfTheWeek: "СБ", temperature: "27°/19°", image: Images.rain.get()),
-        DayForecastType(dayOfTheWeek: "ВС", temperature: "27°/19°", image: Images.rain.get()),
-    ]
+    static var data: [DayForecastType] = []
 }

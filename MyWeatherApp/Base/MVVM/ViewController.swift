@@ -39,6 +39,8 @@ class ViewController<VM: ViewModel>: UIViewController {
     
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        setupLocation()
         setupNavigationBar()
     }
 
@@ -49,7 +51,7 @@ class ViewController<VM: ViewModel>: UIViewController {
     public func setupView() {}
     
     public func setupNavigationBar() {
-        navigationController?.navigationBar.isHidden = true
+        self.navigationController?.navigationBar.barTintColor = Colors.appBackground
     }
     
     public func setupTableView() {}
@@ -59,4 +61,6 @@ class ViewController<VM: ViewModel>: UIViewController {
     public func binding() {}
     
     public func localize() {}
+    
+    public func setupLocation() {}
 }

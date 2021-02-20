@@ -9,10 +9,12 @@
 import Foundation
 
 struct Cities: Decodable {
+    var coordinate: CoordinateLatLong
     
     var city: PlaceInfo
     
     enum CodingKeys: String, CodingKey {
+        case coordinate = "loc"
         case city = "place"
     }
 

@@ -12,5 +12,8 @@ struct ResultFilteredCities {
     var nameCities: String
     var nameCountry: String
     
+    var lat: Double
+    var long: Double
+    
     static var data: [ResultFilteredCities] = []
 }

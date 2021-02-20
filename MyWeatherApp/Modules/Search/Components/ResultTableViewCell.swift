@@ -11,6 +11,10 @@ import SnapKit
 
 class ResultTableViewCell: TableViewCell {
     
+    private var lat: Double = 0
+    
+    private var long: Double = 0
+    
     private let stackView = UIStackView()
 
     private let citiesLabel = UILabel()
@@ -39,9 +43,15 @@ class ResultTableViewCell: TableViewCell {
         stackView.spacing = 4
     }
     
-    func configure(nameCity: String, nameCountry: String) {
-        citiesLabel.text = "\(nameCity),"
-        countryLabel.text = "\(nameCountry)"
+    func configure(nameCity: String, nameCountry: String, lat: Double, long: Double) {
+        self.citiesLabel.text = "\(nameCity),"
+        self.countryLabel.text = "\(nameCountry)"
+        self.lat = lat
+        self.long = long
+    }
+    
+    func getArrayCoordinate() -> [Double] {
+        return [self.lat, self.long]
     }
     
     func getCityName() -> String {

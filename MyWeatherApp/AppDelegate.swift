@@ -23,18 +23,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         buildview()
         
-        
-        
         return true
     }
     
 //    MARK: - Func
     
     private func buildview() {
-        let mainView = Screens.main(location: "Zaporizhzhia")
+        let mainView = Screens.main(latitude: nil, longitude: nil)
         let navigationController = UINavigationController(
             rootViewController: mainView
         )
+        
         
         let frame = UIScreen.main.bounds
         let window = UIWindow(frame: frame)

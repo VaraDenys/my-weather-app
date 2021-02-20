@@ -11,14 +11,31 @@ import Alamofire
 import Moya
 
 struct ConstantsServise {
-    static var domainURL: URL? = URL(string: "https://api.aerisapi.com")
+    static let domainURL: URL? = URL(string: "https://api.aerisapi.com")
     static let clientId: String = "Zcy35wNMT5Bf3N1qXwKou"
     static let clientSecret: String = "WZJVrbhHakZq4QArb4luDHJgYX03EKNvE2WwHOCD"
 }
 
+struct ParamsService {
+    static let placeCoordinate = "p"
+    static let limit = "limit"
+    static let filter = "filter"
+    static let from = "from"
+    static let to = "to"
+    static let skip = "skip"
+    static let limitPeriods = "plimit"
+    static let skipPeriods = "pskip"
+    static let fieldsResult = "fields"
+    static let query = "query"
+    static let clientId = "client_id"
+    static let clientSecret = "client_secret"
+}
+
 enum  AerisweatherForecastService {
-    case getCurrentWeather(location: String)
-    case getSearchCity(searchText: String)
+    case getCurrentWeather(latitude: Double, longitude: Double)
+    case getSearchCity(location: String)
+    case getPlaceByCoordinate(latitude: Double, longitude: Double)
+    case getForecastDayly(latitude: Double, longitude: Double)
 }
 
 
@@ -31,23 +48,33 @@ extension AerisweatherForecastService: TargetType {
     
     var path: String {
         switch self {
-        case .getCurrentWeather(location: let location):
-            return "/conditions/\(location)"
-        case .getSearchCity(searchText: _):
+        case .getCurrentWeather(latitude: let lat, longitude: let lon):
+            return "/conditions/\(String(format: "%.2f", lat) + "," + String(format: "%.2f", lon))"
+        case .getSearchCity(location: _):
             return "/places/search"
+        case .getPlaceByCoordinate(latitude: _, longitude: _):
+            return "/places/closest"
+        case .getForecastDayly(latitude: let lat, longitude: let lon):
+            return "/forecasts/\(String(format: "%.2f", lat) + "," + String(format: "%.2f", lon))"
         }
     }
     
     var method: Moya.Method {
         switch self {
-        case .getCurrentWeather(location: _), .getSearchCity(searchText: _):
+        case .getCurrentWeather(location: _),
+             .getSearchCity(location: _),
+             .getPlaceByCoordinate(latitude: _, longitude: _),
+             .getForecastDayly(latitude: _, longitude: _):
             return .get
         }
     }
     
     var sampleData: Data {
         switch self {
-        case .getCurrentWeather(location: _), .getSearchCity(searchText: _):
+        case .getCurrentWeather(location: _),
+             .getSearchCity(location: _),
+             .getPlaceByCoordinate(latitude: _, longitude: _),
+             .getForecastDayly(latitude: _, longitude: _):
             return Data()
         }
     }
@@ -56,17 +83,37 @@ extension AerisweatherForecastService: TargetType {
         switch self {
         case .getCurrentWeather(location: _):
             return .requestParameters(
-                parameters: ["client_id": "\(ConstantsServise.clientId)",
-                    "client_secret": "\(ConstantsServise.clientSecret)"],
+                parameters: [
+                    ParamsService.clientId: ConstantsServise.clientId,
+                    ParamsService.clientSecret: ConstantsServise.clientSecret
+                ],
                 encoding: URLEncoding.default)
-        case .getSearchCity(searchText: let searchText):
+        case .getSearchCity(location: let searchText):
             return .requestParameters(
                 parameters: [
-                    "limit": "20",
-                    "filter": "ppl",
-                    "query": "name:^\(searchText)",
-                    "client_id": ConstantsServise.clientId,
-                    "client_secret": ConstantsServise.clientSecret],
+                    ParamsService.limit: "20",
+                    ParamsService.filter: "ppl",
+                    ParamsService.query: "name:^\(searchText)",
+                    ParamsService.clientId: ConstantsServise.clientId,
+                    ParamsService.clientSecret: ConstantsServise.clientSecret
+                ],
+                encoding: URLEncoding.default)
+        case .getPlaceByCoordinate(latitude: let latitude, longitude: let longitude):
+            return .requestParameters(
+                parameters: [
+                    ParamsService.placeCoordinate: String(format: "%.2f", latitude) + "," + String(format: "%.2f", longitude),
+                    ParamsService.clientId: ConstantsServise.clientId,
+                    ParamsService.clientSecret: ConstantsServise.clientSecret
+                ],
+                encoding: URLEncoding.default)
+        case .getForecastDayly(latitude: _, longitude: _):
+            return .requestParameters(
+                parameters: [
+                    ParamsService.fieldsResult: "interval,periods.maxTempC,periods.minTempC,periods.icon,periods.timestamp",
+                    ParamsService.limit: "7",
+                    ParamsService.clientId: ConstantsServise.clientId,
+                    ParamsService.clientSecret: ConstantsServise.clientSecret
+                ],
                 encoding: URLEncoding.default)
         }
     }
