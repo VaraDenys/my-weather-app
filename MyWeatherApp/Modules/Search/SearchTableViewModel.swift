@@ -23,6 +23,8 @@ class SearchTableViewModel: ViewModel {
     
     func resumeFetch(searchText: String, tableView: UITableView) {
         
+        ResultFilteredCities.data.removeAll()
+        
         provider.request(.getSearchCity(location: searchText)) { (result) in
             
             switch result {
@@ -32,12 +34,11 @@ class SearchTableViewModel: ViewModel {
                 let res = try? response.map(FilteredListOfCities.self)
                 
                 guard let cities = res?.response else {
-                    ResultFilteredCities.data.removeAll()
                     tableView.reloadData()
                     return
                 }
                 
-                ResultFilteredCities.data.removeAll()
+                
                 
                 for index in 0...cities.count - 1 {
                     

@@ -13,7 +13,7 @@ class MapViewModel: ViewModel {
     
     private let provider = MoyaProvider<AerisweatherForecastService>()
     
-    var onDidChangeLocation: ((String) -> Void)?
+    var onDidChangeLocation: (([Double]) -> Void)?
 
     func requestLocationByCoordinate(latitude: Double, longitude: Double) {
         
@@ -26,7 +26,10 @@ class MapViewModel: ViewModel {
 
                 guard let location = res?.response?.first?.locationByCoordinate.name else { return }
                 
-                self?.onDidChangeLocation?(location)
+                guard let lat = res?.response?.first?.coordinateCorrect.lat else { return }
+                guard let long = res?.response?.first?.coordinateCorrect.long else { return }
+                
+                self?.onDidChangeLocation?([lat, long])
                 
                 debugPrint("first request \(location)")
                 

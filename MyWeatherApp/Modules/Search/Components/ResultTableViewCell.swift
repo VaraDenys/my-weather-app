@@ -23,6 +23,10 @@ class ResultTableViewCell: TableViewCell {
     
     private let viewEmpty = UIView()
     
+    var location: String {
+        get { return self.citiesLabel.text ?? "" }
+    }
+    
     override func setupConstraints() {
         super.setupConstraints()
         

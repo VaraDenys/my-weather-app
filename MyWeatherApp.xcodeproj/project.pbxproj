@@ -35,7 +35,7 @@
 		ECE99A3B25D49A08003170F2 /* AerisweatherForecastService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE99A3A25D49A08003170F2 /* AerisweatherForecastService.swift */; };
 		ECE99A4025D5BD7C003170F2 /* CurrentWeatherResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE99A3F25D5BD7C003170F2 /* CurrentWeatherResponse.swift */; };
 		ECE99A4225D5C0B3003170F2 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE99A4125D5C0B3003170F2 /* Response.swift */; };
-		ECE99A4425D5C258003170F2 /* latLongCoordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE99A4325D5C258003170F2 /* latLongCoordinate.swift */; };
+		ECE99A4425D5C258003170F2 /* LatLongCoordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE99A4325D5C258003170F2 /* LatLongCoordinate.swift */; };
 		ECE99A4625D5C278003170F2 /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE99A4525D5C278003170F2 /* Place.swift */; };
 		ECE99A4825D5C298003170F2 /* Period.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE99A4725D5C298003170F2 /* Period.swift */; };
 		ECE99A4F25D7BFB6003170F2 /* FilteredListOfCities.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE99A4E25D7BFB6003170F2 /* FilteredListOfCities.swift */; };
@@ -65,6 +65,7 @@
 		ECE99A9825E174BB003170F2 /* DaylyForecastResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE99A9725E174BA003170F2 /* DaylyForecastResponse.swift */; };
 		ECE99A9A25E175AE003170F2 /* ResponseDayly.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE99A9925E175AE003170F2 /* ResponseDayly.swift */; };
 		ECE99A9C25E175C5003170F2 /* PeriodDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE99A9B25E175C5003170F2 /* PeriodDay.swift */; };
+		ECE99AA525E26FE2003170F2 /* HourlyForecastResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE99AA425E26FE2003170F2 /* HourlyForecastResponse.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -113,7 +114,7 @@
 		ECE99A3A25D49A08003170F2 /* AerisweatherForecastService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AerisweatherForecastService.swift; sourceTree = "<group>"; };
 		ECE99A3F25D5BD7C003170F2 /* CurrentWeatherResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWeatherResponse.swift; sourceTree = "<group>"; };
 		ECE99A4125D5C0B3003170F2 /* Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
-		ECE99A4325D5C258003170F2 /* latLongCoordinate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = latLongCoordinate.swift; sourceTree = "<group>"; };
+		ECE99A4325D5C258003170F2 /* LatLongCoordinate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatLongCoordinate.swift; sourceTree = "<group>"; };
 		ECE99A4525D5C278003170F2 /* Place.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
 		ECE99A4725D5C298003170F2 /* Period.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Period.swift; sourceTree = "<group>"; };
 		ECE99A4E25D7BFB6003170F2 /* FilteredListOfCities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteredListOfCities.swift; sourceTree = "<group>"; };
@@ -144,6 +145,7 @@
 		ECE99A9725E174BA003170F2 /* DaylyForecastResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaylyForecastResponse.swift; sourceTree = "<group>"; };
 		ECE99A9925E175AE003170F2 /* ResponseDayly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseDayly.swift; sourceTree = "<group>"; };
 		ECE99A9B25E175C5003170F2 /* PeriodDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodDay.swift; sourceTree = "<group>"; };
+		ECE99AA425E26FE2003170F2 /* HourlyForecastResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyForecastResponse.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -352,6 +354,7 @@
 		ECE99A3D25D5BC5C003170F2 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				ECE99A9D25E1BBDF003170F2 /* HourlyForecastResponse */,
 				ECE99A9625E17493003170F2 /* DaylyForecastResponse */,
 				ECE99A7A25DDE010003170F2 /* PlaceByCoordinateResponse */,
 				ECE99A4D25D7BF41003170F2 /* FilteredCitiesResponse */,
@@ -365,7 +368,7 @@
 			children = (
 				ECE99A3F25D5BD7C003170F2 /* CurrentWeatherResponse.swift */,
 				ECE99A4125D5C0B3003170F2 /* Response.swift */,
-				ECE99A4325D5C258003170F2 /* latLongCoordinate.swift */,
+				ECE99A4325D5C258003170F2 /* LatLongCoordinate.swift */,
 				ECE99A4525D5C278003170F2 /* Place.swift */,
 				ECE99A4725D5C298003170F2 /* Period.swift */,
 			);
@@ -454,6 +457,14 @@
 				ECE99A9B25E175C5003170F2 /* PeriodDay.swift */,
 			);
 			path = DaylyForecastResponse;
+			sourceTree = "<group>";
+		};
+		ECE99A9D25E1BBDF003170F2 /* HourlyForecastResponse */ = {
+			isa = PBXGroup;
+			children = (
+				ECE99AA425E26FE2003170F2 /* HourlyForecastResponse.swift */,
+			);
+			path = HourlyForecastResponse;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -558,6 +569,7 @@
 				ECE99A9A25E175AE003170F2 /* ResponseDayly.swift in Sources */,
 				EC34D46525C9E988004CC42C /* TableView.swift in Sources */,
 				ECE99A5C25D83DA1003170F2 /* TextField.swift in Sources */,
+				ECE99AA525E26FE2003170F2 /* HourlyForecastResponse.swift in Sources */,
 				EC34D45325C6C45E004CC42C /* Colors.swift in Sources */,
 				ECE99A4225D5C0B3003170F2 /* Response.swift in Sources */,
 				ECE99A7E25DDE18A003170F2 /* LocationByCoordinate.swift in Sources */,
@@ -578,7 +590,7 @@
 				ECE99A8F25DF23D3003170F2 /* DayString.swift in Sources */,
 				ECE99A7625DD1D63003170F2 /* MapViewController.swift in Sources */,
 				EC34D48625D29134004CC42C /* IndicatorsStackView.swift in Sources */,
-				ECE99A4425D5C258003170F2 /* latLongCoordinate.swift in Sources */,
+				ECE99A4425D5C258003170F2 /* LatLongCoordinate.swift in Sources */,
 				ECE99A7C25DDE0D1003170F2 /* PlacesByCoordinate.swift in Sources */,
 				ECE99A8325DE61FD003170F2 /* UIImage+Resize.swift in Sources */,
 				EC34D47325CC715B004CC42C /* StackView.swift in Sources */,

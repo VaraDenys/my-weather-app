@@ -8,6 +8,7 @@
 
 import UIKit
 import Moya
+import Alamofire
 
 class MainViewModel: ViewModel {
     
@@ -15,17 +16,20 @@ class MainViewModel: ViewModel {
     
     let provider = MoyaProvider<AerisweatherForecastService>()
     
-    var notFirstLoad: Bool = false
+    var lat: Double?
+    
+    var long: Double?
     
 //    MARK: - Init
     
     init(latitude: Double?, longitude: Double?) {
         super.init()
         
-        guard let lat = latitude else { return }
-        guard let long = longitude else { return }
-        
-        self.notFirstLoad = true
+//        if
+//
+//        self.lat = lat
+//        self.long = long
+
         self.resumeFetch(lat: lat, long: long)
     }
     
@@ -34,14 +38,6 @@ class MainViewModel: ViewModel {
     var onDidChangeLocation: ((String) -> Void)?
     
     var onDidChangeValue: ((TopViewType) -> Void)?
-    
-    //    func indicatorsItemCount() -> Int{
-    //        return indicatorsItems.count
-    //    }
-    
-    //    func getIndicatorsItem(for indexPath: IndexPath) -> IndicatorsIconType {
-    //        return indicatorsItems[indexPath.row]
-    //    }
     
     func hourlyItemCount() -> Int {
         return HourlyType.data.count
@@ -59,31 +55,9 @@ class MainViewModel: ViewModel {
         return DayForecastType.data[indexPath.row]
     }
     
-    
-//    func requestLocationByCoordinate(latitude: Double, longitude: Double) {
-//        provider.request(.getPlaceByCoordinate(latitude: latitude, longitude: longitude)) { (result) in
-//
-//            switch result {
-//
-//            case .success(let response):
-//
-//                let res = try? response.map(RsponseByCoordinate.self)
-//
-//                guard let latCorrect = res?.response?.first?.coordinateCorrect.lat else { return }
-//                guard let lonGorrect = res?.response?.first?.coordinateCorrect.long else { return }
-//
-//                self.resumeFetch(lat: latCorrect, long: lonGorrect)
-//
-//            case .failure(let error):
-//
-//                fatalError("Fatal error - \(error)")
-//            }
-//        }
-//    }
-    
     func resumeFetch(lat: Double, long: Double) {
         
-        provider.request(.getCurrentWeather(latitude: lat, longitude: long)) { (result) in
+        provider.request(.getCurrentWeather(latitude: lat, longitude: long)) { [weak self] (result) in
             
             switch result {
                 
@@ -92,27 +66,30 @@ class MainViewModel: ViewModel {
                 let res = try? response.map(CurrentWeatherResponse.self)
                 
                 guard let locationNameResult = res?.valueResponse.first?.placeLocation.nameCity else { return }
+                
                 guard let date = res?.valueResponse.first?.periods.first?.dateTimeISO else { return }
+                
                 guard let temperarture = res?.valueResponse.first?.periods.first?.currentTemp else { return }
+                
                 guard let humidity = res?.valueResponse.first?.periods.first?.humidity else { return }
+                
                 guard let windSpeedKPH = res?.valueResponse.first?.periods.first?.windSpeedKPH else { return }
+                
                 guard let icon = res?.valueResponse.first?.periods.first?.icon else { return }
                 
-                debugPrint(icon)
-                
-                self.onDidChangeLocation?(locationNameResult)
+                self?.onDidChangeLocation?(locationNameResult)
                 
                 let responseTopViewType = TopViewType(
                     date: date,
                     image: icon,
                     temperature: String(temperarture),
-                    humitity: String(humidity),
+                    humidity: String(humidity),
                     wind: String(windSpeedKPH)
                 )
                 
                 TopViewType.data = responseTopViewType
                 
-                self.onDidChangeValue?(responseTopViewType)
+                self?.onDidChangeValue?(responseTopViewType)
                 
             case .failure(let error):
                 fatalError("Fatal erorr: \(error)")
@@ -122,17 +99,15 @@ class MainViewModel: ViewModel {
     
     func requestDaylyForecast(lat: Double, long: Double, tableView: UITableView) {
         
+        DayForecastType.data.removeAll()
+        
         provider.request(.getForecastDayly(latitude: lat, longitude: long)) { (result) in
             switch result {
             case .success(let response):
                 
                 let res = try? response.map(DaylyForecastResponse.self)
                 
-                debugPrint(String(describing: res))
-                
-                guard let period = res?.response.first?.periods else { return }
-                
-                DayForecastType.data.removeAll()
+                guard let period = res?.response?.first?.periods else { return }
                 
                 for index in 0...period.count - 1 {
                     
@@ -151,11 +126,40 @@ class MainViewModel: ViewModel {
                         image: UIImage(named: icon) ?? UIImage())
                     )
                 }
-                
-//                tableView.reloadData()
+                tableView.reloadData()
             case .failure(let error):
                 fatalError("The request failed. Error: \(error)")
             }
         }
+    }
+    
+    func requestForecastHourly(lat: Double, long: Double, collectionView: UICollectionView) {
+        
+        provider.request(.getForecastHourly(latitude: lat, longitude: long)) { (result) in
+        
+            switch result {
+                
+            case .success(let response):
+                
+                debugPrint(String(describing: response))
+                
+                let res = try? response.map(HourlyForecastResponse.self)
+                
+                debugPrint(String(describing: res))
+                
+                guard res != nil else {
+                    debugPrint("res hourly is nill")
+                    return
+                }
+                
+                debugPrint("it's ok")
+                
+                
+            case .failure(let error):
+                fatalError("The request failed. Error: \(error)")
+            }
+            
+        }
+        
     }
 }

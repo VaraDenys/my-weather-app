@@ -12,6 +12,6 @@ import Foundation
 struct DaylyForecastResponse: Decodable {
     let success: Bool
     let error: String?
-    let response: [ResponseDayly]
     
+    let response: [ResponseDayly]?
 }

@@ -12,19 +12,16 @@ class LocationSearchTextField: UIControl {
 
     private var textField = TextField()
     
-//    var textFieldSearchBar: TextField {
-//        get { return self.textField }
-//        set { self.textField = newValue}
-//    }
     var delegate: UITextFieldDelegate {
         get { return self.textField.delegate! }
         set { self.textField.delegate = newValue }
     }
-//
-//    var textLocation: String {
-//        get { self.textField.text ?? ""}
-//    }
     
+    var location: String {
+        get { return self.textField.text ?? "" }
+        set { self.textField.text = newValue}
+    }
+
     override var intrinsicContentSize: CGSize {
       return UIView.layoutFittingExpandedSize
     }
@@ -55,7 +52,6 @@ class LocationSearchTextField: UIControl {
     }
     
     private func setupView() {
-        textField.text = "Zaporizhya"
         textField.backgroundColor = Colors.lightTintColorImage
         textField.font = .systemFont(ofSize: 20)
         textField.textColor = Colors.darkFont
@@ -63,10 +59,7 @@ class LocationSearchTextField: UIControl {
         textField.setEdgePadding(8)
         
         textField.layer.cornerRadius = 5
+        
+        textField.isSelected = true
     }
-    
-    public func getLocationRequest() -> String {
-        return textField.text ?? ""
-    }
-    
 }

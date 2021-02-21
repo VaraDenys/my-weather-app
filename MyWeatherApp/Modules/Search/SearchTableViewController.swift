@@ -69,6 +69,7 @@ class SearchTableViewController: ViewController<SearchTableViewModel> {
         backButton.tintColor = Colors.lightTintColorImage
         
         searchNavigationTextField.delegate = self
+        searchNavigationTextField.location = self.viewModel.location
         
         loupeButton.image = Images
             .searchBarLoupe
@@ -100,7 +101,7 @@ class SearchTableViewController: ViewController<SearchTableViewModel> {
     
     @objc func loupeAction(sender: UIBarButtonItem) {
         
-        let requestLocation = searchNavigationTextField.getLocationRequest()
+        let requestLocation = searchNavigationTextField.location
         
         self.viewModel.resumeFetch(
             searchText: requestLocation,
@@ -115,17 +116,21 @@ extension SearchTableViewController: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
-        let requestLocation = searchNavigationTextField.getLocationRequest()
+        let requestLocation = searchNavigationTextField.location
         
         self.viewModel.resumeFetch(searchText: requestLocation, tableView: self.tableView)
+        
         return true
     }
     
     func textFieldDidChangeSelection(_ textField: UITextField) {
         
-        let requestLocation = searchNavigationTextField.getLocationRequest()
+        let requestLocation = searchNavigationTextField.location
         
-        self.viewModel.resumeFetch(searchText: requestLocation, tableView: self.tableView)
+        self.viewModel.resumeFetch(
+            searchText: requestLocation,
+            tableView: self.tableView
+        )
     }
 }
 

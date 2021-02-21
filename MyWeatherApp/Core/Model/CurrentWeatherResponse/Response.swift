@@ -9,7 +9,7 @@
 import Foundation
 
 struct Response: Decodable {
-    var locationCoordinate: latLongCoordinate
+    var locationCoordinate: LatLongCoordinate
     var placeLocation: Place
     var periods: [Period]
     

@@ -14,7 +14,7 @@ struct TopViewType {
     var date: String
     var image: String
     var temperature: String
-    var humitity: String
+    var humidity: String
     var wind: String
     
     func getImage(imageName: String) -> UIImage {

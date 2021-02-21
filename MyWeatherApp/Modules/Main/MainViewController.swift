@@ -43,17 +43,15 @@ class MainViewController: ViewController<MainViewModel> {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        DispatchQueue.main.async {
-            self.viewModel.onDidChangeLocation = { location in
-                self.locationTitleButton.setTitle(location: location)
-            }
+        self.viewModel.onDidChangeLocation = { location in
+            self.locationTitleButton.setTitle(location: location)
             
             self.viewModel.onDidChangeValue = { topViewType in
                 DispatchQueue.main.async {
                     self.configureTopView(topViewType.date,
                                           topViewType.image,
                                           topViewType.temperature,
-                                          topViewType.humitity,
+                                          topViewType.humidity,
                                           topViewType.wind)
                 }
             }
@@ -136,8 +134,6 @@ class MainViewController: ViewController<MainViewModel> {
         
         self.navigationItem.titleView = locationTitleButton
         
-        locationTitleButton.setTitle(location: "")
-        
         self.navigationItem.rightBarButtonItem = targetButton
         
         targetButton.image = Images.targetIcon.get().resized(to: CGSize(width: 25, height: 25)).withRenderingMode(.alwaysTemplate)
@@ -157,7 +153,7 @@ class MainViewController: ViewController<MainViewModel> {
     
     override func setupLocation() {
         
-        guard self.viewModel.notFirstLoad else { return }
+        if self.viewModel.lat == nil || self.viewModel.long == nil {
         
         manager.desiredAccuracy = kCLLocationAccuracyBest
         manager.requestWhenInUseAuthorization()
@@ -168,6 +164,8 @@ class MainViewController: ViewController<MainViewModel> {
         guard let lat = manager.location?.coordinate.latitude else { return }
         guard let long = manager.location?.coordinate.longitude else { return }
         
+            debugPrint("\(lat)\(long)")
+            
         self.viewModel.resumeFetch(
             lat: lat,
             long: long)
@@ -177,6 +175,17 @@ class MainViewController: ViewController<MainViewModel> {
             long: long,
             tableView: self.tableView
         )
+            
+        } else {
+            
+            guard let lat = self.viewModel.lat else { return }
+            guard let long = self.viewModel.long else { return }
+            
+            debugPrint("\(lat),\(long)")
+            
+            self.viewModel.resumeFetch(lat: lat, long: long)
+            self.viewModel.requestDaylyForecast(lat: lat, long: long, tableView: self.tableView)
+        }
     }
     
     //      MARK: - Public Func
@@ -189,8 +198,6 @@ class MainViewController: ViewController<MainViewModel> {
         _ wind: String
     ) {
         self.topView.configure(date, image, temp, humid, wind)
-        self.tableView.reloadData()
-        self.collectionView.reloadData()
     }
     
     //      MARK: - User interaction
@@ -232,6 +239,7 @@ class MainViewController: ViewController<MainViewModel> {
         
         self.viewModel.resumeFetch(lat: lat, long: lon)
         self.viewModel.requestDaylyForecast(lat: lat, long: lon, tableView: self.tableView)
+        self.viewModel.requestForecastHourly(lat: lat, long: lon, collectionView: self.collectionView)
     }
 }
 

@@ -8,12 +8,7 @@
 
 import Foundation
 
-struct latLongCoordinate: Decodable {
+struct LatLongCoordinate: Decodable {
     var lat: Double
     var long: Double
-    
-    enum CodingKeys: String, CodingKey {
-        case lat
-        case long
-    }
 }

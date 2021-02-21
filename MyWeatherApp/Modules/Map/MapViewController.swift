@@ -87,13 +87,6 @@ class MapViewController: ViewController<MapViewModel> {
         targetButton.action = #selector(actionTargetButton(sender:))
         
         gestureChoiceLocation.addTarget(self, action: #selector(handleLongPress(gestureRecognizer:)))
-        
-//        self.viewModel.onDidChangeLocation = { [weak self] location in
-//
-//            debugPrint("result location - \(location)")
-//
-//            self?.navigationController?.pushViewController(Screens.main(latitude: <#T##Double#>, longitude: <#T##Double#>), animated: true)
-//        }
     }
     
 //    MARK: - User interaction
@@ -133,14 +126,35 @@ class MapViewController: ViewController<MapViewModel> {
             
             let alert = UIAlertController(title: "Want to see the weather of the selected region?", message: nil, preferredStyle: .alert)
             
-            let alertActionPozitive = UIAlertAction(title: "Yes", style: .default) { (action) in
-            self.viewModel.requestLocationByCoordinate(
-                    latitude: touchMapCoordinate.latitude,
-                    longitude: touchMapCoordinate.longitude
+            let alertActionPozitive = UIAlertAction(title: "Yes", style: .default) { [weak self] (action) in
+                
+                guard let self = self else { return }
+                
+                guard let lat = self.manager.location?.coordinate.latitude else { return }
+                guard let lon = self.manager.location?.coordinate.longitude else { return }
+                
+                self.viewModel.requestLocationByCoordinate(
+                    latitude: lat,
+                    longitude: lon
                 )
+                
+                self.viewModel.onDidChangeLocation = { [weak self] arrayCoor in
+                    
+                    guard let self = self else { return }
+                    
+                    self.navigationController?.pushViewController(
+                        Screens.main(latitude: arrayCoor[0], longitude: arrayCoor[1]),
+                        animated: false)
+                }
+                
             }
             
-            let alertActionNegative = UIAlertAction(title: "No", style: .cancel) { (alertAction) in
+            let alertActionNegative = UIAlertAction(title: "No", style: .cancel) { [weak self ](alertAction) in
+                
+                guard let self = self else { return }
+                
+                debugPrint("3")
+                
                 self.dismiss(animated: true, completion: nil)
             }
             

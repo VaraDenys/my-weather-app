@@ -18,7 +18,7 @@ class LocationSearchBar: UIControl {
     
     var location: String {
         get { return self.textField.text! }
-        set { self.textField.text = newValue }
+        set { self.textField.text = newValue.capitalized }
     }
     
     override init(frame: CGRect) {
@@ -32,7 +32,7 @@ class LocationSearchBar: UIControl {
     }
     
     public func setTitle(location: String) {
-        self.textField.text = location
+        self.location = location
     }
     
     private func setupConstraints() {
