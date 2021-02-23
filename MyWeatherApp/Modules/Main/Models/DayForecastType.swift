@@ -11,7 +11,5 @@ import UIKit
 struct DayForecastType {
     var dayOfTheWeek: String
     var temperature: String
-    var image: UIImage
-    
-    static var data: [DayForecastType] = []
+    var image: String
 }

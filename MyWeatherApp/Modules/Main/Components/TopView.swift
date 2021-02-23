@@ -56,7 +56,7 @@ class TopView: View {
         
         indicatorsStackView.snp.makeConstraints({
             $0.left.equalTo(forecastImageView.snp.right).offset(8)
-            $0.top.equalTo(dateView.snp.bottom).offset(48)
+            $0.top.equalTo(dateView.snp.bottom).offset(64)
             $0.height.equalToSuperview().multipliedBy(0.4)
             $0.width.equalTo(300)
         })
@@ -77,8 +77,7 @@ class TopView: View {
         dateView.text = dateStr
         dateView.textColor = Colors.lightFont
         dateView.font = .systemFont(ofSize: 14)
-        
-        forecastImageView.image = Images.cloudyDay.get().withRenderingMode(.alwaysTemplate)
+
         forecastImageView.tintColor = Colors.lightTintColorImage
         forecastImageView.contentMode = .scaleAspectFit
         forecastImageView.transform = .init(scaleX: 0.7, y: 0.7)
@@ -88,7 +87,7 @@ class TopView: View {
     
         // MARK: - User Interaction
     
-    public func configure(_ date: String,_ image: String,_ temp: String,_ humid: String,_ wind: String) {
+    public func configure(date: String, image: String, temp: String, humid: String, wind: String) {
 //        self.dateView.text = date
         self.forecastImageView.image = UIImage(named: image)
         self.temperatureView.configure(icon: "thermometer", labelText: temp)

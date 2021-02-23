@@ -32,7 +32,7 @@
 		EC34D48225CCA58D004CC42C /* DayForecastCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC34D48125CCA58D004CC42C /* DayForecastCell.swift */; };
 		EC34D48425CCA5AD004CC42C /* DayForecastType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC34D48325CCA5AD004CC42C /* DayForecastType.swift */; };
 		EC34D48625D29134004CC42C /* IndicatorsStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC34D48525D29134004CC42C /* IndicatorsStackView.swift */; };
-		ECE99A3B25D49A08003170F2 /* AerisweatherForecastService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE99A3A25D49A08003170F2 /* AerisweatherForecastService.swift */; };
+		ECE99A3B25D49A08003170F2 /* AerisweatherForecastAPIEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE99A3A25D49A08003170F2 /* AerisweatherForecastAPIEndpoint.swift */; };
 		ECE99A4025D5BD7C003170F2 /* CurrentWeatherResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE99A3F25D5BD7C003170F2 /* CurrentWeatherResponse.swift */; };
 		ECE99A4225D5C0B3003170F2 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE99A4125D5C0B3003170F2 /* Response.swift */; };
 		ECE99A4425D5C258003170F2 /* LatLongCoordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE99A4325D5C258003170F2 /* LatLongCoordinate.swift */; };
@@ -66,6 +66,7 @@
 		ECE99A9A25E175AE003170F2 /* ResponseDayly.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE99A9925E175AE003170F2 /* ResponseDayly.swift */; };
 		ECE99A9C25E175C5003170F2 /* PeriodDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE99A9B25E175C5003170F2 /* PeriodDay.swift */; };
 		ECE99AA525E26FE2003170F2 /* HourlyForecastResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE99AA425E26FE2003170F2 /* HourlyForecastResponse.swift */; };
+		ECE99AA725E3C503003170F2 /* WeatherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE99AA625E3C503003170F2 /* WeatherService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -111,7 +112,7 @@
 		EC34D48125CCA58D004CC42C /* DayForecastCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayForecastCell.swift; sourceTree = "<group>"; };
 		EC34D48325CCA5AD004CC42C /* DayForecastType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayForecastType.swift; sourceTree = "<group>"; };
 		EC34D48525D29134004CC42C /* IndicatorsStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndicatorsStackView.swift; sourceTree = "<group>"; };
-		ECE99A3A25D49A08003170F2 /* AerisweatherForecastService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AerisweatherForecastService.swift; sourceTree = "<group>"; };
+		ECE99A3A25D49A08003170F2 /* AerisweatherForecastAPIEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AerisweatherForecastAPIEndpoint.swift; sourceTree = "<group>"; };
 		ECE99A3F25D5BD7C003170F2 /* CurrentWeatherResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWeatherResponse.swift; sourceTree = "<group>"; };
 		ECE99A4125D5C0B3003170F2 /* Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
 		ECE99A4325D5C258003170F2 /* LatLongCoordinate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatLongCoordinate.swift; sourceTree = "<group>"; };
@@ -146,6 +147,7 @@
 		ECE99A9925E175AE003170F2 /* ResponseDayly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseDayly.swift; sourceTree = "<group>"; };
 		ECE99A9B25E175C5003170F2 /* PeriodDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodDay.swift; sourceTree = "<group>"; };
 		ECE99AA425E26FE2003170F2 /* HourlyForecastResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyForecastResponse.swift; sourceTree = "<group>"; };
+		ECE99AA625E3C503003170F2 /* WeatherService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -338,7 +340,8 @@
 		ECE99A3225D324CD003170F2 /* WeatherForecastService */ = {
 			isa = PBXGroup;
 			children = (
-				ECE99A3A25D49A08003170F2 /* AerisweatherForecastService.swift */,
+				ECE99A3A25D49A08003170F2 /* AerisweatherForecastAPIEndpoint.swift */,
+				ECE99AA625E3C503003170F2 /* WeatherService.swift */,
 			);
 			path = WeatherForecastService;
 			sourceTree = "<group>";
@@ -604,11 +607,12 @@
 				EC34D47825CC73F2004CC42C /* IndicatorsType.swift in Sources */,
 				EC34D45625C6CA87004CC42C /* TopView.swift in Sources */,
 				EC34D45925C6D540004CC42C /* View.swift in Sources */,
+				ECE99AA725E3C503003170F2 /* WeatherService.swift in Sources */,
 				EC34D44525C6A27E004CC42C /* ViewController.swift in Sources */,
 				EC34D44D25C6A8A9004CC42C /* MainViewModel.swift in Sources */,
 				ECE99A9125DF2D84003170F2 /* MonthString.swift in Sources */,
 				ECE99A9825E174BB003170F2 /* DaylyForecastResponse.swift in Sources */,
-				ECE99A3B25D49A08003170F2 /* AerisweatherForecastService.swift in Sources */,
+				ECE99A3B25D49A08003170F2 /* AerisweatherForecastAPIEndpoint.swift in Sources */,
 				ECE99A5325D7C146003170F2 /* PlaceInfo.swift in Sources */,
 				EC34D48425CCA5AD004CC42C /* DayForecastType.swift in Sources */,
 				EC34D44F25C6A8CB004CC42C /* MainViewController.swift in Sources */,

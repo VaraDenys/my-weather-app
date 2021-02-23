@@ -11,5 +11,5 @@ import Foundation
 struct PlaceInfo: Decodable {
     
     var name: String
-    var countryFull: String?
+    var countryFull: String
 }

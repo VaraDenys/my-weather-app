@@ -14,6 +14,4 @@ struct ResultFilteredCities {
     
     var lat: Double
     var long: Double
-    
-    static var data: [ResultFilteredCities] = []
 }

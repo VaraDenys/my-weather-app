@@ -29,7 +29,7 @@ class HourlyCollectionViewCell: CollectionViewCell {
         
         hourTitle.snp.makeConstraints({
             $0.top.left.right.equalToSuperview()
-            $0.height.equalTo(75)
+            $0.height.equalTo(65)
         })
         
         imageForecast.snp.makeConstraints({
@@ -62,7 +62,7 @@ class HourlyCollectionViewCell: CollectionViewCell {
     
     func configure(_ item: HourlyType) {
         hourTitle.text = item.hour
-        imageForecast.image = item.image.withRenderingMode(.alwaysTemplate)
-        temperatureLable.text = item.temperature
+        imageForecast.image = UIImage(named: item.image)
+        temperatureLable.text = "\(item.temperature)°"
     }
 }

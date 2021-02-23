@@ -34,7 +34,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             rootViewController: mainView
         )
         
-        
         let frame = UIScreen.main.bounds
         let window = UIWindow(frame: frame)
         self.window = window

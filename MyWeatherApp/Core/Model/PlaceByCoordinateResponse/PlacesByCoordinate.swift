@@ -9,7 +9,7 @@
 import Foundation
 
 
-struct RsponseByCoordinate: Decodable {
+struct PlacesByCoordinate: Decodable {
     var successResponse: Bool
     var errorMessage: String?
     

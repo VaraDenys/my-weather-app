@@ -11,6 +11,7 @@ import UIKit
 
 
 struct TopViewType {
+    var location: String
     var date: String
     var image: String
     var temperature: String

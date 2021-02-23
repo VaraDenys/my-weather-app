@@ -9,7 +9,7 @@
 import Foundation
 
 struct PeriodDay: Decodable {
-    let maxTempC, minTempC: Int?
-    let icon: String?
+    let maxTempC, minTempC: Int
+    let icon: String
     let timestamp: Int
 }

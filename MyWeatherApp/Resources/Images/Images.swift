@@ -12,7 +12,7 @@ public enum Images: String {
     case locationIcon = "location-icon"
     case targetIcon = "target-icon"
     
-    case cloudyDay = "cloudy-day"
+//    case cloudyDay = "cloudy-day"
     case rain = "rain"
     
     case temperatureIndicator = "thermometer"

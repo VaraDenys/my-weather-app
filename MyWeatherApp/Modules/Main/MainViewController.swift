@@ -14,7 +14,7 @@ import CoreLocation
 
 class MainViewController: ViewController<MainViewModel> {
     
-    //    MARK: - Private properties
+    // MARK: - Private properties
     
     private let topView = TopView()
     
@@ -32,33 +32,13 @@ class MainViewController: ViewController<MainViewModel> {
     
     private let manager = CLLocationManager()
     
-    //    MARK: - Life cycle
+    // MARK: - Life cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        self.viewModel.onDidChangeLocation = { location in
-            self.locationTitleButton.setTitle(location: location)
-            
-            self.viewModel.onDidChangeValue = { topViewType in
-                DispatchQueue.main.async {
-                    self.configureTopView(topViewType.date,
-                                          topViewType.image,
-                                          topViewType.temperature,
-                                          topViewType.humidity,
-                                          topViewType.wind)
-                }
-            }
-        }
-    }
-    
-    //    MARK: - Override func
+    // MARK: - Override func
     
     override func setupConstraints() {
         super.setupConstraints()
@@ -142,6 +122,35 @@ class MainViewController: ViewController<MainViewModel> {
     
     override func binding() {
         
+        self.viewModel.onDidChangeCurrentValues = { [weak self] (topViewType) in
+            
+            guard let self = self else { return }
+            
+            self.topView.configure(
+                date: topViewType.date,
+                image: topViewType.image,
+                temp: topViewType.temperature,
+                humid: topViewType.humidity,
+                wind: topViewType.wind
+            )
+            
+            self.locationTitleButton.setTitle(location: topViewType.location)
+        }
+        
+        self.viewModel.onDidChangeHourlyForecast = { [weak self] in
+            
+            guard let self = self else { return }
+            
+            self.collectionView.reloadData()
+        }
+        
+        self.viewModel.onDidChangeDaylyForecast = { [weak self] in
+            
+            guard let self = self else { return }
+            
+            self.tableView.reloadData()
+        }
+        
         locationButton.target = self
         locationButton.action = #selector(actionLocationButton(sender:))
         
@@ -153,54 +162,23 @@ class MainViewController: ViewController<MainViewModel> {
     
     override func setupLocation() {
         
-        if self.viewModel.lat == nil || self.viewModel.long == nil {
-        
-        manager.desiredAccuracy = kCLLocationAccuracyBest
-        manager.requestWhenInUseAuthorization()
-        manager.startUpdatingLocation()
-        
-        manager.stopUpdatingLocation()
-        
-        guard let lat = manager.location?.coordinate.latitude else { return }
-        guard let long = manager.location?.coordinate.longitude else { return }
-        
-            debugPrint("\(lat)\(long)")
+        guard let lat = self.viewModel.lat, let long = self.viewModel.long else {
             
-        self.viewModel.resumeFetch(
-            lat: lat,
-            long: long)
-        
-        self.viewModel.requestDaylyForecast(
-            lat: lat,
-            long: long,
-            tableView: self.tableView
-        )
+            self.manager.desiredAccuracy = kCLLocationAccuracyBest
+            self.manager.requestWhenInUseAuthorization()
+            self.manager.startUpdatingLocation()
             
-        } else {
-            
-            guard let lat = self.viewModel.lat else { return }
-            guard let long = self.viewModel.long else { return }
-            
-            debugPrint("\(lat),\(long)")
+            guard let lat = self.manager.location?.coordinate.latitude else { return }
+            guard let long = self.manager.location?.coordinate.longitude else { return }
             
             self.viewModel.resumeFetch(lat: lat, long: long)
-            self.viewModel.requestDaylyForecast(lat: lat, long: long, tableView: self.tableView)
+            return
         }
+        
+        self.viewModel.resumeFetch(lat: lat, long: long)
     }
     
-    //      MARK: - Public Func
-    
-    public func configureTopView(
-        _ date: String,
-        _ image: String,
-        _ temp: String,
-        _ humid: String,
-        _ wind: String
-    ) {
-        self.topView.configure(date, image, temp, humid, wind)
-    }
-    
-    //      MARK: - User interaction
+// MARK: - User interaction
     
     @objc func actionLocationButton(sender: UIBarButtonItem) {
         
@@ -220,8 +198,7 @@ class MainViewController: ViewController<MainViewModel> {
             .pushViewController(
                 Screens.search(
                     location: self.locationTitleButton.location),
-                animated: true)
-        
+                animated: false)
     }
     
     @objc func actionTargetButton(sender: UIBarButtonItem) {
@@ -232,14 +209,12 @@ class MainViewController: ViewController<MainViewModel> {
         
         manager.startUpdatingLocation()
         
-        manager.stopUpdatingLocation()
+        
         
         guard let lat = manager.location?.coordinate.latitude else { return }
         guard let lon = manager.location?.coordinate.longitude else { return }
         
         self.viewModel.resumeFetch(lat: lat, long: lon)
-        self.viewModel.requestDaylyForecast(lat: lat, long: lon, tableView: self.tableView)
-        self.viewModel.requestForecastHourly(lat: lat, long: lon, collectionView: self.collectionView)
     }
 }
 

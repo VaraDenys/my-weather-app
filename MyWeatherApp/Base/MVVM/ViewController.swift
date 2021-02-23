@@ -52,6 +52,7 @@ class ViewController<VM: ViewModel>: UIViewController {
     
     public func setupNavigationBar() {
         self.navigationController?.navigationBar.barTintColor = Colors.appBackground
+        self.navigationController?.navigationBar.barStyle = .black
     }
     
     public func setupTableView() {}

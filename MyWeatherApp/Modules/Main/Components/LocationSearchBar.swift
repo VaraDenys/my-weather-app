@@ -10,15 +10,15 @@ import UIKit
 
 class LocationSearchBar: UIControl {
 
-    private let textField = UITextField()
+    private let locationLabel = UILabel()
     
     override var intrinsicContentSize: CGSize {
       return UIView.layoutFittingExpandedSize
     }
     
     var location: String {
-        get { return self.textField.text! }
-        set { self.textField.text = newValue.capitalized }
+        get { return self.locationLabel.text! }
+        set { self.locationLabel.text = newValue.capitalized }
     }
     
     override init(frame: CGRect) {
@@ -37,20 +37,20 @@ class LocationSearchBar: UIControl {
     
     private func setupConstraints() {
         
-        addSubview(textField)
+        addSubview(locationLabel)
         
-        textField.snp.makeConstraints({
+        locationLabel.snp.makeConstraints({
             $0.edges.equalToSuperview()
         })
         
     }
     
     private func setupView() {
-        textField.textAlignment = .left
-        textField.font = .systemFont(ofSize: 24)
-        textField.textColor = Colors.lightFont
+        locationLabel.textAlignment = .left
+        locationLabel.font = .systemFont(ofSize: 24)
+        locationLabel.textColor = Colors.lightFont
         
-        textField.isUserInteractionEnabled = false
+        locationLabel.isUserInteractionEnabled = false
     }
 
 }

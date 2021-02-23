@@ -10,9 +10,9 @@ import Foundation
 
 struct Period: Decodable {
     var dateTimeISO: String
-    var currentTemp: Double
-    var humidity: Int
-    var windSpeedKPH: Double
+    var currentTemp: Double?
+    var humidity: Int?
+    var windSpeedKPH: Double?
     var icon: String
     
     enum CodingKeys: String, CodingKey {

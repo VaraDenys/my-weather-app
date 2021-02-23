@@ -73,7 +73,7 @@ class DayForecastCell: TableViewCell {
     func configure(_ item: DayForecastType) {
         dayOfTheWeek.text = item.dayOfTheWeek
         temperature.text = item.temperature
-        imageDayForecast.image = item.image.withRenderingMode(.alwaysTemplate)
+        imageDayForecast.image = UIImage(named: item.image)
     }
 
     func setSelectColorAndShadow(isSelected: Bool) {

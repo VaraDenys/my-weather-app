@@ -59,7 +59,5 @@ class LocationSearchTextField: UIControl {
         textField.setEdgePadding(8)
         
         textField.layer.cornerRadius = 5
-        
-        textField.isSelected = true
     }
 }

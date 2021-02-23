@@ -23,7 +23,7 @@ class MapViewController: ViewController<MapViewModel> {
     
     private let mapView = MKMapView()
     
-    private let gestureChoiceLocation = UILongPressGestureRecognizer()
+    private let gestureChoiceLocation = UITapGestureRecognizer()
     
 //    MARK: - Override Func
     
@@ -72,8 +72,11 @@ class MapViewController: ViewController<MapViewModel> {
     }
     
     override func setupLocation() {
+        
         manager.desiredAccuracy = kCLLocationAccuracyBest
+        
         manager.requestWhenInUseAuthorization()
+        
         manager.startUpdatingLocation()
     }
     
@@ -109,11 +112,12 @@ class MapViewController: ViewController<MapViewModel> {
         
     }
     
-    @objc func handleLongPress(gestureRecognizer: UILongPressGestureRecognizer) {
+    @objc func handleLongPress(gestureRecognizer: UITapGestureRecognizer) {
         
         if gestureRecognizer.state != UIGestureRecognizer.State.ended {
             return
         }
+            
         else if gestureRecognizer.state != UIGestureRecognizer.State.began {
             
             let touchPoint = gestureRecognizer.location(in: self.mapView)
@@ -130,8 +134,8 @@ class MapViewController: ViewController<MapViewModel> {
                 
                 guard let self = self else { return }
                 
-                guard let lat = self.manager.location?.coordinate.latitude else { return }
-                guard let lon = self.manager.location?.coordinate.longitude else { return }
+                let lat = self.mapView.region.center.latitude
+                let lon = self.mapView.region.center.longitude
                 
                 self.viewModel.requestLocationByCoordinate(
                     latitude: lat,

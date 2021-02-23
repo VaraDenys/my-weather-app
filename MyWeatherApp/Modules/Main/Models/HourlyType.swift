@@ -17,8 +17,6 @@ import UIKit
 
 struct HourlyType {
     var hour: String
-    var image: UIImage
-    var temperature: String
-    
-    static let data: [HourlyType] = []
+    var image: String
+    var temperature: Int
 }

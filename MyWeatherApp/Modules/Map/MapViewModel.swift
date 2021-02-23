@@ -11,7 +11,7 @@ import Moya
 
 class MapViewModel: ViewModel {
     
-    private let provider = MoyaProvider<AerisweatherForecastService>()
+    private let provider = MoyaProvider<AerisweatherForecastAPIEndpoint>()
     
     var onDidChangeLocation: (([Double]) -> Void)?
 
@@ -22,7 +22,7 @@ class MapViewModel: ViewModel {
             switch result {
             case .success(let response):
                 
-                let res = try? response.map(RsponseByCoordinate.self)
+                let res = try? response.map(PlacesByCoordinate.self)
 
                 guard let location = res?.response?.first?.locationByCoordinate.name else { return }
                 

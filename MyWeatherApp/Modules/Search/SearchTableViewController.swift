@@ -81,7 +81,20 @@ class SearchTableViewController: ViewController<SearchTableViewModel> {
         loupeButton.tintColor = Colors.lightTintColorImage
     }
     
+    override func setupLocation() {
+        super.setupLocation()
+        
+        let searchText = self.viewModel.location
+        
+        self.viewModel.resumeFetch(searchText: searchText)
+        
+    }
+    
     override func binding() {
+        
+        self.viewModel.onDidChangeValues = {
+            self.tableView.reloadData()
+        }
         
         backButton.target = self
         backButton.action = #selector(backAction(sender:))
@@ -95,17 +108,13 @@ class SearchTableViewController: ViewController<SearchTableViewModel> {
     @objc func backAction(sender: UIBarButtonItem) {
         
         navigationController?.popViewController(animated: true)
-        
-        ResultFilteredCities.data.removeAll()
     }
     
     @objc func loupeAction(sender: UIBarButtonItem) {
         
         let requestLocation = searchNavigationTextField.location
         
-        self.viewModel.resumeFetch(
-            searchText: requestLocation,
-            tableView: self.tableView)
+        self.viewModel.resumeFetch(searchText: requestLocation)
     }
     
 }
@@ -114,11 +123,15 @@ class SearchTableViewController: ViewController<SearchTableViewModel> {
 
 extension SearchTableViewController: UITextFieldDelegate {
     
+    override func becomeFirstResponder() -> Bool {
+        return true
+    }
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
         let requestLocation = searchNavigationTextField.location
         
-        self.viewModel.resumeFetch(searchText: requestLocation, tableView: self.tableView)
+        self.viewModel.resumeFetch(searchText: requestLocation)
         
         return true
     }
@@ -127,16 +140,14 @@ extension SearchTableViewController: UITextFieldDelegate {
         
         let requestLocation = searchNavigationTextField.location
         
-        self.viewModel.resumeFetch(
-            searchText: requestLocation,
-            tableView: self.tableView
-        )
+        self.viewModel.resumeFetch(searchText: requestLocation)
     }
 }
 
 extension SearchTableViewController: UITableViewDelegate, UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return ResultFilteredCities.data.count
+        return self.viewModel.getCount()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -150,7 +161,7 @@ extension SearchTableViewController: UITableViewDelegate, UITableViewDataSource 
                 fatalError("Fatal error \(identifier)")
         }
         
-        let item = ResultFilteredCities.data[indexPath.row]
+        let item = self.viewModel.getItem(for: indexPath)
         
         cell.configure(
             nameCity: item.nameCities,
@@ -179,7 +190,5 @@ extension SearchTableViewController: UITableViewDelegate, UITableViewDataSource 
         self.navigationController?.pushViewController(
             Screens.main(latitude: arrayCoordinate[0], longitude: arrayCoordinate[1]),
             animated: true)
-        
-        ResultFilteredCities.data.removeAll()
     }
 }

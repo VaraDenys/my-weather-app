@@ -9,7 +9,7 @@
 import Foundation
 
 struct HourlyForecastResponse: Decodable {
-    let succes: Bool
+    let success: Bool
     let error: String?
 
     let response: [PeriodsHourly]?
@@ -21,7 +21,7 @@ struct PeriodsHourly: Decodable {
 }
 
 struct PeriodHour: Decodable {
-    let validTime: Date?
+    let validTime: String
     let maxTempC: Int
     let icon: String
 }
