@@ -10,11 +10,12 @@ import Foundation
 import Alamofire
 import Moya
 
+
 class WeatherService {
     
     private let provider = MoyaProvider<AerisweatherForecastAPIEndpoint>()
     
-    public func getCurrentWeather(lat: Double, long: Double, completion: @escaping (TopViewType) -> Void) {
+    public func getCurrentWeather(lat: Double, long: Double, completion: @escaping (Result<TopViewType,ErrorTypeServise>) -> Void) {
         
         provider.request(.getCurrentWeather(latitude: lat, longitude: long)) { (result) in
             
@@ -22,32 +23,41 @@ class WeatherService {
                 
             case .success(let response):
                 
-                let res = try? response.map(CurrentWeatherResponse.self)
-                
-                guard let placeName = res?.valueResponse.first?.placeLocation.nameCity,
+                do {
                     
-                    let date = res?.valueResponse.first?.periods.first?.dateTimeISO,
+                    let res = try response.map(CurrentWeatherResponse.self)
                     
-                    let temp = res?.valueResponse.first?.periods.first?.currentTemp,
+                    guard let placeName = res.valueResponse.first?.placeLocation.nameCity,
+                        
+                        let date = res.valueResponse.first?.periods.first?.dateTimeISO,
+                        
+                        let temp = res.valueResponse.first?.periods.first?.currentTemp,
+                        
+                        let humidity = res.valueResponse.first?.periods.first?.humidity,
+                        
+                        let wind = res.valueResponse.first?.periods.first?.windSpeedKPH,
+                        
+                        let icon = res.valueResponse.first?.periods.first?.icon else {
+                            
+                            completion(.failure(.invalidValues))
+                            return
+                    }
                     
-                    let humidity = res?.valueResponse.first?.periods.first?.humidity,
+                    let currentWind = Int(wind * 0.27)
                     
-                    let wind = res?.valueResponse.first?.periods.first?.windSpeedKPH,
+                    let topViewType = TopViewType(
+                        location: placeName,
+                        date: date,
+                        image: icon,
+                        temperature: String(Int(temp)),
+                        humidity: String(humidity),
+                        wind: String(currentWind)
+                    )
                     
-                    let icon = res?.valueResponse.first?.periods.first?.icon else { return }
-                
-                let currentWind = Int(wind * 0.27)
-                
-                let topViewType = TopViewType(
-                    location: placeName,
-                    date: date,
-                    image: icon,
-                    temperature: String(Int(temp)),
-                    humidity: String(humidity),
-                    wind: String(currentWind)
-                )
-                
-                completion(topViewType)
+                    completion(.success(topViewType))
+                } catch {
+                    completion(.failure(.invalidRequest))
+                }
                 
             case .failure(let error):
                 debugPrint("Current request error: \(error)")

@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Moya
 import CoreLocation
-
+import Reachability
 
 class MainViewController: ViewController<MainViewModel> {
     
@@ -32,17 +32,22 @@ class MainViewController: ViewController<MainViewModel> {
     
     private let manager = CLLocationManager()
     
+    private let notifCenter = NotificationCenter()
+    
+    private let reachability = try! Reachability()
+    
     // MARK: - Life cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
         
     }
     
     override func viewDidAppear(_ animated: Bool) {
         self.chekLocationEnabled()
         self.checkAutorization()
-        
+
         super.viewDidAppear(animated)
     }
     
@@ -79,8 +84,6 @@ class MainViewController: ViewController<MainViewModel> {
         super.setupView()
         
         view.backgroundColor = Colors.appBackground
-        
-        manager.delegate = self
     }
     
     override func setupCollectionView() {
@@ -147,6 +150,42 @@ class MainViewController: ViewController<MainViewModel> {
     }
     
     override func binding() {
+        
+        self.viewModel.anErrorHasOccurred = { [weak self] (error) in
+            
+            guard let self = self else { return }
+            
+            switch error {
+            case .invalidRequest:
+                
+                self.showAlert(title: ErrorTypeServise.invalidRequest.rawValue,
+                               message: nil,
+                               cancelActionTitle: "Ok",
+                               actionTitle: nil,
+                               url: nil
+                )
+                
+            case .invalidValues:
+                
+                self.showAlert(title: ErrorTypeServise.invalidValues.rawValue,
+                               message: nil,
+                               cancelActionTitle: "Ok",
+                               actionTitle: nil,
+                               url: nil
+                )
+            case .internetDisconnect:
+                
+                self.showAlert(title: ErrorTypeServise.internetDisconnect.rawValue,
+                               message: "You must to turn on the internet",
+                               cancelActionTitle: "Ok", actionTitle: "Settings",
+                               url: URL(string: "App-Prefs:root=LOCATION_SERVICES")
+                )
+                
+            case .serviceLocationDisabled:
+                break
+            }
+            
+        }
         
         self.viewModel.onDidChangeCurrentValues = { [weak self] (topViewType) in
             
@@ -222,9 +261,18 @@ class MainViewController: ViewController<MainViewModel> {
         }
     }
 
-    private func showAlert(title: String, message: String?, cancelActionTitle: String, actionTitle: String?, url: URL?) {
-        
+    private func showAlert(
+        title: String,
+        message: String?,
+        cancelActionTitle: String,
+        actionTitle: String?,
+        url: URL?
+    ) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        let alertActionNegative = UIAlertAction(title: cancelActionTitle, style: .cancel, handler: nil)
+        
+        alert.addAction(alertActionNegative)
         
         if let actionTitle = actionTitle {
             let alertActionPozitive = UIAlertAction(title: actionTitle, style: .default) { (alert) in
@@ -234,10 +282,6 @@ class MainViewController: ViewController<MainViewModel> {
             }
             alert.addAction(alertActionPozitive)
         }
-        
-        let alertActionNegative = UIAlertAction(title: cancelActionTitle, style: .cancel, handler: nil)
-        
-        alert.addAction(alertActionNegative)
         
         present(alert, animated: true)
     }
@@ -343,6 +387,3 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-extension MainViewController: CLLocationManagerDelegate {
-    
-}

@@ -66,6 +66,7 @@
 		ECE99AA725E3C503003170F2 /* WeatherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE99AA625E3C503003170F2 /* WeatherService.swift */; };
 		ECE99AA925E5C1AA003170F2 /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = ECE99AA825E5C1A9003170F2 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		ECE99AAC25E69DB6003170F2 /* ErrorTypeServise.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE99AAB25E69DB6003170F2 /* ErrorTypeServise.swift */; };
+		ECE99AAE25E6FE73003170F2 /* Reachability.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = ECE99AAD25E6FE72003170F2 /* Reachability.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -77,6 +78,7 @@
 			files = (
 				EC34D43A25C5FBBF004CC42C /* SnapKit.framework in Embed Frameworks */,
 				ECE99A6D25D96957003170F2 /* Moya.framework in Embed Frameworks */,
+				ECE99AAE25E6FE73003170F2 /* Reachability.framework in Embed Frameworks */,
 				ECE99AA925E5C1AA003170F2 /* Alamofire.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -124,7 +126,6 @@
 		ECE99A5B25D83DA1003170F2 /* TextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
 		ECE99A5E25D85B60003170F2 /* ResultFilteredCities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultFilteredCities.swift; sourceTree = "<group>"; };
 		ECE99A6225D872C8003170F2 /* ResultTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultTableViewCell.swift; sourceTree = "<group>"; };
-		ECE99A6625D962E1003170F2 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Alamofire.framework; sourceTree = "<group>"; };
 		ECE99A6A25D9665A003170F2 /* RxMoya.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxMoya.framework; path = Carthage/Build/iOS/RxMoya.framework; sourceTree = "<group>"; };
 		ECE99A6C25D96956003170F2 /* Moya.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Moya.framework; path = Carthage/Build/iOS/Moya.framework; sourceTree = "<group>"; };
 		ECE99A7025DC5C07003170F2 /* TopViewType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopViewType.swift; sourceTree = "<group>"; };
@@ -147,6 +148,7 @@
 		ECE99AA625E3C503003170F2 /* WeatherService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherService.swift; sourceTree = "<group>"; };
 		ECE99AA825E5C1A9003170F2 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		ECE99AAB25E69DB6003170F2 /* ErrorTypeServise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorTypeServise.swift; sourceTree = "<group>"; };
+		ECE99AAD25E6FE72003170F2 /* Reachability.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Reachability.framework; path = Carthage/Build/iOS/Reachability.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -164,7 +166,6 @@
 		EC34D41425C5E5CB004CC42C = {
 			isa = PBXGroup;
 			children = (
-				ECE99AA825E5C1A9003170F2 /* Alamofire.framework */,
 				EC34D41F25C5E5CB004CC42C /* MyWeatherApp */,
 				EC34D41E25C5E5CB004CC42C /* Products */,
 				EC34D43725C5FBBF004CC42C /* Frameworks */,
@@ -197,9 +198,10 @@
 		EC34D43725C5FBBF004CC42C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				ECE99AAD25E6FE72003170F2 /* Reachability.framework */,
+				ECE99AA825E5C1A9003170F2 /* Alamofire.framework */,
 				ECE99A6C25D96956003170F2 /* Moya.framework */,
 				ECE99A6A25D9665A003170F2 /* RxMoya.framework */,
-				ECE99A6625D962E1003170F2 /* Alamofire.framework */,
 				EC34D43825C5FBBF004CC42C /* SnapKit.framework */,
 			);
 			name = Frameworks;
@@ -556,6 +558,7 @@
 				"$(SRCROOT)/Carthage/Build/iOS/SnapKit.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Moya.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Reachability.framework",
 			);
 			outputFileListPaths = (
 			);

@@ -30,6 +30,8 @@ class MainViewModel: ViewModel {
     
     var onDidChangeDaylyForecast: (() -> Void)!
     
+    var anErrorHasOccurred: ((ErrorTypeServise) -> Void)!
+    
 // MARK: - Init
     
     init(latitude: Double?, longitude: Double?) {
@@ -62,7 +64,16 @@ class MainViewModel: ViewModel {
     func resumeFetch(lat: Double, long: Double) {
         
         self.service.getCurrentWeather(lat: lat, long: long) { result in
-            self.onDidChangeCurrentValues(result)
+            switch result {
+                
+            case .success(let topViewType):
+                
+                self.onDidChangeCurrentValues(topViewType)
+                
+            case .failure(let error):
+                
+                self.anErrorHasOccurred(error)
+            }
         }
         
         service.getHourlyForecast(lat: lat, long: long) { result in

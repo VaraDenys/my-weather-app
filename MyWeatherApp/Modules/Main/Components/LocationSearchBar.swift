@@ -15,7 +15,7 @@ class LocationSearchBar: UIControl {
     private let locationLabel = UILabel()
     
     var location: String {
-        get { return self.locationLabel.text! }
+        get { return self.locationLabel.text ?? "" }
         set { self.locationLabel.text = newValue.capitalized }
     }
     

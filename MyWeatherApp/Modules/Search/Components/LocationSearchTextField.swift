@@ -44,12 +44,20 @@ class LocationSearchTextField: UIControl {
     
     private func setupView() {
         textField.backgroundColor = Colors.lightTintColorImage
+
         textField.font = .systemFont(ofSize: 20)
+
         textField.textColor = Colors.darkFont
+
         textField.textAlignment = .left
+
         textField.setEdgePadding(8)
-        
+
         textField.layer.cornerRadius = 5
+        
+        textField.autocorrectionType = .no
+        
+        textField.returnKeyType = .search
     }
     
     private func setupConstraints() {

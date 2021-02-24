@@ -7,3 +7,14 @@
 //
 
 import Foundation
+
+
+enum ErrorTypeServise: String, Error {
+    
+    case internetDisconnect = "Internet disconnect"
+    case serviceLocationDisabled = "Service location disabled"
+    
+    case invalidRequest = "Invalid request"
+    case invalidValues = "Invalid value"
+    
+}

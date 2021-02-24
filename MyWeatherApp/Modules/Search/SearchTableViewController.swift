@@ -134,7 +134,6 @@ class SearchTableViewController: ViewController<SearchTableViewModel> {
         
         self.viewModel.resumeFetch(searchText: requestLocation)
     }
-    
 }
 
 // MARK: - Extension
@@ -143,9 +142,9 @@ extension SearchTableViewController: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
-        let requestLocation = searchNavigationTextField.location
+        requestLocation()
         
-        self.viewModel.resumeFetch(searchText: requestLocation)
+        textField.resignFirstResponder()
         
         return true
     }
