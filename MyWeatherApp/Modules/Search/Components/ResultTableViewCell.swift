@@ -11,6 +11,8 @@ import SnapKit
 
 class ResultTableViewCell: TableViewCell {
     
+// MARK: - Properties
+    
     private var lat: Double = 0
     
     private var long: Double = 0
@@ -26,6 +28,8 @@ class ResultTableViewCell: TableViewCell {
     var location: String {
         get { return self.citiesLabel.text ?? "" }
     }
+    
+// MARK: - Override func
     
     override func setupConstraints() {
         super.setupConstraints()
@@ -46,6 +50,8 @@ class ResultTableViewCell: TableViewCell {
         stackView.axis = .horizontal
         stackView.spacing = 4
     }
+    
+// MARK: - Public func
     
     func configure(nameCity: String, nameCountry: String, lat: Double, long: Double) {
         self.citiesLabel.text = "\(nameCity),"

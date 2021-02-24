@@ -8,14 +8,9 @@
 
 import UIKit
 
-//enum HourlyType: CaseIterable {
-//
-//    case hour
-//    case image
-//    case temperature
-//}
 
 struct HourlyType {
+    
     var hour: String
     var image: String
     var temperature: Int

@@ -8,30 +8,57 @@
 
 import Foundation
 
-struct DayString {
-    var dayOfTheWeek: Int
+struct DateString {
     
-    func getStringDate() -> String {
-        var day: String
-        switch self.dayOfTheWeek {
+    static func weekDay(dayNumber: Int) -> String {
+        switch dayNumber {
         case 1:
-            day = "Sun"
+            return "Sun"
         case 2:
-            day = "Mon"
+            return "Mon"
         case 3:
-            day = "Tue"
+            return "Tue"
         case 4:
-            day = "Wed"
+            return"Wed"
         case 5:
-            day = "Thu"
+            return "Thu"
         case 6:
-            day = "Fri"
+            return "Fri"
         case 7:
-            day = "Sat"
+            return "Sat"
         default:
-            day = ""
+            return ""
         }
-        return day
     }
     
+    static func month(monthNumber: Int) -> String {
+        switch monthNumber {
+        case 1:
+            return "january"
+        case 2:
+            return "february"
+        case 3:
+            return "March"
+        case 4:
+            return "April"
+        case 5:
+            return "May"
+        case 6:
+            return "june"
+        case 7:
+            return "july"
+        case 8:
+            return "august"
+        case 9:
+            return "september"
+        case 10:
+            return "october"
+        case 11:
+            return "november"
+        case 12:
+            return "december"
+        default:
+            return ""
+        }
+    }
 }

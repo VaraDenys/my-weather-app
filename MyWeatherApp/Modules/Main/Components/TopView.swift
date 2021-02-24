@@ -70,8 +70,8 @@ class TopView: View {
         let weekday = calendar.component(.weekday, from: date)
         let day = calendar.component(.day, from: date)
         let month = calendar.component(.month, from: date)
-        let dayStr = DayString(dayOfTheWeek: weekday).getStringDate()
-        let monthStr = MonthString(month: month).getString()
+        let dayStr = DateString.weekDay(dayNumber: weekday)
+        let monthStr = DateString.month(monthNumber: month)
         let dateStr = "\(dayStr), \(day) \(monthStr)"
         
         dateView.text = dateStr
@@ -88,11 +88,11 @@ class TopView: View {
         // MARK: - User Interaction
     
     public func configure(date: String, image: String, temp: String, humid: String, wind: String) {
-//        self.dateView.text = date
+        
         self.forecastImageView.image = UIImage(named: image)
-        self.temperatureView.configure(icon: "thermometer", labelText: temp)
-        self.humidityView.configure(icon: "drop", labelText: humid)
-        self.windView.configure(icon: "wind", labelText: wind)
+        self.temperatureView.configure(icon: "thermometer", labelText: "\(temp)°")
+        self.humidityView.configure(icon: "drop", labelText: "\(humid)%")
+        self.windView.configure(icon: "wind", labelText: "\(wind) m/sec")
     }
 }
 

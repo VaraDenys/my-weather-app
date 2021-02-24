@@ -9,6 +9,7 @@
 import Foundation
 
 struct ResultFilteredCities {
+    
     var nameCities: String
     var nameCountry: String
     

@@ -17,33 +17,36 @@ class WeatherService {
     public func getCurrentWeather(lat: Double, long: Double, completion: @escaping (TopViewType) -> Void) {
         
         provider.request(.getCurrentWeather(latitude: lat, longitude: long)) { (result) in
+            
             switch result {
                 
             case .success(let response):
+                
+                let res = try? response.map(CurrentWeatherResponse.self)
+                
+                guard let placeName = res?.valueResponse.first?.placeLocation.nameCity,
                     
-                    let res = try? response.map(CurrentWeatherResponse.self)
+                    let date = res?.valueResponse.first?.periods.first?.dateTimeISO,
                     
-                    guard let placeName = res?.valueResponse.first?.placeLocation.nameCity,
-                        
-                        let date = res?.valueResponse.first?.periods.first?.dateTimeISO,
-                        
-                        let temp = res?.valueResponse.first?.periods.first?.currentTemp,
-                        
-                        let humidity = res?.valueResponse.first?.periods.first?.humidity,
-                        
-                        let wind = res?.valueResponse.first?.periods.first?.windSpeedKPH,
-                        
-                        let icon = res?.valueResponse.first?.periods.first?.icon else { return }
+                    let temp = res?.valueResponse.first?.periods.first?.currentTemp,
                     
-                    let topViewType = TopViewType(
-                        location: placeName,
-                        date: date,
-                        image: icon,
-                        temperature: String(temp),
-                        humidity: String(humidity),
-                        wind: String(wind)
-                    )
+                    let humidity = res?.valueResponse.first?.periods.first?.humidity,
                     
+                    let wind = res?.valueResponse.first?.periods.first?.windSpeedKPH,
+                    
+                    let icon = res?.valueResponse.first?.periods.first?.icon else { return }
+                
+                let currentWind = Int(wind * 0.27)
+                
+                let topViewType = TopViewType(
+                    location: placeName,
+                    date: date,
+                    image: icon,
+                    temperature: String(Int(temp)),
+                    humidity: String(humidity),
+                    wind: String(currentWind)
+                )
+                
                 completion(topViewType)
                 
             case .failure(let error):
@@ -60,31 +63,31 @@ class WeatherService {
                 
             case .success(let response):
                 
-//                do {
+                //                do {
+                
+                let res = try? response.map(HourlyForecastResponse.self)
+                
+                guard let periods = res?.response?.first?.periods else { return }
+                
+                var hourlyArray: [HourlyType] = []
+                
+                for index in 0...periods.count - 1 {
                     
-                    let res = try? response.map(HourlyForecastResponse.self)
+                    let time = periods[index].validTime
                     
-                    guard let periods = res?.response?.first?.periods else { return }
+                    guard let range = time.range(of: "T") else { return }
                     
-                    var hourlyArray: [HourlyType] = []
+                    var correctTime = time[range.upperBound...].trimmingCharacters(in: .whitespaces)
                     
-                    for index in 0...periods.count - 1 {
-                        
-                        let time = periods[index].validTime
-                        
-                        guard let range = time.range(of: "T") else { return }
-                        
-                        var correctTime = time[range.upperBound...].trimmingCharacters(in: .whitespaces)
-                        
-                        correctTime.removeLast(9)
-                        
-                        let temperature = periods[index].maxTempC
-                        
-                        let icon = periods[index].icon
-                        
-                        hourlyArray.append(HourlyType(hour: correctTime, image: icon, temperature: temperature))
-                    }
-//
+                    correctTime.removeLast(9)
+                    
+                    let temperature = periods[index].maxTempC
+                    
+                    let icon = periods[index].icon
+                    
+                    hourlyArray.append(HourlyType(hour: correctTime, image: icon, temperature: temperature))
+                }
+                //
                 completion(hourlyArray)
                 
             case .failure(let error):
@@ -117,7 +120,7 @@ class WeatherService {
                     
                     let weekDay = Calendar.current.component(.weekday, from: Date(timeIntervalSince1970: Double(time)))
                     
-                    let weekdayString = DayString(dayOfTheWeek: weekDay).getStringDate()
+                    let weekdayString = DateString.weekDay(dayNumber: weekDay)
                     
                     daylyArray.append(DayForecastType(
                         dayOfTheWeek: weekdayString,
@@ -129,7 +132,7 @@ class WeatherService {
                 completion(daylyArray)
                 
             case .failure(let error):
-            debugPrint("Dayly request error: \(error)")
+                debugPrint("Dayly request error: \(error)")
             }
         }
     }
@@ -165,5 +168,28 @@ class WeatherService {
             
         }
         
+    }
+    
+    public func getPlaceByCoordinate(lat: Double, long: Double, completion: @escaping ([Double]) -> Void) {
+        
+        provider.request(.getPlaceByCoordinate(latitude: lat, longitude: long)) { (result) in
+            switch result {
+            case .success(let response):
+                
+                let res = try? response.map(PlacesByCoordinate.self)
+                
+                guard let lat = res?.response?.first?.coordinateCorrect.lat,
+                    let long = res?.response?.first?.coordinateCorrect.long else { return }
+                
+                let resutArray = [lat, long]
+                
+                completion(resutArray)
+                
+            case .failure(let error):
+                
+                debugPrint("Place coordinate request error: \(error)")
+                
+            }
+        }
     }
 }

@@ -36,6 +36,14 @@ class MainViewController: ViewController<MainViewModel> {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        self.chekLocationEnabled()
+        self.checkAutorization()
+        
+        super.viewDidAppear(animated)
     }
     
     // MARK: - Override func
@@ -120,6 +128,24 @@ class MainViewController: ViewController<MainViewModel> {
         targetButton.tintColor = Colors.lightTintColorImage
     }
     
+    override func setupLocation() {
+        
+        guard let lat = self.viewModel.lat, let long = self.viewModel.long else {
+            
+            self.manager.desiredAccuracy = kCLLocationAccuracyBest
+            
+            self.manager.startUpdatingLocation()
+            
+            guard let lat = self.manager.location?.coordinate.latitude else { return }
+            guard let long = self.manager.location?.coordinate.longitude else { return }
+            
+            self.viewModel.resumeFetch(lat: lat, long: long)
+            return
+        }
+        
+        self.viewModel.resumeFetch(lat: lat, long: long)
+    }
+    
     override func binding() {
         
         self.viewModel.onDidChangeCurrentValues = { [weak self] (topViewType) in
@@ -149,6 +175,8 @@ class MainViewController: ViewController<MainViewModel> {
             guard let self = self else { return }
             
             self.tableView.reloadData()
+            
+            self.manager.stopUpdatingLocation()
         }
         
         locationButton.target = self
@@ -160,22 +188,58 @@ class MainViewController: ViewController<MainViewModel> {
         targetButton.action = #selector(actionTargetButton(sender:))
     }
     
-    override func setupLocation() {
+// MARK: - Private func
+    
+    private func chekLocationEnabled() {
+        if !CLLocationManager.locationServicesEnabled() {
+            showAlert(
+                title: "Location serice disabled",
+                message: "Do you want to turn it on?",
+                cancelActionTitle: "No",
+                actionTitle: "Settings",
+                url: URL(string: "App-Prefs:root=LOCATION_SERVICES")
+            )
+        }
+    }
+    
+    private func checkAutorization() {
         
-        guard let lat = self.viewModel.lat, let long = self.viewModel.long else {
+        switch CLLocationManager.authorizationStatus() {
             
-            self.manager.desiredAccuracy = kCLLocationAccuracyBest
-            self.manager.requestWhenInUseAuthorization()
-            self.manager.startUpdatingLocation()
-            
-            guard let lat = self.manager.location?.coordinate.latitude else { return }
-            guard let long = self.manager.location?.coordinate.longitude else { return }
-            
-            self.viewModel.resumeFetch(lat: lat, long: long)
-            return
+        case .notDetermined:
+            manager.requestWhenInUseAuthorization()
+
+        case .denied:
+            showAlert(
+                title: "You have denied the use of the location",
+                message: "Want to change it?",
+                cancelActionTitle: "No",
+                actionTitle: "Settings",
+                url: URL(string: UIApplication.openSettingsURLString)
+            )
+        default:
+            break
+        }
+    }
+
+    private func showAlert(title: String, message: String?, cancelActionTitle: String, actionTitle: String?, url: URL?) {
+        
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        if let actionTitle = actionTitle {
+            let alertActionPozitive = UIAlertAction(title: actionTitle, style: .default) { (alert) in
+                if let url = url {
+                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                }
+            }
+            alert.addAction(alertActionPozitive)
         }
         
-        self.viewModel.resumeFetch(lat: lat, long: long)
+        let alertActionNegative = UIAlertAction(title: cancelActionTitle, style: .cancel, handler: nil)
+        
+        alert.addAction(alertActionNegative)
+        
+        present(alert, animated: true)
     }
     
 // MARK: - User interaction
@@ -203,9 +267,11 @@ class MainViewController: ViewController<MainViewModel> {
     
     @objc func actionTargetButton(sender: UIBarButtonItem) {
         
-        manager.desiredAccuracy = kCLLocationAccuracyBest
+        self.chekLocationEnabled()
         
-        manager.requestWhenInUseAuthorization()
+        self.checkAutorization()
+        
+        manager.desiredAccuracy = kCLLocationAccuracyBest
         
         manager.startUpdatingLocation()
         
@@ -217,6 +283,8 @@ class MainViewController: ViewController<MainViewModel> {
         self.viewModel.resumeFetch(lat: lat, long: lon)
     }
 }
+
+// MARK: - Extension
 
 extension MainViewController: UICollectionViewDataSource {
     
@@ -273,21 +341,8 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
                    heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 65
     }
-    
-    func tableView(_ tableView: UITableView,
-                   didSelectRowAt indexPath: IndexPath) {
-        guard let cell = tableView.cellForRow(at: indexPath) as? DayForecastCell else { return }
-        cell.setSelectColorAndShadow(isSelected: cell.isSelected)
-    }
-    
-    func tableView(_ tableView: UITableView,
-                   didDeselectRowAt indexPath: IndexPath) {
-        guard let cell = tableView.cellForRow(at: indexPath) as? DayForecastCell else { return }
-        cell.setSelectColorAndShadow(isSelected: cell.isSelected)
-    }
 }
 
 extension MainViewController: CLLocationManagerDelegate {
-    
     
 }

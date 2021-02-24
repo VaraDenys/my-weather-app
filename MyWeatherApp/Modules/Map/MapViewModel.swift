@@ -11,36 +11,19 @@ import Moya
 
 class MapViewModel: ViewModel {
     
-    private let provider = MoyaProvider<AerisweatherForecastAPIEndpoint>()
+// MARK: - Properties
     
-    var onDidChangeLocation: (([Double]) -> Void)?
+    private let service = WeatherService()
+    
+    var onDidChangeLocation: (([Double]) -> Void)!
 
-    func requestLocationByCoordinate(latitude: Double, longitude: Double) {
+// MARK: - Public func
+    
+    func requestLocationByCoordinate(lat: Double, long: Double) {
         
-        provider.request(.getPlaceByCoordinate(latitude: latitude, longitude: longitude)) { [weak self] (result) in
+        service.getPlaceByCoordinate(lat: lat, long: long) { (array) in
             
-            switch result {
-            case .success(let response):
-                
-                let res = try? response.map(PlacesByCoordinate.self)
-
-                guard let location = res?.response?.first?.locationByCoordinate.name else { return }
-                
-                guard let lat = res?.response?.first?.coordinateCorrect.lat else { return }
-                guard let long = res?.response?.first?.coordinateCorrect.long else { return }
-                
-                self?.onDidChangeLocation?([lat, long])
-                
-                debugPrint("first request \(location)")
-                
-            case .failure(let error):
-                
-                debugPrint(error.errorDescription ?? "Unknown error")
-                
-                return
-            }
+            self.onDidChangeLocation(array)
         }
-
     }
-    
 }

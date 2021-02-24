@@ -21,6 +21,14 @@ class SearchTableViewController: ViewController<SearchTableViewModel> {
     
     private let tableView = UITableView()
     
+    private var requestLocation: (() -> Void)!
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        searchNavigationTextField.becomeFirstResponder()
+    }
+    
 //    MARK: - Override func
 
     override func setupConstraints() {
@@ -87,12 +95,22 @@ class SearchTableViewController: ViewController<SearchTableViewModel> {
         let searchText = self.viewModel.location
         
         self.viewModel.resumeFetch(searchText: searchText)
-        
     }
     
     override func binding() {
         
-        self.viewModel.onDidChangeValues = {
+        requestLocation = { [weak self] in
+            
+            guard let self = self else { return }
+            
+            self.viewModel.resumeFetch(searchText: self.searchNavigationTextField.location)
+            
+        }
+        
+        self.viewModel.onDidChangeValues = { [weak self] in
+            
+            guard let self = self else { return }
+            
             self.tableView.reloadData()
         }
         
@@ -103,7 +121,7 @@ class SearchTableViewController: ViewController<SearchTableViewModel> {
         loupeButton.action = #selector(loupeAction(sender:))
     }
     
-//    MARK: - User Interraction
+// MARK: - User Interraction
     
     @objc func backAction(sender: UIBarButtonItem) {
         
@@ -119,13 +137,9 @@ class SearchTableViewController: ViewController<SearchTableViewModel> {
     
 }
 
-//    MARK: - Extension
+// MARK: - Extension
 
 extension SearchTableViewController: UITextFieldDelegate {
-    
-    override func becomeFirstResponder() -> Bool {
-        return true
-    }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
@@ -138,9 +152,7 @@ extension SearchTableViewController: UITextFieldDelegate {
     
     func textFieldDidChangeSelection(_ textField: UITextField) {
         
-        let requestLocation = searchNavigationTextField.location
-        
-        self.viewModel.resumeFetch(searchText: requestLocation)
+        requestLocation()
     }
 }
 
@@ -169,7 +181,6 @@ extension SearchTableViewController: UITableViewDelegate, UITableViewDataSource 
             lat: item.lat,
             long: item.long
         )
-
         return cell
     }
     

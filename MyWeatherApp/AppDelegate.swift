@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import CoreLocation
 //import Moya
 
 @UIApplicationMain
@@ -40,7 +41,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window.rootViewController = navigationController
         window.makeKeyAndVisible()
     }
-
 
     // MARK: - Core Data stack
 

@@ -10,6 +10,7 @@ import UIKit
 import Alamofire
 
 enum IndicatorsIconType: CaseIterable {
+    
     case temperature
     case humidity
     case wind

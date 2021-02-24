@@ -9,6 +9,8 @@
 import UIKit
 
 class LocationSearchTextField: UIControl {
+    
+// MARK: - Properties
 
     private var textField = TextField()
     
@@ -26,6 +28,8 @@ class LocationSearchTextField: UIControl {
       return UIView.layoutFittingExpandedSize
     }
     
+// MARK: - Override init
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupConstraints()
@@ -36,8 +40,16 @@ class LocationSearchTextField: UIControl {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public func setTitle(location: String) {
-        self.textField.text = location
+// MARK: - Private func
+    
+    private func setupView() {
+        textField.backgroundColor = Colors.lightTintColorImage
+        textField.font = .systemFont(ofSize: 20)
+        textField.textColor = Colors.darkFont
+        textField.textAlignment = .left
+        textField.setEdgePadding(8)
+        
+        textField.layer.cornerRadius = 5
     }
     
     private func setupConstraints() {
@@ -48,16 +60,11 @@ class LocationSearchTextField: UIControl {
             $0.width.equalToSuperview()
             $0.top.bottom.equalToSuperview().inset(8)
         })
-        
     }
     
-    private func setupView() {
-        textField.backgroundColor = Colors.lightTintColorImage
-        textField.font = .systemFont(ofSize: 20)
-        textField.textColor = Colors.darkFont
-        textField.textAlignment = .left
-        textField.setEdgePadding(8)
-        
-        textField.layer.cornerRadius = 5
+// MARK: - Public func
+    
+    public func setTitle(location: String) {
+        self.textField.text = location
     }
 }

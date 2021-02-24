@@ -9,6 +9,7 @@
 import UIKit
 
 struct DayForecastType {
+    
     var dayOfTheWeek: String
     var temperature: String
     var image: String

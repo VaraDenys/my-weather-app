@@ -31,7 +31,6 @@
 		EC34D48025CC912B004CC42C /* HourlyType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC34D47F25CC912B004CC42C /* HourlyType.swift */; };
 		EC34D48225CCA58D004CC42C /* DayForecastCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC34D48125CCA58D004CC42C /* DayForecastCell.swift */; };
 		EC34D48425CCA5AD004CC42C /* DayForecastType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC34D48325CCA5AD004CC42C /* DayForecastType.swift */; };
-		EC34D48625D29134004CC42C /* IndicatorsStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC34D48525D29134004CC42C /* IndicatorsStackView.swift */; };
 		ECE99A3B25D49A08003170F2 /* AerisweatherForecastAPIEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE99A3A25D49A08003170F2 /* AerisweatherForecastAPIEndpoint.swift */; };
 		ECE99A4025D5BD7C003170F2 /* CurrentWeatherResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE99A3F25D5BD7C003170F2 /* CurrentWeatherResponse.swift */; };
 		ECE99A4225D5C0B3003170F2 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE99A4125D5C0B3003170F2 /* Response.swift */; };
@@ -46,7 +45,6 @@
 		ECE99A5C25D83DA1003170F2 /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE99A5B25D83DA1003170F2 /* TextField.swift */; };
 		ECE99A5F25D85B60003170F2 /* ResultFilteredCities.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE99A5E25D85B60003170F2 /* ResultFilteredCities.swift */; };
 		ECE99A6325D872C8003170F2 /* ResultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE99A6225D872C8003170F2 /* ResultTableViewCell.swift */; };
-		ECE99A6725D962E2003170F2 /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = ECE99A6625D962E1003170F2 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		ECE99A6D25D96957003170F2 /* Moya.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = ECE99A6C25D96956003170F2 /* Moya.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		ECE99A7125DC5C07003170F2 /* TopViewType.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE99A7025DC5C07003170F2 /* TopViewType.swift */; };
 		ECE99A7425DD1D4A003170F2 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE99A7325DD1D4A003170F2 /* MapViewModel.swift */; };
@@ -60,13 +58,13 @@
 		ECE99A8A25DEF873003170F2 /* IndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE99A8925DEF872003170F2 /* IndicatorView.swift */; };
 		ECE99A8C25DF125E003170F2 /* CoordinateLatLong.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE99A8B25DF125D003170F2 /* CoordinateLatLong.swift */; };
 		ECE99A8F25DF23D3003170F2 /* DayString.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE99A8E25DF23D2003170F2 /* DayString.swift */; };
-		ECE99A9125DF2D84003170F2 /* MonthString.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE99A9025DF2D84003170F2 /* MonthString.swift */; };
 		ECE99A9525E12B67003170F2 /* WeatherCodeImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE99A9425E12B66003170F2 /* WeatherCodeImage.swift */; };
 		ECE99A9825E174BB003170F2 /* DaylyForecastResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE99A9725E174BA003170F2 /* DaylyForecastResponse.swift */; };
 		ECE99A9A25E175AE003170F2 /* ResponseDayly.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE99A9925E175AE003170F2 /* ResponseDayly.swift */; };
 		ECE99A9C25E175C5003170F2 /* PeriodDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE99A9B25E175C5003170F2 /* PeriodDay.swift */; };
 		ECE99AA525E26FE2003170F2 /* HourlyForecastResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE99AA425E26FE2003170F2 /* HourlyForecastResponse.swift */; };
 		ECE99AA725E3C503003170F2 /* WeatherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE99AA625E3C503003170F2 /* WeatherService.swift */; };
+		ECE99AA925E5C1AA003170F2 /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = ECE99AA825E5C1A9003170F2 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -77,8 +75,8 @@
 			dstSubfolderSpec = 10;
 			files = (
 				EC34D43A25C5FBBF004CC42C /* SnapKit.framework in Embed Frameworks */,
-				ECE99A6725D962E2003170F2 /* Alamofire.framework in Embed Frameworks */,
 				ECE99A6D25D96957003170F2 /* Moya.framework in Embed Frameworks */,
+				ECE99AA925E5C1AA003170F2 /* Alamofire.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -111,7 +109,6 @@
 		EC34D47F25CC912B004CC42C /* HourlyType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyType.swift; sourceTree = "<group>"; };
 		EC34D48125CCA58D004CC42C /* DayForecastCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayForecastCell.swift; sourceTree = "<group>"; };
 		EC34D48325CCA5AD004CC42C /* DayForecastType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayForecastType.swift; sourceTree = "<group>"; };
-		EC34D48525D29134004CC42C /* IndicatorsStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndicatorsStackView.swift; sourceTree = "<group>"; };
 		ECE99A3A25D49A08003170F2 /* AerisweatherForecastAPIEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AerisweatherForecastAPIEndpoint.swift; sourceTree = "<group>"; };
 		ECE99A3F25D5BD7C003170F2 /* CurrentWeatherResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWeatherResponse.swift; sourceTree = "<group>"; };
 		ECE99A4125D5C0B3003170F2 /* Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
@@ -141,13 +138,13 @@
 		ECE99A8925DEF872003170F2 /* IndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndicatorView.swift; sourceTree = "<group>"; };
 		ECE99A8B25DF125D003170F2 /* CoordinateLatLong.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateLatLong.swift; sourceTree = "<group>"; };
 		ECE99A8E25DF23D2003170F2 /* DayString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayString.swift; sourceTree = "<group>"; };
-		ECE99A9025DF2D84003170F2 /* MonthString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthString.swift; sourceTree = "<group>"; };
 		ECE99A9425E12B66003170F2 /* WeatherCodeImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherCodeImage.swift; sourceTree = "<group>"; };
 		ECE99A9725E174BA003170F2 /* DaylyForecastResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaylyForecastResponse.swift; sourceTree = "<group>"; };
 		ECE99A9925E175AE003170F2 /* ResponseDayly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseDayly.swift; sourceTree = "<group>"; };
 		ECE99A9B25E175C5003170F2 /* PeriodDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodDay.swift; sourceTree = "<group>"; };
 		ECE99AA425E26FE2003170F2 /* HourlyForecastResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyForecastResponse.swift; sourceTree = "<group>"; };
 		ECE99AA625E3C503003170F2 /* WeatherService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherService.swift; sourceTree = "<group>"; };
+		ECE99AA825E5C1A9003170F2 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -165,6 +162,7 @@
 		EC34D41425C5E5CB004CC42C = {
 			isa = PBXGroup;
 			children = (
+				ECE99AA825E5C1A9003170F2 /* Alamofire.framework */,
 				EC34D41F25C5E5CB004CC42C /* MyWeatherApp */,
 				EC34D41E25C5E5CB004CC42C /* Products */,
 				EC34D43725C5FBBF004CC42C /* Frameworks */,
@@ -279,7 +277,6 @@
 			isa = PBXGroup;
 			children = (
 				EC34D45525C6CA87004CC42C /* TopView.swift */,
-				EC34D48525D29134004CC42C /* IndicatorsStackView.swift */,
 				EC34D47B25CC8E6F004CC42C /* HourlyCollectionViewCell.swift */,
 				EC34D48125CCA58D004CC42C /* DayForecastCell.swift */,
 				ECE99A8425DE6370003170F2 /* LocationSearchBar.swift */,
@@ -447,7 +444,6 @@
 			isa = PBXGroup;
 			children = (
 				ECE99A8E25DF23D2003170F2 /* DayString.swift */,
-				ECE99A9025DF2D84003170F2 /* MonthString.swift */,
 			);
 			path = Date;
 			sourceTree = "<group>";
@@ -592,7 +588,6 @@
 				EC34D45C25C6E04E004CC42C /* Images.swift in Sources */,
 				ECE99A8F25DF23D3003170F2 /* DayString.swift in Sources */,
 				ECE99A7625DD1D63003170F2 /* MapViewController.swift in Sources */,
-				EC34D48625D29134004CC42C /* IndicatorsStackView.swift in Sources */,
 				ECE99A4425D5C258003170F2 /* LatLongCoordinate.swift in Sources */,
 				ECE99A7C25DDE0D1003170F2 /* PlacesByCoordinate.swift in Sources */,
 				ECE99A8325DE61FD003170F2 /* UIImage+Resize.swift in Sources */,
@@ -610,7 +605,6 @@
 				ECE99AA725E3C503003170F2 /* WeatherService.swift in Sources */,
 				EC34D44525C6A27E004CC42C /* ViewController.swift in Sources */,
 				EC34D44D25C6A8A9004CC42C /* MainViewModel.swift in Sources */,
-				ECE99A9125DF2D84003170F2 /* MonthString.swift in Sources */,
 				ECE99A9825E174BB003170F2 /* DaylyForecastResponse.swift in Sources */,
 				ECE99A3B25D49A08003170F2 /* AerisweatherForecastAPIEndpoint.swift in Sources */,
 				ECE99A5325D7C146003170F2 /* PlaceInfo.swift in Sources */,
@@ -760,7 +754,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				INFOPLIST_FILE = "/Users/denyvorko/Desktop/MyWeatherApp/my-weather-app/MyWeatherApp/Resources/Info.plist";
+				INFOPLIST_FILE = MyWeatherApp/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -783,7 +777,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				INFOPLIST_FILE = "/Users/denyvorko/Desktop/MyWeatherApp/my-weather-app/MyWeatherApp/Resources/Info.plist";
+				INFOPLIST_FILE = MyWeatherApp/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

@@ -11,9 +11,11 @@ import Moya
 
 class SearchTableViewModel: ViewModel {
     
-    private let provider = MoyaProvider<AerisweatherForecastAPIEndpoint>()
+// MARK: - Properties
     
     private let service = WeatherService()
+    
+    private let provider = MoyaProvider<AerisweatherForecastAPIEndpoint>()
     
     var location: String = ""
     
@@ -21,11 +23,15 @@ class SearchTableViewModel: ViewModel {
     
     var onDidChangeValues: (() -> Void)!
     
+// MARK: - Init
+    
     init(location: String) {
         super.init()
         
         self.location = location
     }
+    
+// MARK: - Public func
     
     func getCount() -> Int {
         return resultFilteredCities.count
@@ -42,47 +48,4 @@ class SearchTableViewModel: ViewModel {
             self.onDidChangeValues()
         }
     }
-    
-//    func resumeFetch(searchText: String, tableView: UITableView) {
-//
-//        provider.request(.getSearchCity(location: searchText)) { (result) in
-//
-//            switch result {
-//
-//            case .success(let response):
-//
-//                let res = try? response.map(FilteredListOfCities.self)
-//
-//                guard let cities = res?.response else {
-//                    tableView.reloadData()
-//                    return
-//                }
-//
-//
-//
-//                for index in 0...cities.count - 1 {
-//
-//                    let nameCitie = cities[index].city.name
-//
-//                    let nameCountry = cities[index].city.countryFull
-//
-//                    let lat = cities[index].coordinate.lat
-//                    let long = cities[index].coordinate.long
-//
-//                    ResultFilteredCities.data.append(ResultFilteredCities(
-//                        nameCities: nameCitie,
-//                        nameCountry: nameCountry,
-//                        lat: lat,
-//                        long: long))
-//                }
-//
-//                tableView.reloadData()
-//
-//            case .failure(_):
-//                fatalError()
-//            }
-//        }
-//    }
-    
-    
 }

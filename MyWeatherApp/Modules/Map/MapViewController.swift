@@ -23,7 +23,7 @@ class MapViewController: ViewController<MapViewModel> {
     
     private let mapView = MKMapView()
     
-    private let gestureChoiceLocation = UITapGestureRecognizer()
+    private let gestureChoiceLocation = UILongPressGestureRecognizer()
     
 //    MARK: - Override Func
     
@@ -59,7 +59,8 @@ class MapViewController: ViewController<MapViewModel> {
         cancelButton.title = "Cancel"
         cancelButton.setTitleTextAttributes(
             [.foregroundColor : Colors.lightFont, .font : UIFont.systemFont(ofSize: 20)],
-            for: .normal)
+            for: .normal
+        )
         
         navigationItem.rightBarButtonItem = targetButton
         targetButton.image = Images
@@ -82,6 +83,17 @@ class MapViewController: ViewController<MapViewModel> {
     
     override func binding() {
         super.binding()
+        
+        
+        self.viewModel.onDidChangeLocation = { [weak self] arrayCoor in
+            
+            guard let self = self else { return }
+            
+            self.navigationController?.pushViewController(
+                Screens.main(latitude: arrayCoor[0], longitude: arrayCoor[1]),
+                animated: false)
+        }
+        
         
         cancelButton.target = self
         cancelButton.action = #selector(actionCancel(sender:))
@@ -112,11 +124,9 @@ class MapViewController: ViewController<MapViewModel> {
         
     }
     
-    @objc func handleLongPress(gestureRecognizer: UITapGestureRecognizer) {
+    @objc func handleLongPress(gestureRecognizer: UILongPressGestureRecognizer) {
         
-        if gestureRecognizer.state != UIGestureRecognizer.State.ended {
-            return
-        }
+        if gestureRecognizer.state != UIGestureRecognizer.State.ended { return }
             
         else if gestureRecognizer.state != UIGestureRecognizer.State.began {
             
@@ -138,26 +148,16 @@ class MapViewController: ViewController<MapViewModel> {
                 let lon = self.mapView.region.center.longitude
                 
                 self.viewModel.requestLocationByCoordinate(
-                    latitude: lat,
-                    longitude: lon
+                    lat: lat,
+                    long: lon
                 )
-                
-                self.viewModel.onDidChangeLocation = { [weak self] arrayCoor in
-                    
-                    guard let self = self else { return }
-                    
-                    self.navigationController?.pushViewController(
-                        Screens.main(latitude: arrayCoor[0], longitude: arrayCoor[1]),
-                        animated: false)
-                }
-                
+
+                self.viewModel.onDidChangeLocation([lat, lon])
             }
             
             let alertActionNegative = UIAlertAction(title: "No", style: .cancel) { [weak self ](alertAction) in
                 
                 guard let self = self else { return }
-                
-                debugPrint("3")
                 
                 self.dismiss(animated: true, completion: nil)
             }

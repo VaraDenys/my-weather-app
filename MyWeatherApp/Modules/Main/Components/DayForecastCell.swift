@@ -10,7 +10,9 @@ import UIKit
 
 class DayForecastCell: TableViewCell {
     
-//    MARK: - Properties
+// MARK: - Properties
+    
+    private let backgroundWhiteView = UIView()
 
     private let dayOfTheWeek = UILabel()
     
@@ -18,13 +20,20 @@ class DayForecastCell: TableViewCell {
     
     private let imageDayForecast = UIImageView()
     
-//    MARK: - Override
+// MARK: - Override
     
     override func setupConstraints() {
         super.setupConstraints()
+        addSubview(backgroundWhiteView)
         addSubview(dayOfTheWeek)
         addSubview(temperature)
         addSubview(imageDayForecast)
+        
+        backgroundWhiteView.snp.makeConstraints({
+            $0.left.right.equalToSuperview()
+            $0.top.equalToSuperview().offset(3)
+            $0.bottom.equalToSuperview().inset(6)
+        })
         
         dayOfTheWeek.snp.makeConstraints({
             $0.left.top.bottom.equalToSuperview()
@@ -32,8 +41,9 @@ class DayForecastCell: TableViewCell {
         })
         
         imageDayForecast.snp.makeConstraints({
-            $0.top.right.bottom.equalToSuperview()
+            $0.right.equalToSuperview()
             $0.width.equalTo(100)
+            $0.height.equalToSuperview()
         })
         
         temperature.snp.makeConstraints({
@@ -47,47 +57,50 @@ class DayForecastCell: TableViewCell {
         super.setupView()
         
         selectionStyle = .none
-        separatorInset = .init(top: 5, left: 0, bottom: 0, right: 0)
         
-        layer.shadowColor = Colors.collectionBackground.cgColor
-        layer.shadowOffset = .init(width: 0, height: 5)
-        layer.shadowRadius = 5
-        layer.shadowOpacity = 0.25
-        clipsToBounds = true
+        backgroundWhiteView.backgroundColor = .white
         
         imageDayForecast.contentMode = .scaleAspectFit
         imageDayForecast.tintColor = Colors.darkTintColorImage
         imageDayForecast.transform = .init(scaleX: 0.5, y: 0.5)
         
         temperature.textAlignment = .center
-        temperature.textColor = Colors.darkFont
         temperature.font = .systemFont(ofSize: 24)
         
         dayOfTheWeek.font = .systemFont(ofSize: 20)
-        dayOfTheWeek.textColor = Colors.darkFont
         dayOfTheWeek.textAlignment = .center
     }
     
-//    MARK: - Public func
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+        
+        switch selected {
+        case true:
+            
+            dayOfTheWeek.textColor = Colors.selectionCellTableView
+            temperature.textColor = Colors.selectionCellTableView
+            
+            contentView.layer.shadowPath = CGPath(rect: self.bounds, transform: nil)
+            contentView.layer.shadowOpacity = 0.2
+            contentView.layer.shadowRadius = 3
+            contentView.layer.shadowColor = Colors.collectionBackground.cgColor
+            
+        case false:
+            
+            dayOfTheWeek.textColor = Colors.darkFont
+            temperature.textColor = Colors.darkFont
+            
+            contentView.layer.shadowPath = .none
+            contentView.layer.shadowOpacity = 0
+            contentView.layer.shadowRadius = 0
+        }
+    }
+    
+// MARK: - Public func
     
     func configure(_ item: DayForecastType) {
         dayOfTheWeek.text = item.dayOfTheWeek
         temperature.text = item.temperature
         imageDayForecast.image = UIImage(named: item.image)
-    }
-
-    func setSelectColorAndShadow(isSelected: Bool) {
-        switch isSelected {
-        case true:
-            dayOfTheWeek.textColor = Colors.selectionCellTableView
-            temperature.textColor = Colors.selectionCellTableView
-            imageDayForecast.tintColor = Colors.selectionCellTableView
-            clipsToBounds = false
-        case false:
-            dayOfTheWeek.textColor = Colors.darkFont
-            temperature.textColor = Colors.darkFont
-            imageDayForecast.tintColor = Colors.darkTintColorImage
-            clipsToBounds = true
-        }
     }
 }

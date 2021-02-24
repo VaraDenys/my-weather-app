@@ -9,17 +9,23 @@
 import UIKit
 
 class LocationSearchBar: UIControl {
+    
+// MARK: - Properties
 
     private let locationLabel = UILabel()
-    
-    override var intrinsicContentSize: CGSize {
-      return UIView.layoutFittingExpandedSize
-    }
     
     var location: String {
         get { return self.locationLabel.text! }
         set { self.locationLabel.text = newValue.capitalized }
     }
+    
+// MARK: - Override properties
+    
+    override var intrinsicContentSize: CGSize {
+      return UIView.layoutFittingExpandedSize
+    }
+    
+// MARK: - Override init
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -31,9 +37,6 @@ class LocationSearchBar: UIControl {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public func setTitle(location: String) {
-        self.location = location
-    }
     
     private func setupConstraints() {
         
@@ -52,5 +55,8 @@ class LocationSearchBar: UIControl {
         
         locationLabel.isUserInteractionEnabled = false
     }
-
+    
+    public func setTitle(location: String) {
+        self.location = location
+    }
 }
