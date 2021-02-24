@@ -57,7 +57,7 @@
 		ECE99A8825DE780F003170F2 /* LocationSearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE99A8725DE780F003170F2 /* LocationSearchTextField.swift */; };
 		ECE99A8A25DEF873003170F2 /* IndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE99A8925DEF872003170F2 /* IndicatorView.swift */; };
 		ECE99A8C25DF125E003170F2 /* CoordinateLatLong.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE99A8B25DF125D003170F2 /* CoordinateLatLong.swift */; };
-		ECE99A8F25DF23D3003170F2 /* DayString.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE99A8E25DF23D2003170F2 /* DayString.swift */; };
+		ECE99A8F25DF23D3003170F2 /* DateString.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE99A8E25DF23D2003170F2 /* DateString.swift */; };
 		ECE99A9525E12B67003170F2 /* WeatherCodeImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE99A9425E12B66003170F2 /* WeatherCodeImage.swift */; };
 		ECE99A9825E174BB003170F2 /* DaylyForecastResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE99A9725E174BA003170F2 /* DaylyForecastResponse.swift */; };
 		ECE99A9A25E175AE003170F2 /* ResponseDayly.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE99A9925E175AE003170F2 /* ResponseDayly.swift */; };
@@ -65,6 +65,7 @@
 		ECE99AA525E26FE2003170F2 /* HourlyForecastResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE99AA425E26FE2003170F2 /* HourlyForecastResponse.swift */; };
 		ECE99AA725E3C503003170F2 /* WeatherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE99AA625E3C503003170F2 /* WeatherService.swift */; };
 		ECE99AA925E5C1AA003170F2 /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = ECE99AA825E5C1A9003170F2 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		ECE99AAC25E69DB6003170F2 /* ErrorTypeServise.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE99AAB25E69DB6003170F2 /* ErrorTypeServise.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -137,7 +138,7 @@
 		ECE99A8725DE780F003170F2 /* LocationSearchTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchTextField.swift; sourceTree = "<group>"; };
 		ECE99A8925DEF872003170F2 /* IndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndicatorView.swift; sourceTree = "<group>"; };
 		ECE99A8B25DF125D003170F2 /* CoordinateLatLong.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateLatLong.swift; sourceTree = "<group>"; };
-		ECE99A8E25DF23D2003170F2 /* DayString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayString.swift; sourceTree = "<group>"; };
+		ECE99A8E25DF23D2003170F2 /* DateString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateString.swift; sourceTree = "<group>"; };
 		ECE99A9425E12B66003170F2 /* WeatherCodeImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherCodeImage.swift; sourceTree = "<group>"; };
 		ECE99A9725E174BA003170F2 /* DaylyForecastResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaylyForecastResponse.swift; sourceTree = "<group>"; };
 		ECE99A9925E175AE003170F2 /* ResponseDayly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseDayly.swift; sourceTree = "<group>"; };
@@ -145,6 +146,7 @@
 		ECE99AA425E26FE2003170F2 /* HourlyForecastResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyForecastResponse.swift; sourceTree = "<group>"; };
 		ECE99AA625E3C503003170F2 /* WeatherService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherService.swift; sourceTree = "<group>"; };
 		ECE99AA825E5C1A9003170F2 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
+		ECE99AAB25E69DB6003170F2 /* ErrorTypeServise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorTypeServise.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -329,6 +331,7 @@
 		ECE99A3125D3248A003170F2 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				ECE99AAA25E69D89003170F2 /* ErrorTypeService */,
 				ECE99A3225D324CD003170F2 /* WeatherForecastService */,
 			);
 			path = Services;
@@ -443,7 +446,7 @@
 		ECE99A8D25DF23B3003170F2 /* Date */ = {
 			isa = PBXGroup;
 			children = (
-				ECE99A8E25DF23D2003170F2 /* DayString.swift */,
+				ECE99A8E25DF23D2003170F2 /* DateString.swift */,
 			);
 			path = Date;
 			sourceTree = "<group>";
@@ -464,6 +467,14 @@
 				ECE99AA425E26FE2003170F2 /* HourlyForecastResponse.swift */,
 			);
 			path = HourlyForecastResponse;
+			sourceTree = "<group>";
+		};
+		ECE99AAA25E69D89003170F2 /* ErrorTypeService */ = {
+			isa = PBXGroup;
+			children = (
+				ECE99AAB25E69DB6003170F2 /* ErrorTypeServise.swift */,
+			);
+			path = ErrorTypeService;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -576,6 +587,7 @@
 				ECE99A5125D7C0BE003170F2 /* Cities.swift in Sources */,
 				ECE99A4025D5BD7C003170F2 /* CurrentWeatherResponse.swift in Sources */,
 				EC34D47E25CC8E82004CC42C /* CollectionViewCell.swift in Sources */,
+				ECE99AAC25E69DB6003170F2 /* ErrorTypeServise.swift in Sources */,
 				ECE99A5A25D7E04F003170F2 /* SearchTableViewModel.swift in Sources */,
 				ECE99A7425DD1D4A003170F2 /* MapViewModel.swift in Sources */,
 				ECE99A7125DC5C07003170F2 /* TopViewType.swift in Sources */,
@@ -586,7 +598,7 @@
 				EC34D48025CC912B004CC42C /* HourlyType.swift in Sources */,
 				ECE99A4625D5C278003170F2 /* Place.swift in Sources */,
 				EC34D45C25C6E04E004CC42C /* Images.swift in Sources */,
-				ECE99A8F25DF23D3003170F2 /* DayString.swift in Sources */,
+				ECE99A8F25DF23D3003170F2 /* DateString.swift in Sources */,
 				ECE99A7625DD1D63003170F2 /* MapViewController.swift in Sources */,
 				ECE99A4425D5C258003170F2 /* LatLongCoordinate.swift in Sources */,
 				ECE99A7C25DDE0D1003170F2 /* PlacesByCoordinate.swift in Sources */,
