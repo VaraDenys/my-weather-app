@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+import Reachability
 
 class SearchTableViewController: ViewController<SearchTableViewModel> {
     
@@ -27,6 +28,16 @@ class SearchTableViewController: ViewController<SearchTableViewModel> {
         super.viewDidAppear(animated)
         
         searchNavigationTextField.becomeFirstResponder()
+    }
+    
+    override init(viewModel: SearchTableViewModel) {
+        super.init(viewModel: viewModel)
+        
+        try? addReachabilityObserver()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
 //    MARK: - Override func
@@ -200,5 +211,13 @@ extension SearchTableViewController: UITableViewDelegate, UITableViewDataSource 
         self.navigationController?.pushViewController(
             Screens.main(latitude: arrayCoordinate[0], longitude: arrayCoordinate[1]),
             animated: true)
+    }
+}
+
+extension SearchTableViewController: ReachabilityObserverDelegate {
+    
+    func reachabilityChanged(_ isReachability: Bool) {
+
+        
     }
 }

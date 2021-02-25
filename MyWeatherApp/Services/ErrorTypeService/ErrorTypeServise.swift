@@ -11,7 +11,7 @@ import Foundation
 
 enum ErrorTypeServise: String, Error {
     
-    case internetDisconnect = "Internet disconnect"
+    case internetDisconnect = "Network disabled"
     case serviceLocationDisabled = "Service location disabled"
     
     case invalidRequest = "Invalid request"

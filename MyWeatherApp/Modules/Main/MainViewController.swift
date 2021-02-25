@@ -34,7 +34,17 @@ class MainViewController: ViewController<MainViewModel> {
     
     private let notifCenter = NotificationCenter()
     
-    private let reachability = try! Reachability()
+// MARK: - Override init, deinit
+    
+    override init(viewModel: MainViewModel) {
+        super.init(viewModel: viewModel)
+        
+        try? addReachabilityObserver()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: - Life cycle
     
@@ -54,6 +64,7 @@ class MainViewController: ViewController<MainViewModel> {
     // MARK: - Override func
     
     override func setupConstraints() {
+         
         super.setupConstraints()
         view.addSubview(topView)
         view.addSubview(collectionView)
@@ -387,3 +398,19 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
+extension MainViewController: ReachabilityObserverDelegate {
+    
+    func reachabilityChanged(_ isReachability: Bool) {
+        
+        if !isReachability {
+            
+            showAlert(
+                title: ErrorTypeServise.internetDisconnect.rawValue,
+                message: "Open your Settings app Settings and then \"Wireless & networks\" or \"Connections\"",
+                cancelActionTitle: "Ok",
+                actionTitle: "Settings",
+                url: URL(string: UIApplication.openSettingsURLString)
+            )
+        }
+    }
+}

@@ -67,6 +67,7 @@
 		ECE99AA925E5C1AA003170F2 /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = ECE99AA825E5C1A9003170F2 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		ECE99AAC25E69DB6003170F2 /* ErrorTypeServise.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE99AAB25E69DB6003170F2 /* ErrorTypeServise.swift */; };
 		ECE99AAE25E6FE73003170F2 /* Reachability.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = ECE99AAD25E6FE72003170F2 /* Reachability.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		ECE99AB225E7AB95003170F2 /* ReachabilityReachabilityObserverDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE99AB125E7AB95003170F2 /* ReachabilityReachabilityObserverDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -149,6 +150,7 @@
 		ECE99AA825E5C1A9003170F2 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		ECE99AAB25E69DB6003170F2 /* ErrorTypeServise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorTypeServise.swift; sourceTree = "<group>"; };
 		ECE99AAD25E6FE72003170F2 /* Reachability.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Reachability.framework; path = Carthage/Build/iOS/Reachability.framework; sourceTree = "<group>"; };
+		ECE99AB125E7AB95003170F2 /* ReachabilityReachabilityObserverDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachabilityReachabilityObserverDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -239,6 +241,7 @@
 		EC34D44225C6A233004CC42C /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				ECE99AB025E7AB1D003170F2 /* Protocols */,
 				EC34D48B25D29604004CC42C /* Views */,
 				EC34D45725C6D4D7004CC42C /* BaseViews */,
 				EC34D44325C6A244004CC42C /* MVVM */,
@@ -479,6 +482,14 @@
 			path = ErrorTypeService;
 			sourceTree = "<group>";
 		};
+		ECE99AB025E7AB1D003170F2 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				ECE99AB125E7AB95003170F2 /* ReachabilityReachabilityObserverDelegate.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -591,6 +602,7 @@
 				ECE99A4025D5BD7C003170F2 /* CurrentWeatherResponse.swift in Sources */,
 				EC34D47E25CC8E82004CC42C /* CollectionViewCell.swift in Sources */,
 				ECE99AAC25E69DB6003170F2 /* ErrorTypeServise.swift in Sources */,
+				ECE99AB225E7AB95003170F2 /* ReachabilityReachabilityObserverDelegate.swift in Sources */,
 				ECE99A5A25D7E04F003170F2 /* SearchTableViewModel.swift in Sources */,
 				ECE99A7425DD1D4A003170F2 /* MapViewModel.swift in Sources */,
 				ECE99A7125DC5C07003170F2 /* TopViewType.swift in Sources */,
