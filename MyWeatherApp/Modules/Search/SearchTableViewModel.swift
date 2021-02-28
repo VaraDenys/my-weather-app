@@ -17,11 +17,13 @@ class SearchTableViewModel: ViewModel {
     
     private let provider = MoyaProvider<AerisweatherForecastAPIEndpoint>()
     
-    var location: String = ""
+    private var location: String = ""
     
-    var resultFilteredCities: [ResultFilteredCities] = []
+    private var resultFilteredCities: [ResultFilteredCities] = []
     
     var onDidChangeValues: (() -> Void)!
+    
+    var onDidError: ((MyErrorType) -> Void)!
     
 // MARK: - Init
     
@@ -33,6 +35,10 @@ class SearchTableViewModel: ViewModel {
     
 // MARK: - Public func
     
+    func getLocation() -> String {
+        return self.location
+    }
+    
     func getCount() -> Int {
         return resultFilteredCities.count
     }
@@ -43,9 +49,22 @@ class SearchTableViewModel: ViewModel {
     
     func resumeFetch(searchText: String) {
         
-        service.getSearchCity(searchText: searchText) { (result) in
-            self.resultFilteredCities = result
-            self.onDidChangeValues()
+        service.getSearchCity(searchText: searchText) { [weak self] (result) in
+            
+            switch result {
+                
+            case .success(let resultCities):
+                
+                self?.resultFilteredCities = resultCities
+                
+                self?.onDidChangeValues()
+                
+            case .failure(let error):
+                
+                self?.resultFilteredCities.removeAll()
+                
+                self?.onDidError(error)
+            }
         }
     }
 }

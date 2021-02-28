@@ -32,9 +32,7 @@ class MainViewController: ViewController<MainViewModel> {
     
     private let manager = CLLocationManager()
     
-    private let notifCenter = NotificationCenter()
-    
-// MARK: - Override init, deinit
+    // MARK: - Override init, deinit
     
     override init(viewModel: MainViewModel) {
         super.init(viewModel: viewModel)
@@ -50,28 +48,30 @@ class MainViewController: ViewController<MainViewModel> {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         
     }
     
     override func viewDidAppear(_ animated: Bool) {
         self.chekLocationEnabled()
         self.checkAutorization()
-
+        self.setupLocation()
+        
         super.viewDidAppear(animated)
     }
     
     // MARK: - Override func
     
     override func setupConstraints() {
-         
+        
         super.setupConstraints()
         view.addSubview(topView)
         view.addSubview(collectionView)
         view.addSubview(tableView)
         
         topView.snp.makeConstraints({ [weak self] in
+            
             guard let self = self else { return }
+            
             $0.top.equalTo(self.topLayoutGuide.snp.bottom).offset(16)
             $0.left.equalToSuperview().offset(16)
             $0.right.equalToSuperview().inset(16)
@@ -102,7 +102,8 @@ class MainViewController: ViewController<MainViewModel> {
         
         collectionView.register(
             HourlyCollectionViewCell.self,
-            forCellWithReuseIdentifier: String(describing: HourlyCollectionViewCell.self))
+            forCellWithReuseIdentifier: String(describing: HourlyCollectionViewCell.self)
+        )
         
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -118,7 +119,9 @@ class MainViewController: ViewController<MainViewModel> {
         
         tableView.register(
             DayForecastCell.self,
-            forCellReuseIdentifier: String(describing: DayForecastCell.self))
+            forCellReuseIdentifier: String(describing: DayForecastCell.self)
+        )
+        
         tableView.delegate = self
         tableView.dataSource = self
         
@@ -143,8 +146,9 @@ class MainViewController: ViewController<MainViewModel> {
     }
     
     override func setupLocation() {
+        super.setupLocation()
         
-        guard let lat = self.viewModel.lat, let long = self.viewModel.long else {
+        guard let lat = self.viewModel.getCoordinate().lat, let long = self.viewModel.getCoordinate().long else {
             
             self.manager.desiredAccuracy = kCLLocationAccuracyBest
             
@@ -162,47 +166,11 @@ class MainViewController: ViewController<MainViewModel> {
     
     override func binding() {
         
-        self.viewModel.anErrorHasOccurred = { [weak self] (error) in
+        self.viewModel.onDidChangeValues = { [weak self] in
             
-            guard let self = self else { return }
+            guard let topViewType = self?.viewModel.getTopViewType() else { return }
             
-            switch error {
-            case .invalidRequest:
-                
-                self.showAlert(title: ErrorTypeServise.invalidRequest.rawValue,
-                               message: nil,
-                               cancelActionTitle: "Ok",
-                               actionTitle: nil,
-                               url: nil
-                )
-                
-            case .invalidValues:
-                
-                self.showAlert(title: ErrorTypeServise.invalidValues.rawValue,
-                               message: nil,
-                               cancelActionTitle: "Ok",
-                               actionTitle: nil,
-                               url: nil
-                )
-            case .internetDisconnect:
-                
-                self.showAlert(title: ErrorTypeServise.internetDisconnect.rawValue,
-                               message: "You must to turn on the internet",
-                               cancelActionTitle: "Ok", actionTitle: "Settings",
-                               url: URL(string: "App-Prefs:root=LOCATION_SERVICES")
-                )
-                
-            case .serviceLocationDisabled:
-                break
-            }
-            
-        }
-        
-        self.viewModel.onDidChangeCurrentValues = { [weak self] (topViewType) in
-            
-            guard let self = self else { return }
-            
-            self.topView.configure(
+            self?.topView.configure(
                 date: topViewType.date,
                 image: topViewType.image,
                 temp: topViewType.temperature,
@@ -210,23 +178,39 @@ class MainViewController: ViewController<MainViewModel> {
                 wind: topViewType.wind
             )
             
-            self.locationTitleButton.setTitle(location: topViewType.location)
+            self?.locationTitleButton.setTitle(location: topViewType.location)
+            
+            self?.tableView.reloadData()
+            self?.collectionView.reloadData()
         }
         
-        self.viewModel.onDidChangeHourlyForecast = { [weak self] in
+        self.viewModel.onDidError = { [weak self] (error) in
             
             guard let self = self else { return }
             
-            self.collectionView.reloadData()
-        }
-        
-        self.viewModel.onDidChangeDaylyForecast = { [weak self] in
+            switch error {
+            case .internetDisconnect:
+                
+                self.showAlert(
+                    title: "No internet connection",
+                    message: "Go to settings and enable",
+                    cancelTitle: "Ok",
+                    actionTitle: "Settings") { (action) in
+                        
+                        guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
+                        
+                        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                }
+            case .invalidRequest:
+                // something to do
+                break
+            case .invalidValues:
+                // something to do
+                break
+            default:
+                break
+            }
             
-            guard let self = self else { return }
-            
-            self.tableView.reloadData()
-            
-            self.manager.stopUpdatingLocation()
         }
         
         locationButton.target = self
@@ -238,17 +222,21 @@ class MainViewController: ViewController<MainViewModel> {
         targetButton.action = #selector(actionTargetButton(sender:))
     }
     
-// MARK: - Private func
+    // MARK: - Private func
     
     private func chekLocationEnabled() {
         if !CLLocationManager.locationServicesEnabled() {
-            showAlert(
+            
+            self.showAlert(
                 title: "Location serice disabled",
-                message: "Do you want to turn it on?",
-                cancelActionTitle: "No",
-                actionTitle: "Settings",
-                url: URL(string: "App-Prefs:root=LOCATION_SERVICES")
-            )
+                message: "Go to Settings and to turn it on",
+                cancelTitle: "Ok",
+                actionTitle: "Settings") { (alert) in
+                    
+                    guard let url = URL(string: "App-Prefs:root=LOCATION_SERVICES") else { return }
+                    
+                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
         }
     }
     
@@ -258,46 +246,26 @@ class MainViewController: ViewController<MainViewModel> {
             
         case .notDetermined:
             manager.requestWhenInUseAuthorization()
-
+            
         case .denied:
-            showAlert(
+            
+            self.showAlert(
                 title: "You have denied the use of the location",
                 message: "Want to change it?",
-                cancelActionTitle: "No",
-                actionTitle: "Settings",
-                url: URL(string: UIApplication.openSettingsURLString)
-            )
+                cancelTitle: "No",
+                actionTitle: "Settings"
+            ) { (action) in
+                
+                guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
+                
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
         default:
             break
         }
     }
-
-    private func showAlert(
-        title: String,
-        message: String?,
-        cancelActionTitle: String,
-        actionTitle: String?,
-        url: URL?
-    ) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        
-        let alertActionNegative = UIAlertAction(title: cancelActionTitle, style: .cancel, handler: nil)
-        
-        alert.addAction(alertActionNegative)
-        
-        if let actionTitle = actionTitle {
-            let alertActionPozitive = UIAlertAction(title: actionTitle, style: .default) { (alert) in
-                if let url = url {
-                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
-                }
-            }
-            alert.addAction(alertActionPozitive)
-        }
-        
-        present(alert, animated: true)
-    }
     
-// MARK: - User interaction
+    // MARK: - User interaction
     
     @objc func actionLocationButton(sender: UIBarButtonItem) {
         
@@ -316,7 +284,7 @@ class MainViewController: ViewController<MainViewModel> {
         self.navigationController?
             .pushViewController(
                 Screens.search(
-                    location: self.locationTitleButton.location),
+                    location: self.locationTitleButton.getTitle()),
                 animated: false)
     }
     
@@ -326,11 +294,11 @@ class MainViewController: ViewController<MainViewModel> {
         
         self.checkAutorization()
         
+        try? self.addReachabilityObserver()
+        
         manager.desiredAccuracy = kCLLocationAccuracyBest
         
         manager.startUpdatingLocation()
-        
-        
         
         guard let lat = manager.location?.coordinate.latitude else { return }
         guard let lon = manager.location?.coordinate.longitude else { return }
@@ -363,9 +331,12 @@ extension MainViewController: UICollectionViewDataSource {
 }
 
 extension MainViewController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
-                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+                        sizeForItemAt indexPath: IndexPath
+    ) -> CGSize {
+        
         return CGSize(width: 60, height: 150)
     }
 }
@@ -404,13 +375,16 @@ extension MainViewController: ReachabilityObserverDelegate {
         
         if !isReachability {
             
-            showAlert(
-                title: ErrorTypeServise.internetDisconnect.rawValue,
+            self.showAlert(
+                title: MyErrorType.internetDisconnect.rawValue,
                 message: "Open your Settings app Settings and then \"Wireless & networks\" or \"Connections\"",
-                cancelActionTitle: "Ok",
-                actionTitle: "Settings",
-                url: URL(string: UIApplication.openSettingsURLString)
-            )
+                cancelTitle: "Ok",
+                actionTitle: "Settings") { (alert) in
+                    
+                    guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
+                    
+                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
         }
     }
 }

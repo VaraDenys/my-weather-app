@@ -16,21 +16,19 @@ class MainViewModel: ViewModel {
     
     private let service = WeatherService()
     
-    var lat: Double?
+    private var lat: Double?
     
-    var long: Double?
+    private var long: Double?
     
-    var hourlyForecast: [HourlyType] = []
+    private var topViewType: TopViewType?
     
-    var daylyForecast: [DayForecastType] = []
+    private var hourlyForecast: [HourlyType] = []
     
-    var onDidChangeCurrentValues: ((TopViewType) -> Void)!
+    private var daylyForecast: [DayForecastType] = []
     
-    var onDidChangeHourlyForecast: (() -> Void)!
+    var onDidChangeValues: (() -> Void)!
     
-    var onDidChangeDaylyForecast: (() -> Void)!
-    
-    var anErrorHasOccurred: ((ErrorTypeServise) -> Void)!
+    var onDidError: ((MyErrorType) -> Void)!
     
 // MARK: - Init
     
@@ -44,6 +42,14 @@ class MainViewModel: ViewModel {
     }
     
 // MARK: - Public func
+    
+    func getCoordinate() -> (lat: Double?, long: Double?) {
+        return (self.lat, self.long)
+    }
+    
+    func getTopViewType() -> TopViewType? {
+        return topViewType
+    }
     
     func hourlyItemCount() -> Int {
         return hourlyForecast.count
@@ -63,27 +69,52 @@ class MainViewModel: ViewModel {
     
     func resumeFetch(lat: Double, long: Double) {
         
-        self.service.getCurrentWeather(lat: lat, long: long) { result in
+        self.service.getCurrentWeather(lat: lat, long: long) { [weak self] result in
             switch result {
                 
             case .success(let topViewType):
                 
-                self.onDidChangeCurrentValues(topViewType)
+                self?.topViewType = topViewType
+                
+                self?.onDidChangeValues()
                 
             case .failure(let error):
                 
-                self.anErrorHasOccurred(error)
+                self?.onDidError(error)
             }
         }
         
-        service.getHourlyForecast(lat: lat, long: long) { result in
-            self.hourlyForecast = result
-            self.onDidChangeHourlyForecast()
+        service.getHourlyForecast(lat: lat, long: long) { [weak self] result in
+            
+            switch result {
+                
+            case .success(let hourly):
+                
+                self?.hourlyForecast = hourly
+                
+                self?.onDidChangeValues()
+                
+            case .failure(let error):
+                
+                self?.onDidError(error)
+            }
+            
         }
 
-        service.getDaylyForecast(lat: lat, long: long) { result in
-            self.daylyForecast = result
-            self.onDidChangeDaylyForecast()
+        service.getDaylyForecast(lat: lat, long: long) { [weak self] result in
+            
+            switch result {
+                
+            case .success(let dayly):
+                
+                self?.daylyForecast = dayly
+                
+                self?.onDidChangeValues()
+                
+            case .failure(let error):
+                
+                self?.onDidError(error)
+            }
         }
     }
 }

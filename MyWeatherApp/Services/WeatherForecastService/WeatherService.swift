@@ -15,7 +15,11 @@ class WeatherService {
     
     private let provider = MoyaProvider<AerisweatherForecastAPIEndpoint>()
     
-    public func getCurrentWeather(lat: Double, long: Double, completion: @escaping (Result<TopViewType,ErrorTypeServise>) -> Void) {
+    public func getCurrentWeather(
+        lat: Double,
+        long: Double,
+        completion: @escaping (Result<TopViewType,MyErrorType>
+        ) -> Void) {
         
         provider.request(.getCurrentWeather(latitude: lat, longitude: long)) { (result) in
             
@@ -65,7 +69,11 @@ class WeatherService {
         }
     }
     
-    public func getHourlyForecast(lat: Double, long: Double, completion: @escaping ([HourlyType]) -> Void) {
+    public func getHourlyForecast(
+        lat: Double,
+        long: Double,
+        completion: @escaping (Result<[HourlyType], MyErrorType>
+        ) -> Void) {
         
         provider.request(.getForecastHourly(latitude: lat, longitude: long)) { (result) in
             
@@ -73,11 +81,14 @@ class WeatherService {
                 
             case .success(let response):
                 
-                //                do {
+                do {
                 
-                let res = try? response.map(HourlyForecastResponse.self)
+                let res = try response.map(HourlyForecastResponse.self)
                 
-                guard let periods = res?.response?.first?.periods else { return }
+                guard let periods = res.response?.first?.periods else {
+                    
+                    throw MyErrorType.invalidValues
+                    }
                 
                 var hourlyArray: [HourlyType] = []
                 
@@ -85,7 +96,10 @@ class WeatherService {
                     
                     let time = periods[index].validTime
                     
-                    guard let range = time.range(of: "T") else { return }
+                    guard let range = time.range(of: "T") else {
+                    
+                        throw MyErrorType.invalidValues
+                    }
                     
                     var correctTime = time[range.upperBound...].trimmingCharacters(in: .whitespaces)
                     
@@ -97,24 +111,41 @@ class WeatherService {
                     
                     hourlyArray.append(HourlyType(hour: correctTime, image: icon, temperature: temperature))
                 }
-                //
-                completion(hourlyArray)
                 
+                    completion(.success(hourlyArray))
+                
+                } catch {
+                    if let error = error as? MyErrorType {
+                        completion(.failure(error))
+                    } else {
+                        completion(.failure(.invalidRequest))
+                    }
+                }
+                    
             case .failure(let error):
                 debugPrint("Hourly request error: \(error)")
             }
         }
     }
     
-    public func getDaylyForecast(lat: Double, long: Double, completion: @escaping ([DayForecastType]) -> Void) {
+    public func getDaylyForecast(
+        lat: Double,
+        long: Double,
+        completion: @escaping (Result<[DayForecastType], MyErrorType>
+        ) -> Void) {
         
         provider.request(.getForecastDayly(latitude: lat, longitude: long)) { (result) in
             switch result {
             case .success(let response):
                 
-                let res = try? response.map(DaylyForecastResponse.self)
+                do {
                 
-                guard let periods = res?.response?.first?.periods else { return }
+                    let res = try response.map(DaylyForecastResponse.self)
+                
+                guard let periods = res.response?.first?.periods else {
+                    
+                    throw MyErrorType.invalidValues
+                    }
                 
                 var daylyArray: [DayForecastType] = []
                 
@@ -139,7 +170,16 @@ class WeatherService {
                     )
                 }
                 
-                completion(daylyArray)
+                    completion(.success(daylyArray))
+                    
+                } catch {
+                    if let error = error as? MyErrorType {
+                        
+                        completion(.failure(error))
+                    } else {
+                        completion(.failure(.invalidRequest))
+                    }
+                }
                 
             case .failure(let error):
                 debugPrint("Dayly request error: \(error)")
@@ -147,16 +187,24 @@ class WeatherService {
         }
     }
     
-    public func getSearchCity(searchText: String, completion: @escaping ([ResultFilteredCities]) -> Void) {
+    public func getSearchCity(
+        searchText: String,
+        completion: @escaping (Result<[ResultFilteredCities], MyErrorType>
+        ) -> Void) {
         
         provider.request(.getSearchCity(location: searchText)) { (result) in
             
             switch result {
             case .success(let response):
                 
-                let res = try? response.map(FilteredListOfCities.self)
+                do {
                 
-                guard let cities = res?.response else { return }
+                let res = try response.map(FilteredListOfCities.self)
+                
+                guard let cities = res.response else {
+                 
+                    throw MyErrorType.invalidValues
+                }
                 
                 var citiesArray: [ResultFilteredCities] = []
                 
@@ -170,7 +218,16 @@ class WeatherService {
                     citiesArray.append(ResultFilteredCities(nameCities: nameCity, nameCountry: countryName, lat: lat, long: long))
                 }
                 
-                completion(citiesArray)
+                    completion(.success(citiesArray))
+                    
+                } catch {
+                    if let error = error as? MyErrorType {
+                        
+                        completion(.failure(error))
+                    } else {
+                        completion(.failure(.invalidRequest))
+                    }
+                }
                 
             case .failure(let error):
                 debugPrint("Cities request error: \(error)")
@@ -180,25 +237,42 @@ class WeatherService {
         
     }
     
-    public func getPlaceByCoordinate(lat: Double, long: Double, completion: @escaping ([Double]) -> Void) {
+    public func getPlaceByCoordinate(
+        lat: Double,
+        long: Double,
+        completion: @escaping (Result<(Double, Double), MyErrorType>
+        ) -> Void) {
         
         provider.request(.getPlaceByCoordinate(latitude: lat, longitude: long)) { (result) in
             switch result {
             case .success(let response):
                 
-                let res = try? response.map(PlacesByCoordinate.self)
+                do {
                 
-                guard let lat = res?.response?.first?.coordinateCorrect.lat,
-                    let long = res?.response?.first?.coordinateCorrect.long else { return }
+                let res = try response.map(PlacesByCoordinate.self)
                 
-                let resutArray = [lat, long]
+                guard let lat = res.response?.first?.coordinateCorrect.lat,
+                    let long = res.response?.first?.coordinateCorrect.long else {
+                    
+                        throw MyErrorType.invalidValues
+                    }
                 
-                completion(resutArray)
+                    let resutCoordinate = (lat: lat, long: long)
+                
+                    completion(.success(resutCoordinate))
+                    
+                } catch {
+                    if let error = error as? MyErrorType {
+                        completion(.failure(error))
+                    } else {
+                        
+                        completion(.failure(.invalidRequest))
+                    }
+                }
                 
             case .failure(let error):
                 
                 debugPrint("Place coordinate request error: \(error)")
-                
             }
         }
     }

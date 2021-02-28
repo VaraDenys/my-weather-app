@@ -18,11 +18,6 @@ class LocationSearchTextField: UIControl {
         get { return self.textField.delegate! }
         set { self.textField.delegate = newValue }
     }
-    
-    var location: String {
-        get { return self.textField.text ?? "" }
-        set { self.textField.text = newValue}
-    }
 
     override var intrinsicContentSize: CGSize {
       return UIView.layoutFittingExpandedSize
@@ -72,7 +67,11 @@ class LocationSearchTextField: UIControl {
     
 // MARK: - Public func
     
-    public func setTitle(location: String) {
+    func setTitle(location: String) {
         self.textField.text = location
+    }
+    
+    func getLocation() -> String {
+        return self.textField.text ?? ""
     }
 }

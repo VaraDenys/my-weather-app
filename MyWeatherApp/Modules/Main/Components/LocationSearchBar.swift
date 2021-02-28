@@ -14,11 +14,6 @@ class LocationSearchBar: UIControl {
 
     private let locationLabel = UILabel()
     
-    var location: String {
-        get { return self.locationLabel.text ?? "" }
-        set { self.locationLabel.text = newValue.capitalized }
-    }
-    
 // MARK: - Override properties
     
     override var intrinsicContentSize: CGSize {
@@ -37,6 +32,7 @@ class LocationSearchBar: UIControl {
         fatalError("init(coder:) has not been implemented")
     }
     
+// MARK: - Private func
     
     private func setupConstraints() {
         
@@ -49,14 +45,25 @@ class LocationSearchBar: UIControl {
     }
     
     private func setupView() {
+        
         locationLabel.textAlignment = .left
+        
         locationLabel.font = .systemFont(ofSize: 24)
+        
         locationLabel.textColor = Colors.lightFont
         
         locationLabel.isUserInteractionEnabled = false
     }
     
+// MARK: - Public func
+    
     public func setTitle(location: String) {
-        self.location = location
+        
+        self.locationLabel.text = location.capitalized
+    }
+    
+    public func getTitle() -> String {
+        
+        return self.locationLabel.text ?? ""
     }
 }

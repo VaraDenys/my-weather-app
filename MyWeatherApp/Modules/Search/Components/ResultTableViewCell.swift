@@ -25,10 +25,6 @@ class ResultTableViewCell: TableViewCell {
     
     private let viewEmpty = UIView()
     
-    var location: String {
-        get { return self.citiesLabel.text ?? "" }
-    }
-    
 // MARK: - Override func
     
     override func setupConstraints() {
@@ -60,8 +56,8 @@ class ResultTableViewCell: TableViewCell {
         self.long = long
     }
     
-    func getArrayCoordinate() -> [Double] {
-        return [self.lat, self.long]
+    func getCoordinate() -> (lat: Double, long: Double) {
+        return (self.lat, self.long)
     }
     
     func getCityName() -> String {

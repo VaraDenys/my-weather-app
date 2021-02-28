@@ -18,7 +18,7 @@ class HourlyCollectionViewCell: CollectionViewCell {
     
     private let temperatureLable = UILabel()
     
-//    MARK: - Override
+//    MARK: - Override func
     
     override func setupConstraints() {
         super.setupConstraints()

@@ -20,7 +20,7 @@ class DayForecastCell: TableViewCell {
     
     private let imageDayForecast = UIImageView()
     
-// MARK: - Override
+// MARK: - Override func
     
     override func setupConstraints() {
         super.setupConstraints()

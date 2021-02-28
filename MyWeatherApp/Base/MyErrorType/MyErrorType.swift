@@ -9,12 +9,12 @@
 import Foundation
 
 
-enum ErrorTypeServise: String, Error {
+enum MyErrorType: String, Error {
     
-    case internetDisconnect = "Network disabled"
+    case internetDisconnect = "Network disconnect"
     case serviceLocationDisabled = "Service location disabled"
     
     case invalidRequest = "Invalid request"
-    case invalidValues = "Invalid value"
+    case invalidValues = "Invalid request value"
     
 }

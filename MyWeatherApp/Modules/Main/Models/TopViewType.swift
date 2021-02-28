@@ -23,6 +23,4 @@ struct TopViewType {
         guard let result = UIImage(named: imageName) else { return UIImage() }
         return result
     }
-    
-    static var data: TopViewType?
 }

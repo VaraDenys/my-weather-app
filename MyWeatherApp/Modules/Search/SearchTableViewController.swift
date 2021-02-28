@@ -12,7 +12,7 @@ import Reachability
 
 class SearchTableViewController: ViewController<SearchTableViewModel> {
     
-//    MARK: - Private properties
+// MARK: - Private properties
     
     private let backButton = UIBarButtonItem()
     
@@ -22,39 +22,58 @@ class SearchTableViewController: ViewController<SearchTableViewModel> {
     
     private let tableView = UITableView()
     
-    private var requestLocation: (() -> Void)!
+    private let notFoundLabel = UILabel()
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        searchNavigationTextField.becomeFirstResponder()
-    }
+// MARK: - Override init
     
     override init(viewModel: SearchTableViewModel) {
         super.init(viewModel: viewModel)
         
-        try? addReachabilityObserver()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-//    MARK: - Override func
-
-    override func setupConstraints() {
-
-        view.addSubview(tableView)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         
-        tableView.snp.makeConstraints({
+        try? addReachabilityObserver()
+    }
+    
+// MARK: - Override func
+    
+    override func setupConstraints() {
+        super.setupConstraints()
+        
+        view.addSubview(tableView)
+        view.addSubview(notFoundLabel)
+        
+        tableView.snp.makeConstraints({ [weak self] in
+            
+            guard let self = self else { return }
+            
             $0.top.equalTo(self.topLayoutGuide.snp.bottom)
             $0.left.right.bottom.equalToSuperview()
+        })
+        
+        notFoundLabel.snp.makeConstraints({ [weak self] in
+            
+            guard let self = self else { return }
+            
+            $0.centerX.equalToSuperview()
+            $0.centerY.equalTo(self.topLayoutGuide.snp.bottom).offset(30)
         })
     }
     
     override func setupView() {
         
         view.backgroundColor = Colors.appBackground
+        
+        notFoundLabel.text = "Not found"
+        notFoundLabel.textAlignment = .center
+        notFoundLabel.isHidden = true
+        notFoundLabel.textColor = .gray
     }
     
     override func setupTableView() {
@@ -63,7 +82,8 @@ class SearchTableViewController: ViewController<SearchTableViewModel> {
         
         tableView.register(
             ResultTableViewCell.self,
-            forCellReuseIdentifier: String(describing: ResultTableViewCell.self))
+            forCellReuseIdentifier: String(describing: ResultTableViewCell.self)
+        )
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -82,13 +102,13 @@ class SearchTableViewController: ViewController<SearchTableViewModel> {
             .backButton
             .get()
             .resized(
-            to: CGSize(width: 25,
-                       height: 25))
+                to: CGSize(width: 25,
+                           height: 25))
             .withRenderingMode(.alwaysTemplate)
         backButton.tintColor = Colors.lightTintColorImage
         
         searchNavigationTextField.delegate = self
-        searchNavigationTextField.location = self.viewModel.location
+        searchNavigationTextField.setTitle(location: self.viewModel.getLocation())
         
         loupeButton.image = Images
             .searchBarLoupe
@@ -103,26 +123,34 @@ class SearchTableViewController: ViewController<SearchTableViewModel> {
     override func setupLocation() {
         super.setupLocation()
         
-        let searchText = self.viewModel.location
+        let searchText = self.viewModel.getLocation()
         
         self.viewModel.resumeFetch(searchText: searchText)
     }
     
     override func binding() {
-        
-        requestLocation = { [weak self] in
-            
-            guard let self = self else { return }
-            
-            self.viewModel.resumeFetch(searchText: self.searchNavigationTextField.location)
-            
-        }
+        super.binding()
         
         self.viewModel.onDidChangeValues = { [weak self] in
             
             guard let self = self else { return }
             
+            self.notFoundLabel.isHidden = true
+            
             self.tableView.reloadData()
+        }
+        
+        self.viewModel.onDidError = { [weak self] error in
+            switch error {
+            case .invalidRequest:
+                
+                self?.notFoundLabel.isHidden = false
+                
+                self?.tableView.reloadData()
+                
+            default:
+                break
+            }
         }
         
         backButton.target = self
@@ -141,7 +169,9 @@ class SearchTableViewController: ViewController<SearchTableViewModel> {
     
     @objc func loupeAction(sender: UIBarButtonItem) {
         
-        let requestLocation = searchNavigationTextField.location
+        try? addReachabilityObserver()
+        
+        let requestLocation = searchNavigationTextField.getLocation()
         
         self.viewModel.resumeFetch(searchText: requestLocation)
     }
@@ -153,7 +183,9 @@ extension SearchTableViewController: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
-        requestLocation()
+        try? addReachabilityObserver()
+        
+        self.viewModel.resumeFetch(searchText: textField.text ?? "")
         
         textField.resignFirstResponder()
         
@@ -162,7 +194,7 @@ extension SearchTableViewController: UITextFieldDelegate {
     
     func textFieldDidChangeSelection(_ textField: UITextField) {
         
-        requestLocation()
+        self.viewModel.resumeFetch(searchText: textField.text ?? "")
     }
 }
 
@@ -204,12 +236,12 @@ extension SearchTableViewController: UITableViewDelegate, UITableViewDataSource 
         
         var location = cell.getCityName()
         
-        let arrayCoordinate = cell.getArrayCoordinate()
+        let arrayCoordinate = cell.getCoordinate()
         
         _ = location.popLast()
         
         self.navigationController?.pushViewController(
-            Screens.main(latitude: arrayCoordinate[0], longitude: arrayCoordinate[1]),
+            Screens.main(latitude: arrayCoordinate.lat, longitude: arrayCoordinate.long),
             animated: true)
     }
 }
@@ -217,7 +249,19 @@ extension SearchTableViewController: UITableViewDelegate, UITableViewDataSource 
 extension SearchTableViewController: ReachabilityObserverDelegate {
     
     func reachabilityChanged(_ isReachability: Bool) {
-
         
+        if !isReachability {
+            
+            self.showAlert(
+                title: MyErrorType.internetDisconnect.rawValue,
+                message: "Open your Settings app Settings and then \"Wireless & networks\" or \"Connections\"",
+                cancelTitle: "Ok",
+                actionTitle: "Settings") { (alert) in
+                    
+                    guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
+                    
+                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
+        }
     }
 }

@@ -9,10 +9,14 @@
 import UIKit
 
 class IndicatorView: View {
+    
+// MARK: - Private properties
 
     private let image = UIImageView()
     
     private let labelView = UILabel()
+    
+// MARK: - Override func
     
     override func setupConstraints() {
         super.setupConstraints()

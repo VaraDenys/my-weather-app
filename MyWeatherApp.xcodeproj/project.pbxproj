@@ -24,7 +24,6 @@
 		EC34D45E25C6EC68004CC42C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EC34D45D25C6EC68004CC42C /* Assets.xcassets */; };
 		EC34D46525C9E988004CC42C /* TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC34D46425C9E988004CC42C /* TableView.swift */; };
 		EC34D47325CC715B004CC42C /* StackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC34D47225CC715B004CC42C /* StackView.swift */; };
-		EC34D47825CC73F2004CC42C /* IndicatorsType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC34D47725CC73F2004CC42C /* IndicatorsType.swift */; };
 		EC34D47A25CC793C004CC42C /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC34D47925CC793C004CC42C /* TableViewCell.swift */; };
 		EC34D47C25CC8E6F004CC42C /* HourlyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC34D47B25CC8E6F004CC42C /* HourlyCollectionViewCell.swift */; };
 		EC34D47E25CC8E82004CC42C /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC34D47D25CC8E82004CC42C /* CollectionViewCell.swift */; };
@@ -58,16 +57,16 @@
 		ECE99A8A25DEF873003170F2 /* IndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE99A8925DEF872003170F2 /* IndicatorView.swift */; };
 		ECE99A8C25DF125E003170F2 /* CoordinateLatLong.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE99A8B25DF125D003170F2 /* CoordinateLatLong.swift */; };
 		ECE99A8F25DF23D3003170F2 /* DateString.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE99A8E25DF23D2003170F2 /* DateString.swift */; };
-		ECE99A9525E12B67003170F2 /* WeatherCodeImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE99A9425E12B66003170F2 /* WeatherCodeImage.swift */; };
 		ECE99A9825E174BB003170F2 /* DaylyForecastResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE99A9725E174BA003170F2 /* DaylyForecastResponse.swift */; };
 		ECE99A9A25E175AE003170F2 /* ResponseDayly.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE99A9925E175AE003170F2 /* ResponseDayly.swift */; };
 		ECE99A9C25E175C5003170F2 /* PeriodDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE99A9B25E175C5003170F2 /* PeriodDay.swift */; };
 		ECE99AA525E26FE2003170F2 /* HourlyForecastResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE99AA425E26FE2003170F2 /* HourlyForecastResponse.swift */; };
 		ECE99AA725E3C503003170F2 /* WeatherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE99AA625E3C503003170F2 /* WeatherService.swift */; };
 		ECE99AA925E5C1AA003170F2 /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = ECE99AA825E5C1A9003170F2 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		ECE99AAC25E69DB6003170F2 /* ErrorTypeServise.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE99AAB25E69DB6003170F2 /* ErrorTypeServise.swift */; };
+		ECE99AAC25E69DB6003170F2 /* MyErrorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE99AAB25E69DB6003170F2 /* MyErrorType.swift */; };
 		ECE99AAE25E6FE73003170F2 /* Reachability.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = ECE99AAD25E6FE72003170F2 /* Reachability.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		ECE99AB225E7AB95003170F2 /* ReachabilityReachabilityObserverDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE99AB125E7AB95003170F2 /* ReachabilityReachabilityObserverDelegate.swift */; };
+		ECE99ABB25EACD0D003170F2 /* AlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE99ABA25EACD0B003170F2 /* AlertController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -106,7 +105,6 @@
 		EC34D45D25C6EC68004CC42C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EC34D46425C9E988004CC42C /* TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableView.swift; sourceTree = "<group>"; };
 		EC34D47225CC715B004CC42C /* StackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackView.swift; sourceTree = "<group>"; };
-		EC34D47725CC73F2004CC42C /* IndicatorsType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndicatorsType.swift; sourceTree = "<group>"; };
 		EC34D47925CC793C004CC42C /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		EC34D47B25CC8E6F004CC42C /* HourlyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyCollectionViewCell.swift; sourceTree = "<group>"; };
 		EC34D47D25CC8E82004CC42C /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
@@ -141,16 +139,16 @@
 		ECE99A8925DEF872003170F2 /* IndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndicatorView.swift; sourceTree = "<group>"; };
 		ECE99A8B25DF125D003170F2 /* CoordinateLatLong.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateLatLong.swift; sourceTree = "<group>"; };
 		ECE99A8E25DF23D2003170F2 /* DateString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateString.swift; sourceTree = "<group>"; };
-		ECE99A9425E12B66003170F2 /* WeatherCodeImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherCodeImage.swift; sourceTree = "<group>"; };
 		ECE99A9725E174BA003170F2 /* DaylyForecastResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaylyForecastResponse.swift; sourceTree = "<group>"; };
 		ECE99A9925E175AE003170F2 /* ResponseDayly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseDayly.swift; sourceTree = "<group>"; };
 		ECE99A9B25E175C5003170F2 /* PeriodDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodDay.swift; sourceTree = "<group>"; };
 		ECE99AA425E26FE2003170F2 /* HourlyForecastResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyForecastResponse.swift; sourceTree = "<group>"; };
 		ECE99AA625E3C503003170F2 /* WeatherService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherService.swift; sourceTree = "<group>"; };
 		ECE99AA825E5C1A9003170F2 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
-		ECE99AAB25E69DB6003170F2 /* ErrorTypeServise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorTypeServise.swift; sourceTree = "<group>"; };
+		ECE99AAB25E69DB6003170F2 /* MyErrorType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyErrorType.swift; sourceTree = "<group>"; };
 		ECE99AAD25E6FE72003170F2 /* Reachability.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Reachability.framework; path = Carthage/Build/iOS/Reachability.framework; sourceTree = "<group>"; };
 		ECE99AB125E7AB95003170F2 /* ReachabilityReachabilityObserverDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachabilityReachabilityObserverDelegate.swift; sourceTree = "<group>"; };
+		ECE99ABA25EACD0B003170F2 /* AlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -241,6 +239,7 @@
 		EC34D44225C6A233004CC42C /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				ECE99AAA25E69D89003170F2 /* MyErrorType */,
 				ECE99AB025E7AB1D003170F2 /* Protocols */,
 				EC34D48B25D29604004CC42C /* Views */,
 				EC34D45725C6D4D7004CC42C /* BaseViews */,
@@ -261,6 +260,7 @@
 		EC34D45025C6C42F004CC42C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				ECE99ABA25EACD0B003170F2 /* AlertController.swift */,
 				ECE99A8D25DF23B3003170F2 /* Date */,
 				EC34D45A25C6E039004CC42C /* Images */,
 				EC34D45125C6C44E004CC42C /* Colors */,
@@ -309,7 +309,6 @@
 			isa = PBXGroup;
 			children = (
 				EC34D45B25C6E04E004CC42C /* Images.swift */,
-				ECE99A9425E12B66003170F2 /* WeatherCodeImage.swift */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -318,7 +317,6 @@
 			isa = PBXGroup;
 			children = (
 				ECE99A7025DC5C07003170F2 /* TopViewType.swift */,
-				EC34D47725CC73F2004CC42C /* IndicatorsType.swift */,
 				EC34D47F25CC912B004CC42C /* HourlyType.swift */,
 				EC34D48325CCA5AD004CC42C /* DayForecastType.swift */,
 			);
@@ -336,7 +334,6 @@
 		ECE99A3125D3248A003170F2 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				ECE99AAA25E69D89003170F2 /* ErrorTypeService */,
 				ECE99A3225D324CD003170F2 /* WeatherForecastService */,
 			);
 			path = Services;
@@ -474,12 +471,12 @@
 			path = HourlyForecastResponse;
 			sourceTree = "<group>";
 		};
-		ECE99AAA25E69D89003170F2 /* ErrorTypeService */ = {
+		ECE99AAA25E69D89003170F2 /* MyErrorType */ = {
 			isa = PBXGroup;
 			children = (
-				ECE99AAB25E69DB6003170F2 /* ErrorTypeServise.swift */,
+				ECE99AAB25E69DB6003170F2 /* MyErrorType.swift */,
 			);
-			path = ErrorTypeService;
+			path = MyErrorType;
 			sourceTree = "<group>";
 		};
 		ECE99AB025E7AB1D003170F2 /* Protocols */ = {
@@ -597,11 +594,10 @@
 				EC34D45325C6C45E004CC42C /* Colors.swift in Sources */,
 				ECE99A4225D5C0B3003170F2 /* Response.swift in Sources */,
 				ECE99A7E25DDE18A003170F2 /* LocationByCoordinate.swift in Sources */,
-				ECE99A9525E12B67003170F2 /* WeatherCodeImage.swift in Sources */,
 				ECE99A5125D7C0BE003170F2 /* Cities.swift in Sources */,
 				ECE99A4025D5BD7C003170F2 /* CurrentWeatherResponse.swift in Sources */,
 				EC34D47E25CC8E82004CC42C /* CollectionViewCell.swift in Sources */,
-				ECE99AAC25E69DB6003170F2 /* ErrorTypeServise.swift in Sources */,
+				ECE99AAC25E69DB6003170F2 /* MyErrorType.swift in Sources */,
 				ECE99AB225E7AB95003170F2 /* ReachabilityReachabilityObserverDelegate.swift in Sources */,
 				ECE99A5A25D7E04F003170F2 /* SearchTableViewModel.swift in Sources */,
 				ECE99A7425DD1D4A003170F2 /* MapViewModel.swift in Sources */,
@@ -623,10 +619,10 @@
 				ECE99A8C25DF125E003170F2 /* CoordinateLatLong.swift in Sources */,
 				EC34D47A25CC793C004CC42C /* TableViewCell.swift in Sources */,
 				ECE99A8A25DEF873003170F2 /* IndicatorView.swift in Sources */,
+				ECE99ABB25EACD0D003170F2 /* AlertController.swift in Sources */,
 				ECE99A5825D7D326003170F2 /* SearchTableViewController.swift in Sources */,
 				EC34D47C25CC8E6F004CC42C /* HourlyCollectionViewCell.swift in Sources */,
 				EC34D44725C6A30F004CC42C /* ViewModel.swift in Sources */,
-				EC34D47825CC73F2004CC42C /* IndicatorsType.swift in Sources */,
 				EC34D45625C6CA87004CC42C /* TopView.swift in Sources */,
 				EC34D45925C6D540004CC42C /* View.swift in Sources */,
 				ECE99AA725E3C503003170F2 /* WeatherService.swift in Sources */,

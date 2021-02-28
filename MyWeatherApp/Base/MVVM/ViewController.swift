@@ -64,4 +64,23 @@ class ViewController<VM: ViewModel>: UIViewController {
     public func localize() {}
     
     public func setupLocation() {}
+    
+    public func showAlert(
+        title: String,
+        message: String?,
+        cancelTitle: String,
+        actionTitle: String?,
+        completion: ((UIAlertAction) -> Void)?
+    ) {
+        
+        let alert = AlertController.getAlert(
+            title: title,
+            message: message,
+            cancelTitle: cancelTitle,
+            actionTitle: actionTitle,
+            completion: completion
+        )
+        
+        present(alert, animated: true, completion: nil)
+    }
 }

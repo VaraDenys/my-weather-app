@@ -13,7 +13,7 @@ import CoreLocation
 
 class MapViewController: ViewController<MapViewModel> {
     
-//    MARK: - Private properties
+// MARK: - Private properties
     
     private let cancelButton = UIBarButtonItem()
     
@@ -25,7 +25,14 @@ class MapViewController: ViewController<MapViewModel> {
     
     private let gestureChoiceLocation = UILongPressGestureRecognizer()
     
-//    MARK: - Override Func
+// MARK: - LifeCycle
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+    }
+    
+// MARK: - Override Func
     
     override func setupConstraints() {
         
@@ -73,6 +80,7 @@ class MapViewController: ViewController<MapViewModel> {
     }
     
     override func setupLocation() {
+        super.setupLocation()
         
         manager.desiredAccuracy = kCLLocationAccuracyBest
         
@@ -84,16 +92,18 @@ class MapViewController: ViewController<MapViewModel> {
     override func binding() {
         super.binding()
         
+        self.viewModel.onDidError = { error in
+            // some to do
+        }
         
-        self.viewModel.onDidChangeLocation = { [weak self] arrayCoor in
+        self.viewModel.onDidChangeLocation = { [weak self] lat, long in
             
             guard let self = self else { return }
             
             self.navigationController?.pushViewController(
-                Screens.main(latitude: arrayCoor[0], longitude: arrayCoor[1]),
+                Screens.main(latitude: lat, longitude: long),
                 animated: false)
         }
-        
         
         cancelButton.target = self
         cancelButton.action = #selector(actionCancel(sender:))
@@ -104,7 +114,19 @@ class MapViewController: ViewController<MapViewModel> {
         gestureChoiceLocation.addTarget(self, action: #selector(handleLongPress(gestureRecognizer:)))
     }
     
-//    MARK: - User interaction
+// MARK: - Private func
+    
+    private func render(_ location: CLLocation) {
+        
+        let coordinate = CLLocationCoordinate2DMake(location.coordinate.latitude,
+                                                    location.coordinate.longitude)
+        
+        let region = MKCoordinateRegion(center: coordinate, latitudinalMeters: 5000, longitudinalMeters: 5000)
+        
+        mapView.setRegion(region, animated: true)
+    }
+    
+    // MARK: - User interaction
     
     @objc func actionCancel(sender: UIBarButtonItem) {
         
@@ -151,8 +173,6 @@ class MapViewController: ViewController<MapViewModel> {
                     lat: lat,
                     long: lon
                 )
-
-                self.viewModel.onDidChangeLocation([lat, lon])
             }
             
             let alertActionNegative = UIAlertAction(title: "No", style: .cancel) { [weak self ](alertAction) in
@@ -168,21 +188,9 @@ class MapViewController: ViewController<MapViewModel> {
             self.present(alert, animated: true, completion: nil)
         }
     }
-    
-//    MARK: - Public func
-    
-    func render(_ location: CLLocation) {
-        
-        let coordinate = CLLocationCoordinate2DMake(location.coordinate.latitude,
-                                                    location.coordinate.longitude)
-        
-        let region = MKCoordinateRegion(center: coordinate, latitudinalMeters: 5000, longitudinalMeters: 5000)
-        
-        mapView.setRegion(region, animated: true)
-    }
 }
 
-//    MARK: - Extension
+// MARK: - Extension
 
 extension MapViewController: CLLocationManagerDelegate {
     
