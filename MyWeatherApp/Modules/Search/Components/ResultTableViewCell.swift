@@ -14,15 +14,10 @@ class ResultTableViewCell: TableViewCell {
 // MARK: - Properties
     
     private var lat: Double = 0
-    
     private var long: Double = 0
-    
     private let stackView = UIStackView()
-
     private let citiesLabel = UILabel()
-    
     private let countryLabel = UILabel()
-    
     private let viewEmpty = UIView()
     
 // MARK: - Override func

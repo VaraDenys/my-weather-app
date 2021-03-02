@@ -12,25 +12,18 @@ import Alamofire
 
 class MainViewModel: ViewModel {
     
-// MARK: - Properties
+    // MARK: - Properties
     
     private let service = WeatherService()
-    
     private var lat: Double?
-    
     private var long: Double?
-    
     private var topViewType: TopViewType?
-    
     private var hourlyForecast: [HourlyType] = []
-    
     private var daylyForecast: [DayForecastType] = []
-    
     var onDidChangeValues: (() -> Void)!
-    
     var onDidError: ((MyErrorType) -> Void)!
     
-// MARK: - Init
+    // MARK: - Init
     
     init(latitude: Double?, longitude: Double?) {
         super.init()
@@ -41,7 +34,7 @@ class MainViewModel: ViewModel {
         self.long = long
     }
     
-// MARK: - Public func
+    // MARK: - Public func
     
     func getCoordinate() -> (lat: Double?, long: Double?) {
         return (self.lat, self.long)
@@ -71,15 +64,11 @@ class MainViewModel: ViewModel {
         
         self.service.getCurrentWeather(lat: lat, long: long) { [weak self] result in
             switch result {
-                
             case .success(let topViewType):
-                
                 self?.topViewType = topViewType
-                
                 self?.onDidChangeValues()
                 
             case .failure(let error):
-                
                 self?.onDidError(error)
             }
         }
@@ -87,32 +76,24 @@ class MainViewModel: ViewModel {
         service.getHourlyForecast(lat: lat, long: long) { [weak self] result in
             
             switch result {
-                
             case .success(let hourly):
-                
                 self?.hourlyForecast = hourly
-                
                 self?.onDidChangeValues()
                 
             case .failure(let error):
-                
                 self?.onDidError(error)
             }
             
         }
-
+        
         service.getDaylyForecast(lat: lat, long: long) { [weak self] result in
             
             switch result {
-                
             case .success(let dayly):
-                
                 self?.daylyForecast = dayly
-                
                 self?.onDidChangeValues()
                 
             case .failure(let error):
-                
                 self?.onDidError(error)
             }
         }

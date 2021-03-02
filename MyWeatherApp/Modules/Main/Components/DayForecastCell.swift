@@ -13,11 +13,8 @@ class DayForecastCell: TableViewCell {
 // MARK: - Properties
     
     private let backgroundWhiteView = UIView()
-
     private let dayOfTheWeek = UILabel()
-    
     private let temperature = UILabel()
-    
     private let imageDayForecast = UIImageView()
     
 // MARK: - Override func

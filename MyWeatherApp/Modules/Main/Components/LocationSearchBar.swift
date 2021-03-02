@@ -47,11 +47,8 @@ class LocationSearchBar: UIControl {
     private func setupView() {
         
         locationLabel.textAlignment = .left
-        
         locationLabel.font = .systemFont(ofSize: 24)
-        
         locationLabel.textColor = Colors.lightFont
-        
         locationLabel.isUserInteractionEnabled = false
     }
     

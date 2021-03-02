@@ -14,19 +14,12 @@ class TopView: View {
 //    MARK: - Properties
     
     private let dateView = UILabel()
-    
     private let forecastImageView = UIImageView()
-    
     private let indicatorsStackView = StackView()
-    
     private let temperatureView = IndicatorView()
-    
     private let humidityView = IndicatorView()
-    
     private let windView = IndicatorView()
-    
     private let emptyViewFirst = View()
-    
     private let emptyViewSecond = View()
     
 //    MARK: - Override
@@ -43,7 +36,7 @@ class TopView: View {
         indicatorsStackView.addArrangedSubview(windView)
         
         dateView.snp.makeConstraints({
-            $0.top.equalToSuperview() // offset(16)
+            $0.top.equalToSuperview()
             $0.left.right.equalToSuperview()
             $0.height.equalTo(24)
         })

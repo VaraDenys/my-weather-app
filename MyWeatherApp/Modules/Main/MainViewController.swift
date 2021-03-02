@@ -17,29 +17,20 @@ class MainViewController: ViewController<MainViewModel> {
     // MARK: - Private properties
     
     private let topView = TopView()
-    
     private let locationButton = UIBarButtonItem()
-    
     private let locationTitleButton = LocationSearchBar()
-    
     private let targetButton = UIBarButtonItem()
-    
     private let collectionViewLayout = UICollectionViewFlowLayout()
-    
     private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
-    
     private let tableView = UITableView()
-    
     private let manager = CLLocationManager()
     
     // MARK: - Override init, deinit
     
     override init(viewModel: MainViewModel) {
         super.init(viewModel: viewModel)
-        
         try? addReachabilityObserver()
     }
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -48,7 +39,6 @@ class MainViewController: ViewController<MainViewModel> {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -69,9 +59,7 @@ class MainViewController: ViewController<MainViewModel> {
         view.addSubview(tableView)
         
         topView.snp.makeConstraints({ [weak self] in
-            
             guard let self = self else { return }
-            
             $0.top.equalTo(self.topLayoutGuide.snp.bottom).offset(16)
             $0.left.equalToSuperview().offset(16)
             $0.right.equalToSuperview().inset(16)
@@ -104,12 +92,10 @@ class MainViewController: ViewController<MainViewModel> {
             HourlyCollectionViewCell.self,
             forCellWithReuseIdentifier: String(describing: HourlyCollectionViewCell.self)
         )
-        
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        
         collectionView.backgroundColor = Colors.collectionBackground
         collectionView.indicatorStyle = .white
+        collectionView.delegate = self
+        collectionView.dataSource = self
         
         collectionViewLayout.scrollDirection = .horizontal
     }
@@ -121,7 +107,6 @@ class MainViewController: ViewController<MainViewModel> {
             DayForecastCell.self,
             forCellReuseIdentifier: String(describing: DayForecastCell.self)
         )
-        
         tableView.delegate = self
         tableView.dataSource = self
         
@@ -138,7 +123,6 @@ class MainViewController: ViewController<MainViewModel> {
         locationButton.tintColor = Colors.lightTintColorImage
         
         self.navigationItem.titleView = locationTitleButton
-        
         self.navigationItem.rightBarButtonItem = targetButton
         
         targetButton.image = Images.targetIcon.get().resized(to: CGSize(width: 25, height: 25)).withRenderingMode(.alwaysTemplate)
@@ -151,11 +135,10 @@ class MainViewController: ViewController<MainViewModel> {
         guard let lat = self.viewModel.getCoordinate().lat, let long = self.viewModel.getCoordinate().long else {
             
             self.manager.desiredAccuracy = kCLLocationAccuracyBest
-            
             self.manager.startUpdatingLocation()
             
-            guard let lat = self.manager.location?.coordinate.latitude else { return }
-            guard let long = self.manager.location?.coordinate.longitude else { return }
+            guard let lat = self.manager.location?.coordinate.latitude,
+                let long = self.manager.location?.coordinate.longitude else { return }
             
             self.viewModel.resumeFetch(lat: lat, long: long)
             return
@@ -177,17 +160,14 @@ class MainViewController: ViewController<MainViewModel> {
                 humid: topViewType.humidity,
                 wind: topViewType.wind
             )
-            
             self?.locationTitleButton.setTitle(location: topViewType.location)
-            
+
             self?.tableView.reloadData()
             self?.collectionView.reloadData()
         }
         
         self.viewModel.onDidError = { [weak self] (error) in
-            
             guard let self = self else { return }
-            
             switch error {
             case .internetDisconnect:
                 
@@ -248,7 +228,6 @@ class MainViewController: ViewController<MainViewModel> {
             manager.requestWhenInUseAuthorization()
             
         case .denied:
-            
             self.showAlert(
                 title: "You have denied the use of the location",
                 message: "Want to change it?",
@@ -291,17 +270,14 @@ class MainViewController: ViewController<MainViewModel> {
     @objc func actionTargetButton(sender: UIBarButtonItem) {
         
         self.chekLocationEnabled()
-        
         self.checkAutorization()
-        
         try? self.addReachabilityObserver()
         
         manager.desiredAccuracy = kCLLocationAccuracyBest
-        
         manager.startUpdatingLocation()
         
-        guard let lat = manager.location?.coordinate.latitude else { return }
-        guard let lon = manager.location?.coordinate.longitude else { return }
+        guard let lat = manager.location?.coordinate.latitude,
+            let lon = manager.location?.coordinate.longitude else { return }
         
         self.viewModel.resumeFetch(lat: lat, long: lon)
     }
@@ -323,7 +299,6 @@ extension MainViewController: UICollectionViewDataSource {
             ) as? HourlyCollectionViewCell else {
                 fatalError("Can't find cell with identifier \(identifier)")
         }
-        
         let hourlyItem = viewModel.getHourlyItem(for: indexPath)
         cell.configure(hourlyItem)
         return cell
@@ -336,7 +311,6 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDelegate
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath
     ) -> CGSize {
-        
         return CGSize(width: 60, height: 150)
     }
 }
@@ -357,7 +331,6 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
             ) as? DayForecastCell else {
                 fatalError("Fatal error \(identifier)")
         }
-        
         let item = viewModel.getDaylyItem(for: indexPath)
         cell.configure(item)
         return cell
@@ -374,7 +347,6 @@ extension MainViewController: ReachabilityObserverDelegate {
     func reachabilityChanged(_ isReachability: Bool) {
         
         if !isReachability {
-            
             self.showAlert(
                 title: MyErrorType.internetDisconnect.rawValue,
                 message: "Open your Settings app Settings and then \"Wireless & networks\" or \"Connections\"",

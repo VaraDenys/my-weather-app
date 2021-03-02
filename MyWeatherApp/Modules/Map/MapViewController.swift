@@ -16,13 +16,9 @@ class MapViewController: ViewController<MapViewModel> {
 // MARK: - Private properties
     
     private let cancelButton = UIBarButtonItem()
-    
     private let targetButton = UIBarButtonItem()
-    
     private let manager = CLLocationManager()
-    
     private let mapView = MKMapView()
-    
     private let gestureChoiceLocation = UILongPressGestureRecognizer()
     
 // MARK: - LifeCycle
@@ -83,9 +79,7 @@ class MapViewController: ViewController<MapViewModel> {
         super.setupLocation()
         
         manager.desiredAccuracy = kCLLocationAccuracyBest
-        
         manager.requestWhenInUseAuthorization()
-        
         manager.startUpdatingLocation()
     }
     
@@ -97,9 +91,7 @@ class MapViewController: ViewController<MapViewModel> {
         }
         
         self.viewModel.onDidChangeLocation = { [weak self] lat, long in
-            
             guard let self = self else { return }
-            
             self.navigationController?.pushViewController(
                 Screens.main(latitude: lat, longitude: long),
                 animated: false)
@@ -118,9 +110,10 @@ class MapViewController: ViewController<MapViewModel> {
     
     private func render(_ location: CLLocation) {
         
-        let coordinate = CLLocationCoordinate2DMake(location.coordinate.latitude,
-                                                    location.coordinate.longitude)
-        
+        let coordinate = CLLocationCoordinate2DMake(
+            location.coordinate.latitude,
+            location.coordinate.longitude
+        )
         let region = MKCoordinateRegion(center: coordinate, latitudinalMeters: 5000, longitudinalMeters: 5000)
         
         mapView.setRegion(region, animated: true)
@@ -129,7 +122,6 @@ class MapViewController: ViewController<MapViewModel> {
     // MARK: - User interaction
     
     @objc func actionCancel(sender: UIBarButtonItem) {
-        
         self.navigationController?.popViewController(animated: true)
         
     }
@@ -137,11 +129,8 @@ class MapViewController: ViewController<MapViewModel> {
     @objc func actionTargetButton(sender: UIBarButtonItem) {
         
         manager.startUpdatingLocation()
-        
         guard let coordinate = manager.location?.coordinate else { return }
-        
         let region = MKCoordinateRegion(center: coordinate, latitudinalMeters: 5000, longitudinalMeters: 5000)
-        
         mapView.setRegion(region, animated: true)
         
     }
@@ -149,43 +138,27 @@ class MapViewController: ViewController<MapViewModel> {
     @objc func handleLongPress(gestureRecognizer: UILongPressGestureRecognizer) {
         
         if gestureRecognizer.state != UIGestureRecognizer.State.ended { return }
-            
         else if gestureRecognizer.state != UIGestureRecognizer.State.began {
-            
             let touchPoint = gestureRecognizer.location(in: self.mapView)
-            
             let touchMapCoordinate =  self.mapView.convert(touchPoint, toCoordinateFrom: mapView)
-            
             let region = MKCoordinateRegion(center: touchMapCoordinate, latitudinalMeters: 5000, longitudinalMeters: 5000)
             
             mapView.setRegion(region, animated: true)
             
-            let alert = UIAlertController(title: "Want to see the weather of the selected region?", message: nil, preferredStyle: .alert)
-            
-            let alertActionPozitive = UIAlertAction(title: "Yes", style: .default) { [weak self] (action) in
-                
+            showAlert(
+            title: "Want to see the weather of the selected region?",
+            message: nil,
+            cancelTitle: "No",
+            actionTitle: "Yes"
+            ) { [weak self] (action) in
                 guard let self = self else { return }
-                
                 let lat = self.mapView.region.center.latitude
                 let lon = self.mapView.region.center.longitude
-                
                 self.viewModel.requestLocationByCoordinate(
                     lat: lat,
                     long: lon
                 )
             }
-            
-            let alertActionNegative = UIAlertAction(title: "No", style: .cancel) { [weak self ](alertAction) in
-                
-                guard let self = self else { return }
-                
-                self.dismiss(animated: true, completion: nil)
-            }
-            
-            alert.addAction(alertActionPozitive)
-            alert.addAction(alertActionNegative)
-            
-            self.present(alert, animated: true, completion: nil)
         }
     }
 }
@@ -197,9 +170,7 @@ extension MapViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
         manager.stopUpdatingLocation()
-        
         guard let location = manager.location else { return }
-        
         render(location)
     }
 }
